@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fileMenu->addAction(ui->actionSave_As);
     fileMenu->addSeparator();
     fileMenu->addAction(ui->actionExit);
-
+    //abc
     // Connect actions to slots
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newDocument);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::open);
