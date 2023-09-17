@@ -11,6 +11,13 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
+    void selectFont();
+    void increaseFontSize();
+    void decreaseFontSize();
+    void selectFontColor();
+    void makeTextBold();
+    void makeTextItalic();
+    void underlineText();
     void newDocument();
     void open();
     void save();

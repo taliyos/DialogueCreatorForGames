@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>801</width>
     <height>600</height>
    </rect>
   </property>
@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>761</width>
-      <height>341</height>
+      <width>771</width>
+      <height>491</height>
      </rect>
     </property>
     <property name="textEdit" stdset="0">
@@ -35,43 +35,146 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
    </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFont"/>
+   <addaction name="actionBold"/>
+   <addaction name="actionItalic"/>
+   <addaction name="actionUnderline"/>
+   <addaction name="actionFont_Color"/>
+   <addaction name="actionIncrease_Font_Size"/>
+   <addaction name="actionDecrease_Font_Size"/>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>801</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/1200px-New_Document_Icon.svg.png</normaloff>:/rec/img/1200px-New_Document_Icon.svg.png</iconset>
+   </property>
    <property name="text">
     <string>New</string>
    </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/2345450.png</normaloff>:/rec/img/2345450.png</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
   </action>
   <action name="actionSave_As">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/Save_Document_Icon.svg.png</normaloff>:/rec/img/Save_Document_Icon.svg.png</iconset>
+   </property>
    <property name="text">
     <string>Save_As</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/4856668.png</normaloff>:/rec/img/4856668.png</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/714932.png</normaloff>:/rec/img/714932.png</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
+  <action name="actionFont">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/3551865-200.png</normaloff>:/rec/img/3551865-200.png</iconset>
+   </property>
+   <property name="text">
+    <string>Font</string>
+   </property>
+  </action>
+  <action name="actionIncrease_Font_Size">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/increase-font-size.png</normaloff>:/rec/img/increase-font-size.png</iconset>
+   </property>
+   <property name="text">
+    <string>Increase_Font_Size</string>
+   </property>
+  </action>
+  <action name="actionDecrease_Font_Size">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/decrease-font-size.png</normaloff>:/rec/img/decrease-font-size.png</iconset>
+   </property>
+   <property name="text">
+    <string>Decrease_Font_Size</string>
+   </property>
+  </action>
+  <action name="actionFont_Color">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/font-color-icon-6.jpg</normaloff>:/rec/img/font-color-icon-6.jpg</iconset>
+   </property>
+   <property name="text">
+    <string>Font_Color</string>
+   </property>
+  </action>
+  <action name="actionBold">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/61598-200.png</normaloff>:/rec/img/61598-200.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bold</string>
+   </property>
+  </action>
+  <action name="actionItalic">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/italic.png</normaloff>:/rec/img/italic.png</iconset>
+   </property>
+   <property name="text">
+    <string>Italic</string>
+   </property>
+  </action>
+  <action name="actionUnderline">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/rec/img/underline_120323.png</normaloff>:/rec/img/underline_120323.png</iconset>
+   </property>
+   <property name="text">
+    <string>Underline</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

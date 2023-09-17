@@ -6,6 +6,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QFontDialog>
+#include <QColorDialog>
+
 
 MainWindow::MainWindow(QWidget *parent) : 
     QMainWindow(parent), 
@@ -31,12 +34,79 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::save);
     connect(ui->actionSave_As, &QAction::triggered, this, &MainWindow::saveAs);
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
+    connect(ui->actionFont, &QAction::triggered, this, &MainWindow::selectFont);
+    connect(ui->actionIncrease_Font_Size, &QAction::triggered, this, &MainWindow::increaseFontSize);
+    connect(ui->actionDecrease_Font_Size, &QAction::triggered, this, &MainWindow::decreaseFontSize);
+    connect(ui->actionFont_Color, &QAction::triggered, this, &MainWindow::selectFontColor);
+    connect(ui->actionBold, &QAction::triggered, this, &MainWindow::makeTextBold);
+    connect(ui->actionItalic, &QAction::triggered, this, &MainWindow::makeTextItalic);
+    connect(ui->actionUnderline, &QAction::triggered, this, &MainWindow::underlineText);
+
+
 }
 
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::underlineText()
+{
+    QTextCharFormat format;
+    format.setFontUnderline(!ui->textEdit->currentCharFormat().fontUnderline());
+    ui->textEdit->mergeCurrentCharFormat(format);
+}
+
+void MainWindow::makeTextBold()
+{
+    QTextCharFormat format;
+    format.setFontWeight(ui->textEdit->fontWeight() == QFont::Bold ? QFont::Normal : QFont::Bold);
+    ui->textEdit->mergeCurrentCharFormat(format);
+}
+
+void MainWindow::makeTextItalic()
+{
+    QTextCharFormat format;
+    format.setFontItalic(!ui->textEdit->currentCharFormat().fontItalic());
+    ui->textEdit->mergeCurrentCharFormat(format);
+}
+
+
+void MainWindow::selectFontColor()
+{
+    QColor color = QColorDialog::getColor(Qt::black, this, "Choose a color");
+    if (color.isValid()) {
+        // Assuming 'textEdit' is the QTextEdit object where you want to apply the color
+        QTextCharFormat format;
+        format.setForeground(color);
+        ui->textEdit->mergeCurrentCharFormat(format);
+    }
+}
+
+void MainWindow::selectFont()
+{
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
+    if (ok) {
+        ui->textEdit->setFont(font);
+    } else {
+        // User cancelled font selection, do nothing
+    }
+}
+
+void MainWindow::increaseFontSize()
+{
+    QFont currentFont = ui->textEdit->font();
+    currentFont.setPointSize(currentFont.pointSize() + 1);
+    ui->textEdit->setFont(currentFont);
+}
+
+void MainWindow::decreaseFontSize()
+{
+    QFont currentFont = ui->textEdit->font();
+    currentFont.setPointSize(currentFont.pointSize() - 1);
+    ui->textEdit->setFont(currentFont);
 }
 
 void MainWindow::newDocument()

@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/rec">
+        <file>img/194_folder-open-file-document-project-512.webp</file>
+        <file>img/1200px-New_Document_Icon.svg.png</file>
+        <file>img/714932.png</file>
+        <file>img/2345450.png</file>
+        <file>img/4856668.png</file>
+        <file>img/Save_Document_Icon.svg.png</file>
+        <file>img/14631.png</file>
+        <file>img/61598-200.png</file>
+        <file>img/3551865-200.png</file>
+        <file>img/font-size-increase-2-512.webp</file>
+        <file>img/Italic-512.webp</file>
+        <file>img/underline_120323.png</file>
+        <file>img/font-color-icon-6.jpg</file>
+        <file>img/font-size-decrease-512.webp</file>
+        <file>img/font-size-decrease-icon.webp</file>
+        <file>img/font-size-increase-icon.webp</file>
+        <file>img/decrease-font-size.png</file>
+        <file>img/increase-font-size.png</file>
+        <file>img/italic.png</file>
+    </qresource>
+</RCC>
