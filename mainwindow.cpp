@@ -65,8 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
     connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
-
-
     connect(ui->actionResize, &QAction::triggered, this, &MainWindow::resizeToScreen);
 
 }
@@ -77,8 +75,34 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+////need to fix resize
+//void MainWindow::resizeToScreen() {
+//    QScreen *screen = QGuiApplication::primaryScreen();
+//    if (const QWindow *window = windowHandle()) {
+//        screen = window->screen();
+//    }
+//    for(QTextEdit *editor : textBoxes) {
+//        verticalLayout->addWidget(editor);
+//        editor->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    }
+//    QRect screenGeometry = screen->geometry();
+//    ui->centralwidget->setLayout(verticalLayout);
+//    verticalLayout->setContentsMargins(0, 0, 0, 0);
+//    verticalLayout->setSpacing(0);
+//    this->setGeometry(screenGeometry);
+//    this->showMaximized();
+//}
+
+
 //need to fix resize
-void MainWindow::resizeToScreen() {
+void MainWindow::addTextBox() {
+    QTextEdit *newTextBox = new QTextEdit(this);
+    splitter->setOpaqueResize(false);
+    splitter->setHandleWidth(10);
+    splitter->addWidget(newTextBox);
+    ui->verticalLayout->addWidget(newTextBox);
+
+    textBoxes.append(newTextBox);
     QScreen *screen = QGuiApplication::primaryScreen();
     if (const QWindow *window = windowHandle()) {
         screen = window->screen();
@@ -93,18 +117,6 @@ void MainWindow::resizeToScreen() {
     verticalLayout->setSpacing(0);
     this->setGeometry(screenGeometry);
     this->showMaximized();
-}
-
-
-//need to fix resize
-void MainWindow::addTextBox() {
-    QTextEdit *newTextBox = new QTextEdit(this);
-    splitter->setOpaqueResize(false);
-    splitter->setHandleWidth(10);
-    splitter->addWidget(newTextBox);
-    ui->verticalLayout->addWidget(newTextBox);
-
-    textBoxes.append(newTextBox);
 }
 
 
