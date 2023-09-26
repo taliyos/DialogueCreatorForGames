@@ -14,6 +14,7 @@
 #include <QScreen>
 #include <QGuiApplication>
 #include <QWindow>
+#include <QApplication>
 
 
 MainWindow::MainWindow(QWidget *parent) : 
@@ -47,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fileMenu->addAction(ui->actionSave_As);
     fileMenu->addSeparator();
     fileMenu->addAction(ui->actionExit);
-    //abc
+
     // Connect actions to slots
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newDocument);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::open);
@@ -76,7 +77,7 @@ MainWindow::~MainWindow()
 }
 
 ////need to fix resize
-//void MainWindow::resizeToScreen() {
+void MainWindow::resizeToScreen() {
 //    QScreen *screen = QGuiApplication::primaryScreen();
 //    if (const QWindow *window = windowHandle()) {
 //        screen = window->screen();
@@ -91,10 +92,17 @@ MainWindow::~MainWindow()
 //    verticalLayout->setSpacing(0);
 //    this->setGeometry(screenGeometry);
 //    this->showMaximized();
-//}
+}
+
+QTextEdit* MainWindow::currentText(){
+    QWidget* currentWidget = QApplication::focusWidget();
+    for (QTextEdit* textBox : textBoxes){
+        if (textBox == currentWidget) return textBox;
+    }
+    return nullptr;
+}
 
 
-//need to fix resize
 void MainWindow::addTextBox() {
     QTextEdit *newTextBox = new QTextEdit(this);
     splitter->setOpaqueResize(false);
@@ -103,6 +111,7 @@ void MainWindow::addTextBox() {
     ui->verticalLayout->addWidget(newTextBox);
 
     textBoxes.append(newTextBox);
+
     QScreen *screen = QGuiApplication::primaryScreen();
     if (const QWindow *window = windowHandle()) {
         screen = window->screen();
@@ -122,6 +131,7 @@ void MainWindow::addTextBox() {
 
 void MainWindow::generateCharacterDialogue() {
     CustomDialog dialog(this);
+    QTextEdit* editor = this->currentText();
     if (dialog.exec() == QDialog::Accepted) {
         QString character = dialog.getCharacter();
         QString message = dialog.getMessage();
@@ -132,39 +142,60 @@ void MainWindow::generateCharacterDialogue() {
                                     .arg(message)
                                     .arg(messageProperties);
 
-        ui->textEdit->insertPlainText(formattedText);
+        editor->insertPlainText(formattedText);
     }
 }
 
 void MainWindow::underlineText()
 {
-    QTextCharFormat format;
-    format.setFontUnderline(!ui->textEdit->currentCharFormat().fontUnderline());
-    ui->textEdit->mergeCurrentCharFormat(format);
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        QTextCursor cursor = editor->textCursor();
+
+        if(cursor.hasSelection()) {
+            QTextCharFormat format = cursor.charFormat();
+
+            if(format.fontWeight() == QFont::Bold) {
+                format.setFontUnderline(true);
+                cursor.mergeCharFormat(format);
+                editor->setTextCursor(cursor);
+            }
+        }
+    }
 }
 
 void MainWindow::makeTextBold()
 {
-    QTextCharFormat format;
-    format.setFontWeight(ui->textEdit->fontWeight() == QFont::Bold ? QFont::Normal : QFont::Bold);
-    ui->textEdit->mergeCurrentCharFormat(format);
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        QTextCharFormat format;
+        format.setFontWeight(editor->fontWeight() == QFont::Bold ? QFont::Normal : QFont::Bold);
+        editor->mergeCurrentCharFormat(format);
+    }
 }
 
 void MainWindow::makeTextItalic()
 {
-    QTextCharFormat format;
-    format.setFontItalic(!ui->textEdit->currentCharFormat().fontItalic());
-    ui->textEdit->mergeCurrentCharFormat(format);
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        QTextCharFormat format;
+        format.setFontItalic(!editor->currentCharFormat().fontItalic());
+        editor->mergeCurrentCharFormat(format);
+    }
 }
+
 
 
 void MainWindow::selectFontColor()
 {
     QColor color = QColorDialog::getColor(Qt::black, this, "Choose a color");
     if (color.isValid()) {
-        QTextCharFormat format;
-        format.setForeground(color);
-        ui->textEdit->mergeCurrentCharFormat(format);
+        QTextEdit* editor = this->currentText();
+        if(editor) {
+            QTextCharFormat format;
+            format.setForeground(color);
+            editor->mergeCurrentCharFormat(format);
+        }
     }
 }
 
@@ -173,45 +204,68 @@ void MainWindow::selectFont()
     bool ok;
     QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
     if (ok) {
-        ui->textEdit->setFont(font);
+        QTextEdit* editor = this->currentText();
+        if(editor) {
+            editor->setFont(font);
+        }
     } else {
         // User cancelled font selection, do nothing
     }
 }
 
+
 void MainWindow::increaseFontSize()
 {
-    QFont currentFont = ui->textEdit->font();
-    currentFont.setPointSize(currentFont.pointSize() + 1);
-    ui->textEdit->setFont(currentFont);
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        QFont currentFont = editor->font();
+        currentFont.setPointSize(currentFont.pointSize() + 1);
+        editor->setFont(currentFont);
+    }
 }
 
 void MainWindow::decreaseFontSize()
 {
-    QFont currentFont = ui->textEdit->font();
-    currentFont.setPointSize(currentFont.pointSize() - 1);
-    ui->textEdit->setFont(currentFont);
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        QFont currentFont = editor->font();
+        currentFont.setPointSize(currentFont.pointSize() - 1);
+        editor->setFont(currentFont);
+    }
 }
+
 
 void MainWindow::newDocument()
 {
-    currentFile.clear();
-    ui->textEdit->setText(QString());
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        currentFile.clear();
+        editor->setText(QString());
+    }
 }
 
 void MainWindow::open()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
     QFile file(fileName);
-    currentFile = fileName;
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
         return;
     }
+
+    currentFile = fileName;
     setWindowTitle(fileName);
     QTextStream in(&file);
     QString text = in.readAll();
-    ui->textEdit->setText(text);
+
+    QTextEdit* editor = this->currentText();
+    if(editor) {
+        editor->setText(text);
+    } else {
+        // If no editor is focused, use the main one
+        //ui->textEdit->setText(text);
+    }
+
     file.close();
 }
 
@@ -224,14 +278,25 @@ void MainWindow::save()
     } else {
         fileName = currentFile;
     }
+
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
         return;
     }
+
+    QTextEdit* editor = this->currentText();
+    QString content;
+    if(editor) {
+        content = editor->toPlainText();
+    } else {
+        // If no editor is focused, use the main one
+        //content = ui->textEdit->toPlainText();
+    }
+
     setWindowTitle(fileName);
     QTextStream out(&file);
-    out << ui->textEdit->toPlainText();
+    out << content;
     file.close();
 }
 
@@ -244,12 +309,23 @@ void MainWindow::saveAs()
         QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
         return;
     }
+
+    QTextEdit* editor = this->currentText();
+    QString content;
+    if(editor) {
+        content = editor->toPlainText();
+    } else {
+        // If no editor is focused, use the main one
+        //content = ui->textEdit->toPlainText();
+    }
+
     currentFile = fileName;
     setWindowTitle(fileName);
     QTextStream out(&file);
-    out << ui->textEdit->toPlainText();
+    out << content;
     file.close();
 }
+
 
 void MainWindow::exit()
 {

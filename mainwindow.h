@@ -29,6 +29,7 @@ private slots:
     void generateCharacterDialogue();
     void addTextBox();
     void resizeToScreen();
+    QTextEdit* currentText();
 private:
     Ui::MainWindow *ui;
     QString currentFile;
