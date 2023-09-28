@@ -4,6 +4,8 @@
 #include <qboxlayout.h>
 #include <QSplitter>
 #include <QTextEdit>
+#include <QLineEdit>
+#include <QScrollArea>
 namespace Ui {
 class MainWindow;
 }
@@ -28,14 +30,28 @@ private slots:
     void exit();
     void generateCharacterDialogue();
     void addTextBox();
-    void resizeToScreen();
     QTextEdit* currentText();
+    QLineEdit* currentCharacter();
+    bool currentAutoState();
+    void updateAutoStateForCurrentText(bool state);
+
 private:
     Ui::MainWindow *ui;
     QString currentFile;
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     QSplitter *splitter = new QSplitter(Qt::Vertical);
-    QList<QTextEdit*> textBoxes;
+
+    struct DialogueEntry {
+        QLineEdit* characterLabel;
+        QTextEdit* textBox;
+        QStringList effects;
+        bool autoState;
+    };
+    QList<DialogueEntry> textBoxes;
+
+
+    QScrollArea* scrollArea;
+    QWidget* scrollWidget;
 
 };
 #endif // MAINWINDOW_H

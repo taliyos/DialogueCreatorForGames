@@ -11,20 +11,42 @@
 #include <QColorDialog>
 #include <QSplitter>
 #include <QScreen>
-#include <QScreen>
 #include <QGuiApplication>
 #include <QWindow>
 #include <QApplication>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QScrollArea>
+#include <QTimer>
+#include <QButtonGroup>
+#include <QDebug>
 
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : 
     QMainWindow(parent), 
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    ui->centralwidget->setLayout(verticalLayout);
-    verticalLayout->setContentsMargins(0, 0, 0, 0);
-    verticalLayout->setSpacing(0);
+     ui->setupUi(this);
+
+    scrollWidget = new QWidget();
+    verticalLayout = new QVBoxLayout(scrollWidget);
+
+    scrollArea = new QScrollArea(this);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setWidget(scrollWidget);
+
+    setCentralWidget(scrollArea);
+    ui->verticalLayout = verticalLayout;
+
+    setCentralWidget(scrollArea);
+
+    int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
+    scrollWidget->setFixedWidth(screenWidth / 2);
+
+    for (int i=1; i<5; i++){
+        addTextBox();
+    }
 
 
     // Create a File menu
@@ -63,10 +85,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionItalic, &QAction::triggered, this, &MainWindow::makeTextItalic);
     connect(ui->actionUnderline, &QAction::triggered, this, &MainWindow::underlineText);
     connect(ui->actionaddCharacter, &QAction::triggered, this, &MainWindow::generateCharacterDialogue);
-    connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
-    connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
+    //connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
+    //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
-    connect(ui->actionResize, &QAction::triggered, this, &MainWindow::resizeToScreen);
 
 }
 
@@ -76,56 +97,150 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-////need to fix resize
-void MainWindow::resizeToScreen() {
-//    QScreen *screen = QGuiApplication::primaryScreen();
-//    if (const QWindow *window = windowHandle()) {
-//        screen = window->screen();
-//    }
-//    for(QTextEdit *editor : textBoxes) {
-//        verticalLayout->addWidget(editor);
-//        editor->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    }
-//    QRect screenGeometry = screen->geometry();
-//    ui->centralwidget->setLayout(verticalLayout);
-//    verticalLayout->setContentsMargins(0, 0, 0, 0);
-//    verticalLayout->setSpacing(0);
-//    this->setGeometry(screenGeometry);
-//    this->showMaximized();
-}
+QTextEdit* MainWindow::currentText()
+{
+    QWidget* widget = QApplication::focusWidget();
 
-QTextEdit* MainWindow::currentText(){
-    QWidget* currentWidget = QApplication::focusWidget();
-    for (QTextEdit* textBox : textBoxes){
-        if (textBox == currentWidget) return textBox;
+    if (widget) {
+        for (const DialogueEntry& entry : textBoxes) {
+            if (entry.textBox == widget) {
+                return entry.textBox;
+            }
+        }
     }
     return nullptr;
 }
 
+QLineEdit* MainWindow::currentCharacter()
+{
+    QWidget* widget = QApplication::focusWidget();
 
-void MainWindow::addTextBox() {
-    QTextEdit *newTextBox = new QTextEdit(this);
-    splitter->setOpaqueResize(false);
-    splitter->setHandleWidth(10);
-    splitter->addWidget(newTextBox);
-    ui->verticalLayout->addWidget(newTextBox);
-
-    textBoxes.append(newTextBox);
-
-    QScreen *screen = QGuiApplication::primaryScreen();
-    if (const QWindow *window = windowHandle()) {
-        screen = window->screen();
+    if (widget) {
+        for (const DialogueEntry& entry : textBoxes) {
+            if (entry.textBox == widget) {
+                return entry.characterLabel;
+            }
+        }
     }
-    for(QTextEdit *editor : textBoxes) {
-        verticalLayout->addWidget(editor);
-        editor->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    return nullptr;
+}
+
+bool MainWindow::currentAutoState()
+{
+    QWidget* widget = QApplication::focusWidget();
+
+    if (widget) {
+        for (const DialogueEntry& entry : textBoxes) {
+            if (entry.textBox == widget) {
+                return entry.autoState;
+            }
+        }
     }
-    QRect screenGeometry = screen->geometry();
-    ui->centralwidget->setLayout(verticalLayout);
-    verticalLayout->setContentsMargins(0, 0, 0, 0);
-    verticalLayout->setSpacing(0);
-    this->setGeometry(screenGeometry);
-    this->showMaximized();
+    return false;
+}
+
+void MainWindow::updateAutoStateForCurrentText(bool newState)
+{
+    QTextEdit* current = currentText();
+    if (current) {
+        for (DialogueEntry& entry : textBoxes) {
+            if (entry.textBox == current) {
+                entry.autoState = newState;
+                break;
+            }
+        }
+    }
+    QMessageBox::warning(this, "Status", "Change Success");
+}
+
+void MainWindow::addTextBox()
+{
+    QLineEdit* labelBox = new QLineEdit(this);
+    QTextEdit* textBox = new QTextEdit(this);
+    labelBox->setStyleSheet("border: 1px solid gray; border-radius: 10px;");
+    textBox->setStyleSheet("border: 1px solid gray");
+    textBox->raise();
+
+    textBox->setFixedSize(QSize(550, 150));
+
+    labelBox->setText("character: ");
+
+    // Create the "Effect" button
+    QPushButton *effectButton = new QPushButton("Effect", this);
+    connect(effectButton, &QPushButton::clicked, this, [=](){
+        // Handle the Effect button click here
+    });
+
+    // Create the "Preview" button
+    QPushButton *previewButton = new QPushButton("Preview", this);
+    connect(previewButton, &QPushButton::clicked, this, [=](){
+        // Handle the Preview button click here
+    });
+
+    // Vertical layout for labelBox and textBox + buttons
+    QVBoxLayout* columnLayout = new QVBoxLayout;
+
+    // Add horizontal spacing before the labelBox
+    QHBoxLayout* labelBoxLayout = new QHBoxLayout;
+    QSpacerItem* LhorizontalSpacer = new QSpacerItem(70, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    QSpacerItem* RhorizontalSpacer = new QSpacerItem(500, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    labelBoxLayout->addSpacerItem(LhorizontalSpacer);
+    labelBoxLayout->addWidget(labelBox,3);
+    labelBoxLayout->addSpacerItem(RhorizontalSpacer);
+
+    columnLayout->addLayout(labelBoxLayout);
+
+    // Horizontal layout for textBox with effect and preview buttons
+    QHBoxLayout* textBoxLayout = new QHBoxLayout;
+    textBoxLayout->addWidget(effectButton);
+    textBoxLayout->addWidget(textBox, 3);
+    textBoxLayout->addWidget(previewButton);
+
+    // Add textBoxLayout to the column layout
+    columnLayout->addLayout(textBoxLayout);
+
+    // Create line separator
+    QFrame* line = new QFrame(this);
+    line->setFrameShape(QFrame::VLine);
+    line->setFrameShadow(QFrame::Sunken);
+    line->setMinimumHeight(50);
+
+    // Create Auto radio buttons and button group
+    QRadioButton* autoButton = new QRadioButton("Auto", this);
+    autoButton->setChecked(true);
+    QButtonGroup* autoGroup = new QButtonGroup(this);
+    autoGroup->addButton(autoButton);
+    autoGroup->setExclusive(false);
+
+    // Horizontal layout to contain line and radio button
+    QSpacerItem* LhorizontalSpacer1 = new QSpacerItem(70, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    QSpacerItem* RhorizontalSpacer1 = new QSpacerItem(70, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    QHBoxLayout* hLayout = new QHBoxLayout;
+    hLayout->addSpacerItem(LhorizontalSpacer1);
+    hLayout->addWidget(line);
+    hLayout->addWidget(autoButton);
+    hLayout->addSpacerItem(RhorizontalSpacer1);
+
+    // Add columnLayout and hLayout to the main vertical layout
+    ui->verticalLayout->addLayout(columnLayout);
+    ui->verticalLayout->addLayout(hLayout);
+
+    QStringList effectsList;
+
+    DialogueEntry entry;
+    entry.characterLabel = labelBox;
+    entry.textBox = textBox;
+    entry.effects = effectsList;
+    entry.autoState = autoButton->isChecked();
+    textBoxes.append(entry);
+
+    connect(autoButton, &QRadioButton::toggled, [this, autoButton](bool isChecked) {
+        if (!isChecked) {
+            autoButton->setChecked(false);
+            updateAutoStateForCurrentText(false);
+        } else updateAutoStateForCurrentText(true);
+    });
+
 }
 
 
