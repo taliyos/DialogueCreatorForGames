@@ -46,8 +46,7 @@
    <addaction name="actionDecrease_Font_Size"/>
    <addaction name="actionaddCharacter"/>
    <addaction name="actionAddTextBox"/>
-   <addaction name="actionSelectBackgroundImage"/>
-   <addaction name="actionHTMLexport"/>
+   <addaction name="actionRemoveTextBox"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -177,14 +176,9 @@
     <string>AddTextBox</string>
    </property>
   </action>
-  <action name="actionHTMLexport">
+  <action name="actionRemoveTextBox">
    <property name="text">
-    <string>HTMLexport</string>
-   </property>
-  </action>
-  <action name="actionSelectBackgroundImage">
-   <property name="text">
-    <string>SelectBackgroundImage</string>
+    <string>RemoveTextBox</string>
    </property>
   </action>
  </widget>
