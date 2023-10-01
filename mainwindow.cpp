@@ -90,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
     //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
+    connect(ui->actionRemoveTextBox, &QAction::triggered, this, &MainWindow::removeTextBox);
 
 }
 
@@ -247,13 +248,32 @@ void MainWindow::addTextBox()
 
 }
 
-// TODO: Check if this is the way we want to handle the effects, preview, or auto buttons.
+// TODO: Check if this is the way we want to handle the effects, preview, or auto buttons. ***
+// This is broken, I think we need direct references to the objects we want to delete.
 void MainWindow::removeTextBox ()
 {
+    // Check to see if we can remove
+    if (textBoxes.isEmpty())
+        return;
     // Pop the last text box entry
     DialogueEntry entry = textBoxes.takeLast();
 
+    // Delete the layout items
+    entry.characterLabel->deleteLater();
+    entry.textBox->deleteLater();
+    for (QObject * q : entry.columnLayout->children())
+    {
+        entry.columnLayout->removeItem((QLayoutItem*)q);
+        entry.columnLayout->removeWidget((QWidget*)q);
+        q->deleteLater();
+    }
     entry.columnLayout->deleteLater();
+    for (QObject * q : entry.hLayout->children())
+    {
+        entry.hLayout->removeItem((QLayoutItem*)q);
+        entry.hLayout->removeWidget((QWidget*)q);
+        q->deleteLater();
+    }
     entry.hLayout->deleteLater();
 
     // Old version without preview, effects, and auto deleted
