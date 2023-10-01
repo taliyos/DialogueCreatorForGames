@@ -30,6 +30,7 @@ private slots:
     void exit();
     void generateCharacterDialogue();
     void addTextBox();
+    void removeTextBox();
     QTextEdit* currentText();
     QLineEdit* currentCharacter();
     bool currentAutoState();
@@ -44,6 +45,8 @@ private:
     struct DialogueEntry {
         QLineEdit* characterLabel;
         QTextEdit* textBox;
+        QHBoxLayout* hLayout;
+        QVBoxLayout* columnLayout;
         QStringList effects;
         bool autoState;
     };

@@ -47,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i=1; i<5; i++){
         addTextBox();
     }
+    // remove one text box
+    removeTextBox();
 
 
     // Create a File menu
@@ -228,6 +230,8 @@ void MainWindow::addTextBox()
     QStringList effectsList;
 
     DialogueEntry entry;
+    entry.columnLayout = columnLayout;
+    entry.hLayout = hLayout;
     entry.characterLabel = labelBox;
     entry.textBox = textBox;
     entry.effects = effectsList;
@@ -241,6 +245,42 @@ void MainWindow::addTextBox()
         } else updateAutoStateForCurrentText(true);
     });
 
+}
+
+// TODO: Check if this is the way we want to handle the effects, preview, or auto buttons.
+void MainWindow::removeTextBox ()
+{
+    // Pop the last text box entry
+    DialogueEntry entry = textBoxes.takeLast();
+
+    entry.columnLayout->deleteLater();
+    entry.hLayout->deleteLater();
+
+    // Old version without preview, effects, and auto deleted
+    // We can't climb the hierarchy to access columnLayout or hLayout, it causes the screen to go blank
+    //entry.characterLabel->deleteLater();
+    //entry.textBox->deleteLater();
+
+    // Old version where we look through children and delete them first.
+    /*
+    // Delete the entry's text box and its children
+    for (QObject * q : entry.textBox->children())
+    {
+        ui->verticalLayout->removeItem((QLayoutItem *)q);
+        q->deleteLater();
+    }
+    ui->verticalLayout->removeItem((QLayoutItem*)entry.textBox);
+    entry.textBox->deleteLater();
+
+    // Delete the entry's character label and its children
+    for (QObject * q : entry.characterLabel->children())
+    {
+        ui->verticalLayout->removeItem((QLayoutItem *)q);
+        q->deleteLater();
+    }
+    ui->verticalLayout->removeItem((QLayoutItem*)entry.characterLabel);
+    entry.characterLabel->deleteLater();
+    */
 }
 
 
