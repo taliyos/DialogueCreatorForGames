@@ -162,6 +162,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <iconset resource="../../../Resources.qrc">
              <normaloff>:/rec/img/icons/copy.png</normaloff>:/rec/img/icons/copy.png</iconset>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+C</string>
+           </property>
           </widget>
          </item>
          <item row="0" column="1">
@@ -190,6 +193,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            <property name="icon">
             <iconset resource="../../../Resources.qrc">
              <normaloff>:/rec/img/icons/cut.png</normaloff>:/rec/img/icons/cut.png</iconset>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+X</string>
            </property>
           </widget>
          </item>
@@ -253,6 +259,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>55</width>
              <height>55</height>
             </size>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+V</string>
            </property>
            <property name="flat">
             <bool>false</bool>
