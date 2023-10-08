@@ -62,6 +62,10 @@ QPushButton:Pressed {
 
 Line {
 	color: #666666;
+}
+
+QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLabel {
+	color: white;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -152,7 +156,11 @@ Line {
             </size>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string>Copy</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../../Resources.qrc">
+             <normaloff>:/rec/img/icons/copy.png</normaloff>:/rec/img/icons/copy.png</iconset>
            </property>
           </widget>
          </item>
@@ -177,12 +185,16 @@ Line {
             </size>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string>Cut</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../../Resources.qrc">
+             <normaloff>:/rec/img/icons/cut.png</normaloff>:/rec/img/icons/cut.png</iconset>
            </property>
           </widget>
          </item>
          <item row="2" column="0" colspan="2">
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="clipboardLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -232,6 +244,16 @@ Line {
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../../../Resources.qrc">
+             <normaloff>:/rec/img/icons/paste.png</normaloff>:/rec/img/icons/paste.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
+           </property>
            <property name="flat">
             <bool>false</bool>
            </property>
@@ -242,6 +264,12 @@ Line {
       </item>
       <item>
        <widget class="Line" name="line">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>110</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -442,7 +470,7 @@ Line {
           </widget>
          </item>
          <item row="2" column="0" colspan="5">
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="fieldsLabel">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -468,11 +496,20 @@ Line {
       </item>
       <item>
        <widget class="Line" name="line_2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>110</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
           <height>110</height>
          </size>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
@@ -709,7 +746,7 @@ Line {
           </widget>
          </item>
          <item row="2" column="0" colspan="7">
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="effectsLabel">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -948,6 +985,8 @@ Line {
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

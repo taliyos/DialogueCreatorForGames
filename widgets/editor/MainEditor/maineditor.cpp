@@ -2,7 +2,7 @@
 #include "ui_maineditor.h"
 
 MainEditor::MainEditor(QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::MainEditor)
 {
     ui->setupUi(this);

@@ -1,4 +1,4 @@
-#include "maineditor.h"
+#include "widgets/editor/MainEditor/maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
 
 #include <QApplication>

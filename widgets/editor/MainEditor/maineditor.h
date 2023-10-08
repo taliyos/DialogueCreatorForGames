@@ -1,13 +1,13 @@
 #ifndef MAINEDITOR_H
 #define MAINEDITOR_H
 
-#include <QWidget>
+#include <QMainWindow>
 
 namespace Ui {
 class MainEditor;
 }
 
-class MainEditor : public QWidget
+class MainEditor : public QMainWindow
 {
     Q_OBJECT
 

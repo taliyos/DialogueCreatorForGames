@@ -28,8 +28,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Resources.qrc
         CustomDialog.h
         CustomDialog.cpp
-        maineditor.h maineditor.cpp maineditor.ui
+
         widgets/editor/EditorTools/editortools.h widgets/editor/EditorTools/editortools.cpp widgets/editor/EditorTools/editortools.ui
+        widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
+
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET TexT_Editor APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

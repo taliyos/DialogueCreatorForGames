@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "maineditor.h"
 #include "ui_mainwindow.h"
 #include "CustomDialog.h"
 #include <QMenu>
