@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "maineditor.h"
 #include "ui_mainwindow.h"
 #include "CustomDialog.h"
 #include <QMenu>
@@ -29,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
      ui->setupUi(this);
 
+    // QWidget *editor = new MainEditor();
+
+
     scrollWidget = new QWidget();
     verticalLayout = new QVBoxLayout(scrollWidget);
 
@@ -47,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i=1; i<5; i++){
         addTextBox();
     }
+
 
 
     // Create a File menu
@@ -88,6 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
     //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
+
 
 }
 
