@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Create a File menu
     QMenu *fileMenu = menuBar()->addMenu("File");
     QMenu *editMenu = menuBar()->addMenu("Edit");
+    QMenu *importMenu;
 
     QAction *undoAction = new QAction("Undo", this);
     QAction *redoAction = new QAction("Redo", this);
@@ -68,8 +69,11 @@ MainWindow::MainWindow(QWidget *parent) :
     fileMenu->addAction(ui->actionOpen);
     fileMenu->addAction(ui->actionSave);
     fileMenu->addAction(ui->actionSave_As);
+    importMenu = fileMenu->addMenu("Import");
     fileMenu->addSeparator();
     fileMenu->addAction(ui->actionExit);
+
+    importMenu->addAction(ui->actionImportTxt);
 
     // Connect actions to slots
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newDocument);
@@ -88,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
     //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
+    connect(ui->actionImportTxt, &QAction::triggered, this, &MainWindow::importTxt);
 
 }
 
@@ -417,7 +422,7 @@ void MainWindow::save()
 
 void MainWindow::saveAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    QString fileName = QFileDialog::getSaveFileName(this, "Import txt");
     QFile file(fileName);
 
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
@@ -441,6 +446,49 @@ void MainWindow::saveAs()
     file.close();
 }
 
+void MainWindow::importTxt()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Import txt file");
+    if (fileName.split('.')[1] != QString("txt"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .txt file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+
+    currentFile = fileName;
+    setWindowTitle(fileName);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QListIterator<DialogueEntry> itr(textBoxes);
+
+    while(!line.isNull())
+    {
+        if (line.trimmed().isEmpty())
+        {
+            line = in.readLine();
+            continue;
+        }
+
+        QTextEdit* currentTextBox;
+        if (itr.hasNext())
+            currentTextBox = itr.next().textBox;
+        else
+        {
+            this->addTextBox();
+            currentTextBox = textBoxes.last().textBox;
+        }
+
+        currentTextBox->setText(line);
+        line = in.readLine();
+    }
+
+    file.close();
+}
 
 void MainWindow::exit()
 {

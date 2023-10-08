@@ -175,6 +175,11 @@
     <string>AddTextBox</string>
    </property>
   </action>
+  <action name="actionImportTxt">
+   <property name="text">
+    <string>.txt</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="Resources.qrc"/>
