@@ -18,7 +18,13 @@
     <normaloff>:/rec/img/icons/dialoggers.png</normaloff>:/rec/img/icons/dialoggers.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -31,10 +37,7 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <item row="0" column="0">
+    <item>
      <widget class="EditorTools" name="toolsWidget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -56,12 +59,31 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>PushButton</string>
+    <item>
+     <layout class="QGridLayout" name="gridLayout"/>
+    </item>
+    <item>
+     <widget class="Designer" name="designerWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
       </property>
      </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -99,7 +121,6 @@
    <addaction name="menuEdit"/>
    <addaction name="menuEffects"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
    <property name="icon">
     <iconset resource="../../../Resources.qrc">
@@ -151,6 +172,12 @@
    <class>EditorTools</class>
    <extends>QWidget</extends>
    <header>widgets/editor/EditorTools/editortools.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Designer</class>
+   <extends>QWidget</extends>
+   <header>widgets/editor/Designer/designer.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
