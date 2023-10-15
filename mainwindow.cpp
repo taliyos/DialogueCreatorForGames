@@ -29,9 +29,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
      ui->setupUi(this);
 
-    // QWidget *editor = new MainEditor();
-
-
     scrollWidget = new QWidget();
     verticalLayout = new QVBoxLayout(scrollWidget);
 
@@ -52,7 +49,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     // remove one text box
     removeTextBox();
-
 
 
     // Create a File menu
@@ -95,7 +91,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
     connect(ui->actionRemoveTextBox, &QAction::triggered, this, &MainWindow::removeTextBox);
-
 
 }
 

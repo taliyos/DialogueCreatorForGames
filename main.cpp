@@ -1,12 +1,11 @@
-#include "widgets/editor/MainEditor/maineditor.h"
-#include "widgets/editor/EditorTools/editortools.h"
+#include "mainwindow.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainEditor editor;
-    editor.show();
+    MainWindow w;
+    w.show();
     return a.exec();
 }

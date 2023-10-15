@@ -12,8 +12,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -28,13 +26,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Resources.qrc
         CustomDialog.h
         CustomDialog.cpp
-
-        widgets/editor/EditorTools/editortools.h widgets/editor/EditorTools/editortools.cpp widgets/editor/EditorTools/editortools.ui
-        widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
-        widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
-        widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
-
-
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET TexT_Editor APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
