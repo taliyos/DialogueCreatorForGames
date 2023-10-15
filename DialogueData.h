@@ -13,7 +13,7 @@ class DialogueData
 
 public:
     // constructors
-    explicit DialogueData();
+    DialogueData();
     // accessors
     const string getText();
     // setters
