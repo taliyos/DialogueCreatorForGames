@@ -21,6 +21,7 @@
 #include <QButtonGroup>
 #include <QDebug>
 #include <duckx.hpp>
+#include <json.hpp>
 
 using namespace std;
 
@@ -54,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMenu *fileMenu = menuBar()->addMenu("File");
     QMenu *editMenu = menuBar()->addMenu("Edit");
     QMenu *importMenu;
+    QMenu *exportMenu;
 
     QAction *undoAction = new QAction("Undo", this);
     QAction *redoAction = new QAction("Redo", this);
@@ -71,11 +73,13 @@ MainWindow::MainWindow(QWidget *parent) :
     fileMenu->addAction(ui->actionSave);
     fileMenu->addAction(ui->actionSave_As);
     importMenu = fileMenu->addMenu("Import");
+    exportMenu = fileMenu->addMenu("Export");
     fileMenu->addSeparator();
     fileMenu->addAction(ui->actionExit);
 
     importMenu->addAction(ui->actionImportTxt);
     importMenu->addAction(ui->actionImportDocx);
+    exportMenu->addAction(ui->actionExportJson);
 
     // Connect actions to slots
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newDocument);
@@ -96,6 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
     connect(ui->actionImportTxt, &QAction::triggered, this, &MainWindow::importTxt);
     connect(ui->actionImportDocx, &QAction::triggered, this, &MainWindow::importDocx);
+    connect(ui->actionExportJson, &QAction::triggered, this, &MainWindow::exportJson);
 }
 
 
@@ -529,6 +534,43 @@ void MainWindow::importDocx()
 
             currentTextBox->setText(line);
         }
+}
+
+void MainWindow::exportJson()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Import json file");
+    if (fileName.split('.')[1] != QString("json"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot save file: not a .json file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        return;
+    }
+
+    currentFile = fileName;
+    setWindowTitle(fileName);
+    QTextStream out(&file);
+    QListIterator<DialogueEntry> itr(textBoxes);
+    nlohmann::json j;
+
+    int box_num = 1;
+    while(itr.hasNext())
+    {
+        DialogueEntry currentTextBox = itr.next();
+        string box = "text box " + std::to_string(box_num);
+        string characterLabel = currentTextBox.characterLabel->displayText().toStdString();
+        string text = currentTextBox.textBox->toPlainText().toStdString();
+        if (characterLabel.empty() && text.empty())
+            continue;
+        j[box] = { characterLabel, text};
+        box_num++;
+    }
+
+    out << QString::fromStdString(j.dump());
+    file.close();
 }
 
 void MainWindow::exit()

@@ -188,6 +188,11 @@
     <string>.docx</string>
    </property>
   </action>
+  <action name="actionExportJson">
+   <property name="text">
+    <string>Json</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="Resources.qrc"/>
