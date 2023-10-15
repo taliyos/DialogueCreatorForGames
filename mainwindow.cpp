@@ -22,6 +22,7 @@
 #include <QDebug>
 #include <duckx.hpp>
 #include <json.hpp>
+#include <fstream>
 
 using namespace std;
 
@@ -79,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     importMenu->addAction(ui->actionImportTxt);
     importMenu->addAction(ui->actionImportDocx);
+    importMenu->addAction(ui->actionImportJson);
     exportMenu->addAction(ui->actionExportJson);
 
     // Connect actions to slots
@@ -100,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
     connect(ui->actionImportTxt, &QAction::triggered, this, &MainWindow::importTxt);
     connect(ui->actionImportDocx, &QAction::triggered, this, &MainWindow::importDocx);
+    connect(ui->actionImportJson, &QAction::triggered, this, &MainWindow::importJson);
     connect(ui->actionExportJson, &QAction::triggered, this, &MainWindow::exportJson);
 }
 
@@ -534,6 +537,47 @@ void MainWindow::importDocx()
 
             currentTextBox->setText(line);
         }
+}
+
+void MainWindow::importJson()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Import Json file");
+    if (fileName.split('.')[1] != QString("json"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .json file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+
+
+    std::ifstream f(fileName.toStdString());
+    nlohmann::json data = nlohmann::json::parse(f);
+
+    nlohmann::detail::iter_impl itr = data.begin();
+    QListIterator<DialogueEntry> text_itr(textBoxes);
+    while(itr != data.end())
+    {
+        QString characterLabel = QString::fromStdString(itr.value()[0]);
+        QString text = QString::fromStdString(itr.value()[1]);
+
+        DialogueEntry currentTextBox;
+        if (text_itr.hasNext())
+            currentTextBox = text_itr.next();
+        else
+        {
+            this->addTextBox();
+            currentTextBox = textBoxes.last();
+        }
+
+        currentTextBox.characterLabel->setText(characterLabel);
+        currentTextBox.textBox->setText(text);
+
+        itr++;
+    }
 }
 
 void MainWindow::exportJson()

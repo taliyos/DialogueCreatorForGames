@@ -193,6 +193,11 @@
     <string>Json</string>
    </property>
   </action>
+  <action name="actionImportJson">
+   <property name="text">
+    <string>Json</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="Resources.qrc"/>

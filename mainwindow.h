@@ -29,6 +29,7 @@ private slots:
     void saveAs();
     void importTxt();
     void importDocx();
+    void importJson();
     void exportJson();
     void exit();
     void generateCharacterDialogue();
