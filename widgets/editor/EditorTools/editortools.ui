@@ -136,7 +136,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           <number>0</number>
          </property>
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="copyBtn">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -168,7 +168,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="cutBtn">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -365,7 +365,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="0" rowspan="2">
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="textFieldBtn">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -379,7 +379,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             </size>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../../Resources.qrc">
+             <normaloff>:/rec/img/icons/text.256x256.png</normaloff>:/rec/img/icons/text.256x256.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -998,4 +1008,8 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
   <include location="../../../Resources.qrc"/>
  </resources>
  <connections/>
+ <slots>
+  <slot>pasteButton()</slot>
+  <slot>createTextField()</slot>
+ </slots>
 </ui>

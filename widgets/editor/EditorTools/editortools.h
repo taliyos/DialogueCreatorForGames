@@ -1,6 +1,7 @@
 #ifndef EDITORTOOLS_H
 #define EDITORTOOLS_H
 
+#include "qpushbutton.h"
 #include <QWidget>
 
 namespace Ui {
@@ -14,6 +15,14 @@ class EditorTools : public QWidget
 public:
     explicit EditorTools(QWidget *parent = nullptr);
     ~EditorTools();
+
+    QPushButton* getPasteButton();
+    QPushButton* getCutButton();
+    QPushButton* getCopyButton();
+
+    QPushButton* getTextFieldButton();
+
+private slots:
 
 private:
     Ui::EditorTools *ui;

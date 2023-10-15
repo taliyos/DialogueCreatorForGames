@@ -26,5 +26,7 @@
         <file>img/icons/paste.png</file>
         <file>img/icons/save-as.png</file>
         <file>img/icons/save.png</file>
+        <file>img/icons/new.png</file>
+        <file>img/icons/text.256x256.png</file>
     </qresource>
 </RCC>

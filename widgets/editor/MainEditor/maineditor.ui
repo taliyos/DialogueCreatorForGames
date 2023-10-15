@@ -45,6 +45,12 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>133</height>
+       </size>
+      </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -56,6 +62,11 @@
         <width>1920</width>
         <height>133</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+	background-color: #a3a3a3;
+}</string>
       </property>
      </widget>
     </item>
@@ -69,6 +80,9 @@
         <horstretch>1</horstretch>
         <verstretch>1</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
      </widget>
     </item>
@@ -100,6 +114,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
@@ -166,6 +181,58 @@
     <string>Ctrl+W</string>
    </property>
   </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="text">
+    <string>Cut</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../../../Resources.qrc">
+     <normaloff>:/rec/img/icons/new.png</normaloff>:/rec/img/icons/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new dialogue file.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -173,6 +240,10 @@
    <extends>QWidget</extends>
    <header>widgets/editor/EditorTools/editortools.h</header>
    <container>1</container>
+   <slots>
+    <slot>createTextField()</slot>
+    <slot>pasteButton()</slot>
+   </slots>
   </customwidget>
   <customwidget>
    <class>Designer</class>

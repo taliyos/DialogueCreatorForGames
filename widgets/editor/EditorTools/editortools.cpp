@@ -12,3 +12,20 @@ EditorTools::~EditorTools()
 {
     delete ui;
 }
+
+QPushButton* EditorTools::getTextFieldButton() {
+    return ui->textFieldBtn;
+}
+
+QPushButton* EditorTools::getPasteButton() {
+    return ui->pasteBtn;
+}
+
+QPushButton* EditorTools::getCutButton() {
+    return ui->cutBtn;
+}
+
+QPushButton* EditorTools::getCopyButton() {
+    return ui->copyBtn;
+}
+
