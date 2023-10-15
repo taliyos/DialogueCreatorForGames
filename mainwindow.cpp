@@ -20,6 +20,7 @@
 #include <QTimer>
 #include <QButtonGroup>
 #include <QDebug>
+#include <qdesktopservices.h>
 
 using namespace std;
 
@@ -92,8 +93,187 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(undoAction, &QAction::triggered, ui->textEdit, &QTextEdit::undo);
     //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
+    connect(ui->actionHTMLexport, &QAction::triggered, this, &MainWindow::onPreviewButtonClicked);
+    connect(ui->actionSelectBackgroundImage, &QAction::triggered, this, &MainWindow::selectBackgroundImage);
 
 
+}
+
+QString backgroundImageFilePath;
+
+void MainWindow::selectBackgroundImage() {
+    backgroundImageFilePath = QFileDialog::getOpenFileName(this, "Select Background Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)");
+    if (!backgroundImageFilePath.isEmpty()) {
+        // Optionally, show a preview or a confirmation message.
+        QMessageBox::information(this, "Image Selected", "Background image selected successfully!");
+    }
+}
+
+
+void MainWindow::onPreviewButtonClicked() {
+    // Temporary file path
+    QString tempFilePath = QDir::tempPath() + "/preview.html";
+
+    exportToHtml(tempFilePath);
+
+    QDesktopServices::openUrl(QUrl::fromLocalFile(tempFilePath));
+}
+
+
+QString MainWindow::generateHtml(const DialogueEntry& entry) {
+    QString htmlContent;
+
+    // Add the character label to the HTML as a small box
+    htmlContent += "<div style='border:1px solid black; padding:5px; width:100px; display:inline-block;'>";
+    htmlContent += entry.characterLabel->text();
+    htmlContent += "</div><br>";
+
+    // Add the text box content to the HTML
+    htmlContent += entry.textBox->toHtml() + "<br>";
+
+    return htmlContent;
+}
+
+void MainWindow::exportToHtml(const QString& filePath) {
+    QString fullHtml;
+
+    // Convert image to Base64
+    QString base64Image;
+    if (!backgroundImageFilePath.isEmpty()) {
+        QFile imageFile(backgroundImageFilePath);
+        if (imageFile.open(QIODevice::ReadOnly)) {
+            base64Image = QString::fromLatin1(imageFile.readAll().toBase64());
+            imageFile.close();
+        }
+    }
+
+    // Start HTML document
+    fullHtml += "<!DOCTYPE html>";
+    fullHtml += "<html><head><title>Exported Dialogue</title>";
+
+    // Add CSS for cloud-like dialogue boxes and animations
+    fullHtml += R"(
+    <style>
+        body {
+            background-image: url('data:image/jpg;base64,)" + base64Image + R"(');
+            background-size: contain;  // This will ensure the background image maintains its aspect ratio.
+            background-repeat: no-repeat; // Ensures the image isn't repeated.
+            background-position: center center;  // This centers the background image both horizontally and vertically.
+            font-family: Arial, sans-serif;
+            height: 100vh;  // This ensures the body covers the full viewport height.
+            display: flex;
+            align-items: center;  // Vertically centers the dialogue-container.
+            justify-content: center;
+        }
+        .dialogue-container {
+            position: relative;
+            width: 350px;
+            height: 150px; //  cloud height
+        }
+        .dialogue-box {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 20%; // Centers the cloud
+            background:#ECEFF1;
+            background-color:white;
+            border-radius: 100px; // Rounded corners for cloud-like appearance
+            padding: 20px;
+            width: 350px;
+            height:120px;
+            opacity: 0;
+            animation: fadeInOut 4s forwards;
+            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+        @keyframes fadeInOut {
+            0%   { opacity: 0; }
+            50%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+    )";
+
+    // Begin body and container
+    fullHtml += "</head><body>";
+    fullHtml += "<div class='dialogue-container'>";
+
+    // Generate the HTML content for each dialogue box
+    for (int i = 0; i < textBoxes.count(); ++i) {
+        fullHtml += R"(<div class="dialogue-box" id="entry)" + QString::number(i) + R"(">)";
+        fullHtml += textBoxes[i].textBox->toHtml();
+        fullHtml += "</div>";
+    }
+
+    // Close dialogue container
+    fullHtml += "</div>";
+
+    QStringList autoStatesList;
+    for (int i = 0; i < textBoxes.count(); ++i) {
+        autoStatesList.append(textBoxes[i].autoState ? "true" : "false");
+    }
+    QString autoStatesArray = "[" + autoStatesList.join(",") + "]";
+
+    // JavaScript for animations and looping
+    fullHtml += R"(
+    <script>
+        let currentIndex = -1; // start with -1 so that the first dialogue is shown on the initial call
+        let autoStates = )" + autoStatesArray + R"(;
+        let totalDialogues = autoStates.length;
+
+        function resetDialogues() {
+            for (let i = 0; i < totalDialogues; i++) {
+                let elem = document.getElementById('entry' + i);
+                elem.style.opacity = '0';
+                elem.style.display = 'none';
+            }
+        }
+
+        function showNextDialogue() {
+            // Hide current dialogue (if any)
+            if (currentIndex >= 0) {
+                let currentBox = document.getElementById('entry' + currentIndex);
+                currentBox.style.opacity = '0';
+                setTimeout(() => currentBox.style.display = 'none', 2000); // set display none after fade-out is complete
+            }
+
+            currentIndex++;
+
+            if (currentIndex >= totalDialogues) {
+                currentIndex = 0;
+            }
+
+            if (autoStates[currentIndex]) {
+                let nextBox = document.getElementById('entry' + currentIndex);
+                nextBox.style.display = 'flex';
+                setTimeout(() => nextBox.style.opacity = '1', 100);  // Short delay to ensure display change is detected
+            }
+        }
+
+        setInterval(showNextDialogue, 4000); // we're using the full animation time here to ensure the fade out is complete
+
+        window.onload = showNextDialogue;
+    </script>
+
+
+)";
+
+
+    // Close HTML body and document
+    fullHtml += "</body></html>";
+
+    // Save the constructed HTML to file
+    QFile file(filePath);
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream out(&file);
+        out << fullHtml;
+        file.close();
+    } else {
+        QMessageBox::warning(this, "Error", "Failed to save HTML file.");
+    }
 }
 
 
