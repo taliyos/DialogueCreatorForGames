@@ -136,7 +136,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           <number>0</number>
          </property>
          <item row="1" column="1">
-          <widget class="QPushButton" name="copyBtn">
+          <widget class="QPushButton" name="copy">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -168,7 +168,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="cutBtn">
+          <widget class="QPushButton" name="cut">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -228,7 +228,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="0" rowspan="2">
-          <widget class="QPushButton" name="pasteBtn">
+          <widget class="QPushButton" name="paste">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -327,7 +327,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           <number>0</number>
          </property>
          <item row="0" column="2">
-          <widget class="QPushButton" name="pushButton_7">
+          <widget class="QPushButton" name="customField2">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -346,7 +346,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QPushButton" name="pushButton_10">
+          <widget class="QPushButton" name="customField3">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -365,7 +365,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="0" rowspan="2">
-          <widget class="QPushButton" name="textFieldBtn">
+          <widget class="QPushButton" name="textField">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -394,7 +394,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="QPushButton" name="customField5">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -413,7 +413,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QPushButton" name="customField1">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -432,7 +432,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QPushButton" name="pushButton_11">
+          <widget class="QPushButton" name="customField6">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -451,7 +451,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="4" rowspan="2">
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QPushButton" name="fieldSettings">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -470,7 +470,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="QPushButton" name="customField4">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -569,7 +569,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           <number>0</number>
          </property>
          <item row="0" column="2" rowspan="2">
-          <widget class="QPushButton" name="pushButton_17">
+          <widget class="QPushButton" name="modifier">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -588,7 +588,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QPushButton" name="pushButton_18">
+          <widget class="QPushButton" name="modifierFavorite1">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -607,7 +607,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="4" rowspan="2">
-          <widget class="QPushButton" name="pushButton_16">
+          <widget class="QPushButton" name="character">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -632,7 +632,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="5">
-          <widget class="QPushButton" name="pushButton_15">
+          <widget class="QPushButton" name="characterFavorite1">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -651,7 +651,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="1" column="5">
-          <widget class="QPushButton" name="pushButton_21">
+          <widget class="QPushButton" name="characterFavorite2">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -670,7 +670,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_19">
+          <widget class="QPushButton" name="displayEffectFavorite2">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -689,7 +689,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_13">
+          <widget class="QPushButton" name="displayEffectFavorite1">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -708,7 +708,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QPushButton" name="pushButton_20">
+          <widget class="QPushButton" name="modifierFavorite2">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -727,7 +727,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="0" rowspan="2">
-          <widget class="QPushButton" name="pushButton_12">
+          <widget class="QPushButton" name="displayEffect">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -746,7 +746,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="6" rowspan="2">
-          <widget class="QPushButton" name="pushButton_14">
+          <widget class="QPushButton" name="effectSettings">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -841,8 +841,46 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="1" column="4">
-          <widget class="QPushButton" name="pushButton_28">
+         <item row="0" column="1" rowspan="2">
+          <widget class="QPushButton" name="preset2">
+           <property name="minimumSize">
+            <size>
+             <width>170</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>170</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" rowspan="2">
+          <widget class="QPushButton" name="preset1">
+           <property name="minimumSize">
+            <size>
+             <width>170</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>170</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QPushButton" name="addPreset">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -860,8 +898,27 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            </property>
           </widget>
          </item>
-         <item row="0" column="4">
-          <widget class="QPushButton" name="pushButton_26">
+         <item row="0" column="5" rowspan="2">
+          <widget class="QPushButton" name="presetSettings">
+           <property name="minimumSize">
+            <size>
+             <width>80</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>80</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QPushButton" name="morePresets">
            <property name="minimumSize">
             <size>
              <width>35</width>
@@ -901,46 +958,8 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            </property>
           </widget>
          </item>
-         <item row="0" column="0" rowspan="2">
-          <widget class="QPushButton" name="pushButton_22">
-           <property name="minimumSize">
-            <size>
-             <width>170</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>170</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" rowspan="2">
-          <widget class="QPushButton" name="pushButton_24">
-           <property name="minimumSize">
-            <size>
-             <width>170</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>170</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="2" rowspan="2">
-          <widget class="QPushButton" name="pushButton_25">
+          <widget class="QPushButton" name="preset3">
            <property name="minimumSize">
             <size>
              <width>170</width>
@@ -959,7 +978,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
           </widget>
          </item>
          <item row="0" column="3" rowspan="2">
-          <widget class="QPushButton" name="pushButton_27">
+          <widget class="QPushButton" name="preset4">
            <property name="minimumSize">
             <size>
              <width>170</width>
@@ -969,25 +988,6 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            <property name="maximumSize">
             <size>
              <width>170</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="5" rowspan="2">
-          <widget class="QPushButton" name="pushButton_23">
-           <property name="minimumSize">
-            <size>
-             <width>80</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
              <height>90</height>
             </size>
            </property>

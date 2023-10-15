@@ -3,6 +3,7 @@
 #include "maineditor.h"
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
+#include "widgets/editor/Fields/TextField/textfield.h"
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -13,11 +14,13 @@ MainEditor::MainEditor(QWidget *parent) :
     editorTools = ui->toolsWidget;
     designer = ui->designerWidget;
 
-    connect(editorTools->getPasteButton(), &QAbstractButton::clicked, this, &MainEditor::on_actionPaste_triggered);
-    connect(editorTools->getCutButton(), &QAbstractButton::clicked, this, &MainEditor::on_actionCut_triggered);
-    connect(editorTools->getCopyButton(), &QAbstractButton::clicked, this, &MainEditor::on_actionCopy_triggered);
+    connect(editorTools->getPaste(), &QAbstractButton::clicked, this, &MainEditor::on_actionPaste_triggered);
+    connect(editorTools->getCut(), &QAbstractButton::clicked, this, &MainEditor::on_actionCut_triggered);
+    connect(editorTools->getCopy(), &QAbstractButton::clicked, this, &MainEditor::on_actionCopy_triggered);
 
-    connect(editorTools->getTextFieldButton(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+    connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+
+    connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 }
 
 MainEditor::~MainEditor()
@@ -168,5 +171,8 @@ void MainEditor::on_actionNew_triggered()
 }
 
 void MainEditor::createTextField() {
+    TextField* textField = designer->createTextField();
+
+    // do whatever we want with the new text field
 
 }
