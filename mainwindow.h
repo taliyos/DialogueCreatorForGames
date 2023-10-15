@@ -28,6 +28,7 @@ private slots:
     void save();
     void saveAs();
     void importTxt();
+    void importDocx();
     void exit();
     void generateCharacterDialogue();
     void addTextBox();

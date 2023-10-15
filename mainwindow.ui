@@ -180,6 +180,14 @@
     <string>.txt</string>
    </property>
   </action>
+  <action name="actionImportDocx">
+   <property name="text">
+    <string>.docx</string>
+   </property>
+   <property name="toolTip">
+    <string>.docx</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="Resources.qrc"/>

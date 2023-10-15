@@ -20,6 +20,7 @@
 #include <QTimer>
 #include <QButtonGroup>
 #include <QDebug>
+#include <duckx.hpp>
 
 using namespace std;
 
@@ -74,6 +75,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fileMenu->addAction(ui->actionExit);
 
     importMenu->addAction(ui->actionImportTxt);
+    importMenu->addAction(ui->actionImportDocx);
 
     // Connect actions to slots
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::newDocument);
@@ -93,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(redoAction, &QAction::triggered, ui->textEdit, &QTextEdit::redo);
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
     connect(ui->actionImportTxt, &QAction::triggered, this, &MainWindow::importTxt);
-
+    connect(ui->actionImportDocx, &QAction::triggered, this, &MainWindow::importDocx);
 }
 
 
@@ -488,6 +490,45 @@ void MainWindow::importTxt()
     }
 
     file.close();
+}
+
+void MainWindow::importDocx()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Import docx file");
+    if (fileName.split('.')[1] != QString("docx"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .docx file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+
+    duckx::Document doc(fileName.toStdString());
+    doc.open();
+
+
+    QListIterator<DialogueEntry> itr(textBoxes);
+    for (auto p : doc.paragraphs())
+        for (auto r : p.runs())
+        {
+            QString line = QString::fromStdString(r.get_text());
+            if (line.trimmed().isEmpty())
+                continue;
+
+            QTextEdit* currentTextBox;
+            if (itr.hasNext())
+                currentTextBox = itr.next().textBox;
+            else
+            {
+                this->addTextBox();
+                currentTextBox = textBoxes.last().textBox;
+            }
+
+            currentTextBox->setText(line);
+        }
 }
 
 void MainWindow::exit()

@@ -71,3 +71,12 @@ install(TARGETS TexT_Editor
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(TexT_Editor)
 endif()
+
+find_library(DUCKX_LIBRARY duckx)
+message("${DUCKX_LIBRARY}")
+if( ${DUCKX_LIBRARY} STREQUAL "DUCKX_LIBRARY-NOTFOUND")
+    message("Please set DUCKX variable to location of duckx")
+endif()
+
+target_link_libraries(TexT_Editor PRIVATE ${DUCKX_LIBRARY})
+target_include_directories(TexT_Editor PUBLIC "C:\\Users\\patchs2\\Documents\\DuckX\\include")
