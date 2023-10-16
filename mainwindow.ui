@@ -47,6 +47,7 @@
    <addaction name="actionaddCharacter"/>
    <addaction name="actionAddTextBox"/>
    <addaction name="actionRemoveTextBox"/>
+   <addaction name="actionSelectBackgroundImage"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -179,6 +180,14 @@
   <action name="actionRemoveTextBox">
    <property name="text">
     <string>RemoveTextBox</string>
+  <action name="actionHTMLexport">
+   <property name="text">
+    <string>HTMLexport</string>
+   </property>
+  </action>
+  <action name="actionSelectBackgroundImage">
+   <property name="text">
+    <string>SelectBackgroundImage</string>
    </property>
   </action>
  </widget>

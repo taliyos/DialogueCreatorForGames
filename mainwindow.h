@@ -15,6 +15,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    struct DialogueEntry {
+        QLineEdit* characterLabel;
+        QTextEdit* textBox;
+        QStringList effects;
+        bool autoState;
+    };
 private slots:
     void selectFont();
     void increaseFontSize();
@@ -35,21 +41,17 @@ private slots:
     QLineEdit* currentCharacter();
     bool currentAutoState();
     void updateAutoStateForCurrentText(bool state);
+    QString generateHtml(const DialogueEntry& entry);
+    void exportToHtml(const QString& filePath);
+    void onPreviewButtonClicked();
+    void selectBackgroundImage();
+
 
 private:
     Ui::MainWindow *ui;
     QString currentFile;
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     QSplitter *splitter = new QSplitter(Qt::Vertical);
-
-    struct DialogueEntry {
-        QLineEdit* characterLabel;
-        QTextEdit* textBox;
-        QHBoxLayout* hLayout;
-        QVBoxLayout* columnLayout;
-        QStringList effects;
-        bool autoState;
-    };
     QList<DialogueEntry> textBoxes;
 
 
