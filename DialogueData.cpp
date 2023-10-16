@@ -1,12 +1,20 @@
 #include "DialogueData.h"
 #include <algorithm>
 
+// TODO: Use an enum or a bunch of integers for the effect tags
+// Make sure files are in the correct folders so that we don't make a mess
 /// <summary>A class that holds the raw data for text fields.</summary>
 DialogueData::DialogueData()
 {
     this->text = "";
     this->textToEffects = *(new map<pair<int, int>, list<string>>());
     this->fieldEffects = *(new list<string>());
+}
+DialogueData::~DialogueData()
+{
+    delete &(this->text);
+    delete &(this-> textToEffects);
+    delete &(this->fieldEffects);
 }
 
 void DialogueData::setText(string newText)

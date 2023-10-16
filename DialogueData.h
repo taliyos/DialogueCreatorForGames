@@ -14,6 +14,8 @@ class DialogueData
 public:
     // constructors
     DialogueData();
+    // deconstructor
+    ~DialogueData();
     // accessors
     const string getText();
     // setters
