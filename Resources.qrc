@@ -19,5 +19,14 @@
         <file>img/decrease-font-size.png</file>
         <file>img/increase-font-size.png</file>
         <file>img/italic.png</file>
+        <file>img/icons/copy.png</file>
+        <file>img/icons/cut.png</file>
+        <file>img/icons/dialoggers.png</file>
+        <file>img/icons/open.png</file>
+        <file>img/icons/paste.png</file>
+        <file>img/icons/save-as.png</file>
+        <file>img/icons/save.png</file>
+        <file>img/icons/new.png</file>
+        <file>img/icons/text.256x256.png</file>
     </qresource>
 </RCC>

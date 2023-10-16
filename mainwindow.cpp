@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
      ui->setupUi(this);
 
+    // QWidget *editor = new MainEditor();
+
+
     scrollWidget = new QWidget();
     verticalLayout = new QVBoxLayout(scrollWidget);
 
@@ -48,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i=1; i<5; i++){
         addTextBox();
     }
+
 
 
     // Create a File menu
