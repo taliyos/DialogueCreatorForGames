@@ -14,5 +14,9 @@ TextField::~TextField()
 }
 
 QLineEdit* TextField::getTextField() {
-    return ui->lineEdit;
+    return ui->textField;
+}
+
+QPushButton* TextField::getPreview() {
+    return ui->preview;
 }
