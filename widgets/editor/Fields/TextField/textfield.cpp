@@ -12,3 +12,7 @@ TextField::~TextField()
 {
     delete ui;
 }
+
+QLineEdit* TextField::getTextField() {
+    return ui->lineEdit;
+}
