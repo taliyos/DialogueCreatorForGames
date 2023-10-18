@@ -4,6 +4,7 @@
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "widgets/editor/Fields/TextField/textfield.h"
+#include <QWebEngineView>
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -21,6 +22,9 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+
+    QWebEngineView* webView = ui->testWebWidget;
+    webView->load(QUrl("https://qt-project.org/"));
 }
 
 MainEditor::~MainEditor()
