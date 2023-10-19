@@ -1,7 +1,6 @@
 #include "DialogueData.h"
 #include <algorithm>
 
-// Make sure files are in the correct folders so that we don't make a mess
 /// <summary>A class that holds the raw data for text fields.</summary>
 DialogueData::DialogueData()
 {
@@ -20,12 +19,10 @@ void DialogueData::setText(string newText)
 {
     *(text) = newText;
 }
-
 const string DialogueData::getText()
 {
     return *(text);
 }
-
 bool DialogueData::hasFieldEffect(int tag)
 {
     return find(fieldEffects->begin(), fieldEffects->end(), tag) != fieldEffects->end();
@@ -46,9 +43,18 @@ void DialogueData::addOrRemoveFieldEffect(int tag)
         applyFieldEffect(tag);
 }
 
-
-/// <summary> Looks to see if a given range between index1 and index2 has a text effect with a given tag</summary>
 // TODO: FINISH THIS ****
+/// <summary>
+/// Looks to see if a given range between index1 and index2 has a text effect with a given tag
+/// arguments:
+///     index1 : starting index inclusive
+///     index2 : ending index inclusive
+///     tag : the tag for the effect
+/// modifies:
+///     none
+/// returns:
+///     if the given range has the text effect applied somewhere within
+/// </summary>
 bool DialogueData::hasTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
     /*
@@ -63,29 +69,64 @@ bool DialogueData::hasTextEffect(unsigned int index1, unsigned int index2, int t
             return find(it->second.begin(), it->second.end(), tag) != it->second.end();
     }
     // Return false if it isn't found
-    return false;
     */
+    return false;
 }
+
+/// <summary>
+/// applies a text effect to the given substring in the text.
+/// arguments:
+///     index1 : starting index inclusive
+///     index2 : ending index inclusive
+///     tag : the tag for the effect
+/// modifies:
+///     textToEffects
+/// returns:
+///     none
+/// </summary>
 void DialogueData::applyTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
-    /*
-    list<int> * effects = &((*textToEffects)[*(new pair<int, int>(index1, index2))]);
+    // remember: map<pair<int, int>, list<int>>*
+    pair<int, int> key = pair<int, int>(index1, index2);
+    list<int> * effects = &((*textToEffects)[key]);
     effects->push_back(tag);
-    */
 }
+
+/// <summary>
+/// removes a text effect from the given substring in the text
+/// arguments:
+///     index1 : starting index inclusive
+///     index2 : ending index inclusive
+///     tag : the tag for the effect
+/// modifies:
+///     textToEffects
+/// returns:
+///     none
+/// </summary>
 void DialogueData::removeTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
-    /*
-    list<int> * effects = &((*textToEffects)[*(new pair<int, int>(index1, index2))]);
+    // remember: map<pair<int, int>, list<int>>*
+    pair<int, int> key = pair<int, int>(index1, index2);
+    list<int> * effects = &((*textToEffects)[key]);
     effects->remove(tag);
-    */
 }
+
+/// <summary>
+/// applies the given text effect to a substring if it is not applied within.
+/// otherwise, removes the effect.
+/// arguments:
+///     index1 : starting index inclusive
+///     index2 : ending index inclusive
+///     tag : the tag for the effect
+/// modifies:
+///     textToEffects
+/// returns:
+///     none
+/// </summary>
 void DialogueData::addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
-    /*
     if (hasTextEffect(index1, index2, tag))
         removeTextEffect(index1, index2, tag);
     else
         applyTextEffect(index1, index2, tag);
-    */
 }
