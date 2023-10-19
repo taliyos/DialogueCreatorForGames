@@ -21,23 +21,23 @@ public:
     // setters
     void setText(string newText);
     // Field effect functions
-    bool hasFieldEffect(string tag);
-    void applyFieldEffect(string tag);
-    void removeFieldEffect(string tag);
-    void addOrRemoveFieldEffect(string tag);
+    bool hasFieldEffect(int tag);
+    void applyFieldEffect(int tag);
+    void removeFieldEffect(int tag);
+    void addOrRemoveFieldEffect(int tag);
     // Text effect functions
-    bool hasTextEffect(unsigned int index1, unsigned int index2, string tag);
-    void applyTextEffect(unsigned int index1, unsigned int index2, string tag);
-    void removeTextEffect(unsigned int index1, unsigned int index2, string tag);
-    void addOrRemoveTextEffect(unsigned int index1, unsigned int index2, string tag);
+    bool hasTextEffect(unsigned int index1, unsigned int index2, int tag);
+    void applyTextEffect(unsigned int index1, unsigned int index2, int tag);
+    void removeTextEffect(unsigned int index1, unsigned int index2, int tag);
+    void addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag);
 
 private:
     // the raw text
-    string text;
+    string* text;
     // maps substrings of text to text effect tags
-    map<pair<int, int>, list<string>> textToEffects;
+    map<pair<int, int>, list<int>>* textToEffects;
     // list of field effects applied to text
-    list<string> fieldEffects;
+    list<int>* fieldEffects;
 };
 
 #endif // DIALOGUEDATA_H
