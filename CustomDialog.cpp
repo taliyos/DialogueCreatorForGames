@@ -7,8 +7,7 @@ CustomDialog::CustomDialog(QWidget *parent) :
 
     characterLineEdit = new QLineEdit;
     messageLineEdit = new QLineEdit;
-    messagePropertiesLineEdit = new QLineEdit;
-
+    messagePropertiesLineEdit = new QLineEdit; //test
     layout->addRow(new QLabel("Character:"), characterLineEdit);
     layout->addRow(new QLabel("Message:"), messageLineEdit);
     layout->addRow(new QLabel("Message Properties:"), messagePropertiesLineEdit);
