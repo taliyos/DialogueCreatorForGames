@@ -47,9 +47,9 @@ private slots:
     void exportToHtml(const QString& filePath);
     void onPreviewButtonClicked();
     void selectBackgroundImage();
-//    void saveLineEditSettings();
-//    void saveCheckBoxSettings();
-//    void loadSettings();
+    void saveLineEditSettings();
+    void saveCheckBoxSettings();
+    void loadSettings();
 
 
 private:
