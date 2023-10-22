@@ -29,13 +29,19 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CustomDialog.h
         CustomDialog.cpp
 
-        data/Dialogue/DialogueData.h
-        data/Dialogue/DialogueData.cpp
+        data/Dialogue/fielddata.h
+        data/Dialogue/fielddata.cpp
 
         widgets/editor/EditorTools/editortools.h widgets/editor/EditorTools/editortools.cpp widgets/editor/EditorTools/editortools.ui
         widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
+        data/Dialogue/listdata.h data/Dialogue/listdata.cpp
+        data/Dialogue/inputdata.h data/Dialogue/inputdata.cpp
+        data/Dialogue/characterdata.h data/Dialogue/characterdata.cpp
+
+
+
 
 
     )
