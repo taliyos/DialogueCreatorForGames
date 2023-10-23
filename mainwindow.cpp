@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
     scrollWidget = new QWidget();
     verticalLayout = new QVBoxLayout(scrollWidget);
 
+    // Create an instance of the Settings class
+    settings = new Settings();
+
     scrollArea = new QScrollArea(this);
     scrollArea->setWidgetResizable(true);
     scrollArea->setWidget(scrollWidget);
@@ -96,6 +99,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAddTextBox, &QAction::triggered, this, &MainWindow::addTextBox);
     connect(ui->actionHTMLexport, &QAction::triggered, this, &MainWindow::onPreviewButtonClicked);
     connect(ui->actionSelectBackgroundImage, &QAction::triggered, this, &MainWindow::selectBackgroundImage);
+
+    // Connect UI elements to settings functions
+    connect(ui->lineEdit, &QLineEdit::editingFinished, this, &MainWindow::saveLineEditSettings);
+    connect(ui->checkBox, &QCheckBox::toggled, this, &MainWindow::saveCheckBoxSettings);
+
+    // Load settings on startup
+    loadSettings();
 
 
 }
@@ -627,6 +637,25 @@ void MainWindow::saveAs()
     file.close();
 }
 
+
+void MainWindow::saveLineEditSettings() {
+    //    Settings *settings = new Settings()
+    QString text = ui->lineEdit->text();
+    settings->saveSettings("LineEditText", text);
+}
+
+void MainWindow::saveCheckBoxSettings() {
+    bool isChecked = ui->checkBox->isChecked();
+    settings->saveSettings("CheckBoxState", isChecked);
+}
+
+void MainWindow::loadSettings() {
+    QString text = settings->loadSettings("LineEditText").toString();
+    bool isChecked = settings->loadSettings("CheckBoxState", false).toBool();
+
+    ui->lineEdit->setText(text);
+    ui->checkBox->setChecked(isChecked);
+}
 
 void MainWindow::exit()
 {
