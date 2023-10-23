@@ -18,16 +18,15 @@ QString TextField::generateHtml(const QString& content) {
     fullHtml += R"(<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>)";
     fullHtml += R"(
     <script>
-    $(document).ready(function() {
-        $('.dialogue-box').hide().fadeIn(1000);
-        $('.dialogue-box').click(function() {
-            $(this).fadeOut(1000);
-        });
-    });
+//    $(document).ready(function() {
+//        $('.dialogue-box').hide().fadeIn(1000);
+//        $('.dialogue-box').click(function() {
+//            $(this).fadeOut(1000);
+//        });
+//    });
     </script>
     )";
 
-    // Your existing CSS
     fullHtml += R"(
     <style>
         body {
