@@ -31,7 +31,7 @@ private slots:
     void on_actionRedo_triggered();
 
     void on_actionNew_triggered();
-
+    void handlePreviewRequest(const QString& content);
     void createTextField();
 
 private:

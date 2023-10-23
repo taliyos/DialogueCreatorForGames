@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>230</height>
+    <width>1052</width>
+    <height>232</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -73,7 +73,7 @@
      <item row="1" column="1">
       <widget class="QPushButton" name="preview">
        <property name="text">
-        <string>PushButton</string>
+        <string>Preview</string>
        </property>
       </widget>
      </item>

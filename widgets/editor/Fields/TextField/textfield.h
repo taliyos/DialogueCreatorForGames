@@ -19,6 +19,12 @@ class TextField : public QWidget
 public:
     explicit TextField(QWidget *parent = nullptr);
     ~TextField();
+    static QString generateHtml(const QString& content);
+    void exportToBrowser();
+
+signals:
+    void previewRequested(const QString& content);
+
 
 private:
     Ui::TextField *ui;
