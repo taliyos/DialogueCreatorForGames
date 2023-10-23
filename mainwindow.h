@@ -6,8 +6,8 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QScrollArea>
-#include "qmessagebox.h"
 #include "settings.h"
+#include "qmessagebox.h"
 namespace Ui {
 class MainWindow;
 }
@@ -21,7 +21,6 @@ public:
         QLineEdit* characterLabel;
         QTextEdit* textBox;
         QStringList effects;
-
         bool autoState;
     };
 private slots:
@@ -47,9 +46,6 @@ private slots:
     void exportToHtml(const QString& filePath);
     void onPreviewButtonClicked();
     void selectBackgroundImage();
-    void saveLineEditSettings();
-    void saveCheckBoxSettings();
-    void loadSettings();
 
 
 private:
@@ -57,13 +53,13 @@ private:
     QString currentFile;
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     QSplitter *splitter = new QSplitter(Qt::Vertical);
-    QLineEdit *lineEdit;
-    QCheckBox *checkBox;
 
     QList<DialogueEntry> textBoxes;
-    Settings *settings;
+
+
     QScrollArea* scrollArea;
     QWidget* scrollWidget;
 
 };
 #endif // MAINWINDOW_H
+

@@ -12,3 +12,11 @@ TextField::~TextField()
 {
     delete ui;
 }
+
+QLineEdit* TextField::getTextField() {
+    return ui->textField;
+}
+
+QPushButton* TextField::getPreview() {
+    return ui->preview;
+}
