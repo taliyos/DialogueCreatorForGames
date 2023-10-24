@@ -17,8 +17,6 @@ class FieldData
 public:
     // constructors
     FieldData();
-    // deconstructor
-    ~FieldData();
     // accessors
     const string getText();
     // setters
@@ -36,11 +34,11 @@ public:
 
 protected:
     // the raw text
-    string* text;
+    string text;
     // maps substrings of text to text effect tags
-    map<pair<int, int>, list<int>>* textToEffects;
+    map<pair<int, int>, list<int>> textToEffects;
     // list of field effects applied to text
-    list<int>* fieldEffects;
+    list<int> fieldEffects;
     // a character box
     CharacterData* character;
 };

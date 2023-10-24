@@ -10,7 +10,6 @@ class CharacterData : protected FieldData
 {
 public:
     CharacterData();
-    ~CharacterData();
 };
 
 #endif // CHARACTERDATA_H

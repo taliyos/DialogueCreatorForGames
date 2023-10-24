@@ -4,36 +4,30 @@
 /// <summary>A class that holds the raw data for text fields.</summary>
 FieldData::FieldData()
 {
-    this->text = new string("");
-    this->textToEffects = new map<pair<int, int>, list<int>>();
-    this->fieldEffects = new list<int>();
-}
-FieldData::~FieldData()
-{
-    delete this->text;
-    delete this-> textToEffects;
-    delete this->fieldEffects;
+    this->text = string("");
+    this->textToEffects = map<pair<int, int>, list<int>>();
+    this->fieldEffects = list<int>();
 }
 
 void FieldData::setText(string newText)
 {
-    *(text) = newText;
+    text = newText;
 }
 const string FieldData::getText()
 {
-    return *(text);
+    return text;
 }
 bool FieldData::hasFieldEffect(int tag)
 {
-    return find(fieldEffects->begin(), fieldEffects->end(), tag) != fieldEffects->end();
+    return find(fieldEffects.begin(), fieldEffects.end(), tag) != fieldEffects.end();
 }
 void FieldData::applyFieldEffect(int tag)
 {
-    fieldEffects->push_back(tag);
+    fieldEffects.push_back(tag);
 }
 void FieldData::removeFieldEffect(int tag)
 {
-    fieldEffects->remove(tag);
+    fieldEffects.remove(tag);
 }
 void FieldData::addOrRemoveFieldEffect(int tag)
 {
@@ -88,7 +82,7 @@ void FieldData::applyTextEffect(unsigned int index1, unsigned int index2, int ta
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
-    list<int> * effects = &((*textToEffects)[key]);
+    list<int> * effects = &(textToEffects[key]);
     effects->push_back(tag);
 }
 
@@ -107,7 +101,7 @@ void FieldData::removeTextEffect(unsigned int index1, unsigned int index2, int t
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
-    list<int> * effects = &((*textToEffects)[key]);
+    list<int> * effects = &(textToEffects[key]);
     effects->remove(tag);
 }
 

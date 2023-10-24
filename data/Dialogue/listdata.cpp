@@ -1,85 +1,165 @@
 #include "listdata.h"
 #include <iterator>
 
-ListData::ListData()
+ListData::ListData(string txt, string delim)
 {
-
+    this->text = txt;
+    this->delimiter = delim;
+    this->indecies = list<pair<int, int>>();
+    generateIndecies();
 }
 
-ListData::ListData(string text)
+void ListData::generateIndecies()
 {
-
-}
-
-ListData::~ListData()
-{
-    // TODO: FINISH THIS ***
-}
-
-void ListData::updateText()
-{
-    // clear the text
-    setText("");
-    // add all the elements to the text
-    list<string>::iterator itr = (*elements).begin();
-    for(itr = elements->begin(); itr != elements->end(); itr++)
-    {
-        (*text) = (*text) + (*itr);
+    indecies = list<pair<int,int>>();
+    int indexLength = 0;
+    for (int i = delimiter.length(); i < text.length(); i++) {
+        indexLength++;
+        if (text.substr(i, delimiter.length()) == delimiter) {
+            indecies.push_back({i, indexLength-delimiter.length()});
+            indexLength = 0;
+        }
     }
-}
-void ListData::updateElements()
-{
-
-}
-
-const list<string> ListData::getElements()
-{
-    return (*elements);
+    indecies.push_back({text.length()-indexLength, indexLength-delimiter.length()});
 }
 
 void ListData::push_back(string s)
 {
-    // add the new element
-    elements->push_back(s);
-    // add to the text
-    *(text) = *(text) + s;
+    // update the indecies
+    this->indecies.push_back({text.length() + 1, s.length()});
+    // add the text
+    this->text += delimiter + s;
 }
-void ListData::push_font(string s)
+
+void ListData::push_front(string s)
 {
-    // add the new element
-    elements->push_front(s);
-    // add to the text
-    *(text) = s + *(text);
+    // update the indecies
+    for(pair<int, int> p : indecies)
+    {
+        p.first = p.first + 1 + s.length();
+    }
+    // add the index
+    indecies.push_front({0, s.length()});
+    // add the text
+    this->text = delimiter + s + text;
 }
-void ListData::replace(string s, int index)
+
+void ListData::pop_back(string s)
 {
-    // replace the element
-    list<string>::iterator itr = (*elements).begin();
-    for(int i=0; i <= index; i++){
+    // pop the text
+    text = text.substr(0, text.length() - (indecies.back().second + 1));
+    // pop the index
+    indecies.pop_back();
+}
+void ListData::pop_front(string s)
+{
+    // pop the text
+    text = text.substr(indecies.front().second + 1);
+    // pop the index
+    indecies.pop_front();
+}
+
+void ListData::insert(int index, string s)
+{
+    int earlyLength = 0;
+    int lengthDiff = 0;
+
+    // replace the element and augment the later indecies
+    list<pair<int, int>>::iterator itr = indecies.begin();
+    for(int i=0; i < indecies.size(); i++){
+        if (i < index)
+        {
+            earlyLength += 1 + (*itr).second;
+        }
+        else if ( i > index)
+        {
+            (*itr).first += lengthDiff;
+        }
+        else if (i == index)
+        {
+            lengthDiff = s.length() + 1;
+            indecies.insert(itr, {earlyLength, s.length()});
+        }
         ++itr;
     }
-    (*itr) = s;
+    // update text
+    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + s.length() + 1);
 }
-void ListData::insert(string s, int index)
+
+void ListData::replace(int index, string s)
 {
-    // insert the element
-    list<string>::iterator itr = (*elements).begin();
-    for(int i=0; i < index; i++){
+    int earlyLength = 0;
+    int lengthDiff = 0;
+
+    // replace the element and augment the later indecies
+    list<pair<int, int>>::iterator itr = indecies.begin();
+    for(int i=0; i < indecies.size(); i++){
+        if (i < index)
+        {
+            earlyLength += 1 + (*itr).second;
+        }
+        else if ( i > index)
+        {
+            (*itr).first += lengthDiff;
+        }
+        else if (i == index)
+        {
+            lengthDiff = (*itr).second - s.length();
+            (*itr) = {earlyLength, s.length()};
+        }
         ++itr;
     }
-    elements->insert(itr, s);
+    // update text
+    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + s.length() + 1);
 }
+
 void ListData::erase(int index)
 {
-    // remove the element
-    list<string>::iterator itr = (*elements).begin();
-    for(int i=0; i < index; i++){
+    int earlyLength = 0;
+    int lengthDiff = 0;
+
+    // replace the element and augment the later indecies
+    list<pair<int, int>>::iterator itr = indecies.begin();
+    for(int i=0; i < indecies.size(); i++){
+        if (i < index)
+        {
+            earlyLength += 1 + (*itr).second;
+        }
+        else if ( i > index)
+        {
+            (*itr).first += lengthDiff;
+        }
+        else if (i == index)
+        {
+            lengthDiff = -(*itr).second;
+        }
         ++itr;
     }
-    elements->erase(itr);
+    // update text
+    text = text.substr(0, earlyLength) + text.substr(earlyLength + -lengthDiff + 1);
 }
-void ListData::clear()
+
+list<string> ListData::toList()
 {
-    elements->clear();
-    text->clear();
+    if (delimiter.empty())
+        return {text};
+    if ( text.find(delimiter) != 0)
+        text = delimiter + text;
+
+    list<string> toReturn = {};
+    size_t pos = 0;
+    string token;
+    string textCpy = text.substr(delimiter.size());
+    while ((pos = textCpy.find(delimiter)) != std::string::npos) {
+        token = textCpy.substr(0, pos);
+        toReturn.push_back(token);
+        textCpy.erase(0, pos + delimiter.length());
+    }
+    toReturn.push_back(textCpy);
+    return toReturn;
+}
+
+list<pair<int, int>> ListData::getIndecies ()
+{
+    return indecies;
 }
