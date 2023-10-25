@@ -28,11 +28,12 @@ MainEditor::MainEditor(QWidget *parent) :
 
 //    QWebEngineView* webView = ui->testWebWidget;
 //    webView->load(QUrl("https://qt-project.org/"));
+
 }
+
 
 void MainEditor::handlePreviewRequest(const QString& content) {
     QString fullHtml = TextField::generateHtml(content);
-
     QWebEngineView* view = ui->testWebWidget;
     view->setHtml(fullHtml);
     view->show();

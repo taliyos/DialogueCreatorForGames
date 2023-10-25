@@ -4,6 +4,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QWidget>
+#include <QWebEngineView>
 
 namespace Ui {
 class TextField;
@@ -21,6 +22,8 @@ public:
     ~TextField();
     static QString generateHtml(const QString& content);
     void exportToBrowser();
+    void applyCharacterEffect(int effectNumber);
+    void setView(QWebEngineView* v);
 
 signals:
     void previewRequested(const QString& content);

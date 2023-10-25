@@ -6,7 +6,9 @@ TextField::TextField(QWidget *parent) :
     ui(new Ui::TextField)
 {
     ui->setupUi(this);
+
     connect(ui->preview, &QPushButton::clicked, this, &TextField::exportToBrowser);
+    //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
 }
 
 QString TextField::generateHtml(const QString& content) {
@@ -17,14 +19,70 @@ QString TextField::generateHtml(const QString& content) {
     fullHtml += "<html><head><title>Dialogue Preview</title>";
     fullHtml += R"(<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>)";
     fullHtml += R"(
-    <script>
-//    $(document).ready(function() {
-//        $('.dialogue-box').hide().fadeIn(1000);
-//        $('.dialogue-box').click(function() {
-//            $(this).fadeOut(1000);
-//        });
-//    });
-    </script>
+        <script>
+        $(document).ready(function() {
+               applyEffectsFromTags();
+        });
+
+        function applyEffectsFromTags() {
+            // Check for the 'wobble' effect
+            $('effect[type="wobble"]').each(function() {
+                let content = $(this).text();
+                $(this).replaceWith('<span class="wobbled">' + content + '</span>');
+            });
+
+            // Check for the 'enlarge' effect
+            $('effect[type="enlarge"]').each(function() {
+                let content = $(this).text();
+                $(this).replaceWith('<span class="enlarged">' + content + '</span>');
+            });
+
+            // Check for the 'speedUp' effect
+            $('effect[type="speedUp"]').each(function() {
+                let content = $(this).text();
+                let wrappedContent = '';
+                let delay = 1;
+                let delayIncrement = 0.2;
+
+                for(let i = 0; i < content.length; i++) {
+                    let char = content[i] === ' ' ? '&nbsp;' : content[i];  // Replace space with &nbsp;
+                    wrappedContent += '<span style="animation-delay:' + delay + 's">' + char + '</span>';
+                    delay += delayIncrement;
+                }
+
+                $(this).replaceWith('<span class="sped-up">' + wrappedContent + '</span>');
+            });
+
+        }
+        </script>
+
+        <style>
+        .enlarged { font-size: 150%; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .wobbled {
+            display: inline-block;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes flyInCharacter {
+            0% { transform: translateY(100%); opacity: 0; }
+            70% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .sped-up span {
+            display: inline-block;  /* makes spans sit side-by-side */
+            animation: flyInCharacter 2s infinite;  /* Adjust time for how long you want the animation to last */
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        </style>
     )";
 
     fullHtml += R"(
@@ -60,6 +118,18 @@ QString TextField::generateHtml(const QString& content) {
     fullHtml += "</body></html>";
 
     return fullHtml;
+}
+
+void TextField::applyCharacterEffect(int effectNumber) {
+//    if(effectNumber == 1) {
+//        view->page()->runJavaScript("enlargeCharacter();");
+//    }
+//    else if(effectNumber == 2) {
+//        view->page()->runJavaScript("wobbleCharacter();");
+//    }
+//    else if(effectNumber == 3) {
+//        view->page()->runJavaScript("speedUpText();");
+//    }
 }
 
 
