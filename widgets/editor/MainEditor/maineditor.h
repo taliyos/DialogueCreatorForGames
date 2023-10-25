@@ -21,6 +21,10 @@ private slots:
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
+    void on_actionImportTxt_triggered();
+    void on_actionImportDocx_triggered();
+    void on_actionImportJson_triggered();
+    void on_actionExportJson_triggered();
     void on_actionExit_triggered();
 
     void on_actionCopy_triggered();

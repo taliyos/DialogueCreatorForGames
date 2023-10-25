@@ -114,11 +114,27 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuImport">
+     <property name="title">
+      <string>Import</string>
+     </property>
+     <addaction name="actionImportTxt"/>
+     <addaction name="actionImportDocx"/>
+     <addaction name="actionImportJson"/>
+    </widget>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="actionExportJson"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="menuImport"/>
+    <addaction name="menuExport"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -231,6 +247,26 @@
    </property>
    <property name="toolTip">
     <string>Creates a new dialogue file.</string>
+   </property>
+  </action>
+  <action name="actionImportTxt">
+   <property name="text">
+    <string>txt</string>
+   </property>
+  </action>
+  <action name="actionImportDocx">
+   <property name="text">
+    <string>docx</string>
+   </property>
+  </action>
+  <action name="actionExportJson">
+   <property name="text">
+    <string>json</string>
+   </property>
+  </action>
+  <action name="actionImportJson">
+   <property name="text">
+    <string>json</string>
    </property>
   </action>
  </widget>

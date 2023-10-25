@@ -4,36 +4,44 @@
 /// <summary>A class that holds the raw data for text fields.</summary>
 DialogueData::DialogueData()
 {
-    this->text = new string("");
-    this->textToEffects = new map<pair<int, int>, list<int>>();
-    this->fieldEffects = new list<int>();
+    this->text = "";
+    this->textToEffects = map<pair<int, int>, list<int>>();
+    this->fieldEffects = list<int>();
 }
 DialogueData::~DialogueData()
 {
-    delete this->text;
-    delete this-> textToEffects;
-    delete this->fieldEffects;
+//    delete this->text;
+//    delete this-> textToEffects;
+//    delete this->fieldEffects;
 }
 
 void DialogueData::setText(string newText)
 {
-    *(text) = newText;
+    this->text = newText;
 }
 const string DialogueData::getText()
 {
-    return *(text);
+    return this->text;
+}
+const map<pair<int, int>, list<int>> DialogueData::getTextEffects()
+{
+    return this->textToEffects;
+}
+const list<int> DialogueData::getFieldEffects()
+{
+    return this->fieldEffects;
 }
 bool DialogueData::hasFieldEffect(int tag)
 {
-    return find(fieldEffects->begin(), fieldEffects->end(), tag) != fieldEffects->end();
+    return find(fieldEffects.begin(), fieldEffects.end(), tag) != fieldEffects.end();
 }
 void DialogueData::applyFieldEffect(int tag)
 {
-    fieldEffects->push_back(tag);
+    this->fieldEffects.push_back(tag);
 }
 void DialogueData::removeFieldEffect(int tag)
 {
-    fieldEffects->remove(tag);
+    fieldEffects.remove(tag);
 }
 void DialogueData::addOrRemoveFieldEffect(int tag)
 {
@@ -88,7 +96,7 @@ void DialogueData::applyTextEffect(unsigned int index1, unsigned int index2, int
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
-    list<int> * effects = &((*textToEffects)[key]);
+    list<int> * effects = &(textToEffects[key]);
     effects->push_back(tag);
 }
 
@@ -107,7 +115,7 @@ void DialogueData::removeTextEffect(unsigned int index1, unsigned int index2, in
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
-    list<int> * effects = &((*textToEffects)[key]);
+    list<int> * effects = &(textToEffects[key]);
     effects->remove(tag);
 }
 
@@ -129,4 +137,22 @@ void DialogueData::addOrRemoveTextEffect(unsigned int index1, unsigned int index
         removeTextEffect(index1, index2, tag);
     else
         applyTextEffect(index1, index2, tag);
+}
+
+const nlohmann::json DialogueData::toJson()
+{
+    nlohmann::json j;
+    j["text"] = this->text;
+    j["fieldEffects"] = this->fieldEffects;
+    j["textEffects"] = this->textToEffects;
+
+    return j;
+}
+
+void DialogueData::fromJson(nlohmann::json j)
+{
+    this->text = j["text"];
+    list<int> fieldEffects = j["fieldEffects"];
+    this->fieldEffects = fieldEffects;
+    this->textToEffects = j["textEffects"];
 }
