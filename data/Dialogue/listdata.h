@@ -14,7 +14,10 @@ using namespace std;
 /// It also has a list of indecies, pairs of the starting location and length of the index
 /// </summary>
 
-class ListData : protected FieldData
+// the base delimeter if one isn't set
+static const string baseDelimiter = "*";
+
+class ListData : public FieldData
 {
 public:
     // constructors
@@ -26,21 +29,20 @@ public:
     // modifiers
     void push_back(string s);
     void push_front(string s);
-    void pop_back(string s);
-    void pop_front(string s);
+    void pop_back();
+    void pop_front();
     void insert (int i, string s);
     void erase(int i);
     void replace(int i, string s);
     list<string> toList();
     list<pair<int,int>> getIndecies();
+    void print();
 private:
     string delimiter;
     // <startLocation, length>
     list<pair<int, int>> indecies;
     // parses the indecies
     void generateIndecies();
-    // the base delimeter if one isn't set
-    //static const string baseDelimiter = "***";
 };
 
 #endif // LISTDATA_H

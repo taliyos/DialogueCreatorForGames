@@ -1,5 +1,6 @@
 #include "listdata.h"
 #include <iterator>
+#include <qDebug>
 
 ListData::ListData(string txt, string delim)
 {
@@ -8,19 +9,36 @@ ListData::ListData(string txt, string delim)
     this->indecies = list<pair<int, int>>();
     generateIndecies();
 }
-
+void ListData::setText(string txt)
+{
+    this->text = txt;
+    generateIndecies();
+}
+void ListData::setDelimiter(string delim)
+{
+    this->delimiter = delim;
+    generateIndecies();
+}
 void ListData::generateIndecies()
 {
     indecies = list<pair<int,int>>();
-    int indexLength = 0;
-    for (int i = delimiter.length(); i < text.length(); i++) {
+    // force a delimiter
+    if (delimiter.empty())
+        delimiter = baseDelimiter;
+    // force a lead delimiter
+    if ( text.find(delimiter) != 0)
+        text = delimiter + text;
+    int indexStart = 1;
+    int indexLength = delimiter.length();
+    for (int i = indexStart + indexLength; i < text.length(); i++) {
         indexLength++;
         if (text.substr(i, delimiter.length()) == delimiter) {
-            indecies.push_back({i, indexLength-delimiter.length()});
+            indecies.push_back({indexStart, indexLength-delimiter.length()});
+            indexStart =i+1;
             indexLength = 0;
         }
     }
-    indecies.push_back({text.length()-indexLength, indexLength-delimiter.length()});
+    indecies.push_back({indexStart, indexLength});
 }
 
 void ListData::push_back(string s)
@@ -44,14 +62,14 @@ void ListData::push_front(string s)
     this->text = delimiter + s + text;
 }
 
-void ListData::pop_back(string s)
+void ListData::pop_back()
 {
     // pop the text
     text = text.substr(0, text.length() - (indecies.back().second + 1));
     // pop the index
     indecies.pop_back();
 }
-void ListData::pop_front(string s)
+void ListData::pop_front()
 {
     // pop the text
     text = text.substr(indecies.front().second + 1);
@@ -63,6 +81,7 @@ void ListData::insert(int index, string s)
 {
     int earlyLength = 0;
     int lengthDiff = 0;
+    list<pair<int, int>>::iterator toInsert;
 
     // replace the element and augment the later indecies
     list<pair<int, int>>::iterator itr = indecies.begin();
@@ -78,12 +97,15 @@ void ListData::insert(int index, string s)
         else if (i == index)
         {
             lengthDiff = s.length() + 1;
-            indecies.insert(itr, {earlyLength, s.length()});
+            toInsert = itr;
         }
         ++itr;
     }
+    // insert the text
+    indecies.insert(itr, {earlyLength, s.length()});
     // update text
-    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + s.length() + 1);
+    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + lengthDiff);
+
 }
 
 void ListData::replace(int index, string s)
@@ -110,13 +132,14 @@ void ListData::replace(int index, string s)
         ++itr;
     }
     // update text
-    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + s.length() + 1);
+    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + s.length());
 }
 
 void ListData::erase(int index)
 {
     int earlyLength = 0;
     int lengthDiff = 0;
+    list<pair<int, int>>::iterator toErase;
 
     // replace the element and augment the later indecies
     list<pair<int, int>>::iterator itr = indecies.begin();
@@ -131,12 +154,15 @@ void ListData::erase(int index)
         }
         else if (i == index)
         {
-            lengthDiff = -(*itr).second;
+            lengthDiff = - (1 +(*itr).second);
+            toErase = itr;
         }
         ++itr;
     }
+    // erase the index
+    indecies.erase(toErase);
     // update text
-    text = text.substr(0, earlyLength) + text.substr(earlyLength + -lengthDiff + 1);
+    text = text.substr(0, earlyLength) + text.substr(earlyLength + -lengthDiff);
 }
 
 list<string> ListData::toList()
@@ -162,4 +188,14 @@ list<string> ListData::toList()
 list<pair<int, int>> ListData::getIndecies ()
 {
     return indecies;
+}
+
+void ListData::print()
+{
+    int count = 0;
+    for (pair<int, int> p : getIndecies())
+    {
+        qDebug() << p << " " << getText().substr(p.first, p.second) <<" " <<count << "\n";
+        count++;
+    }
 }
