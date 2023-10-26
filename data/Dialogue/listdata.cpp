@@ -28,15 +28,17 @@ void ListData::generateIndecies()
     // force a lead delimiter
     if ( text.find(delimiter) != 0)
         text = delimiter + text;
-    int indexStart = 1;
-    int indexLength = delimiter.length();
-    for (int i = indexStart + indexLength; i < text.length(); i++) {
-        indexLength++;
+    int indexStart = delimiter.length();
+    int indexLength = 0;
+    for (int i = indexStart; i < text.length(); i++) {
         if (text.substr(i, delimiter.length()) == delimiter) {
-            indecies.push_back({indexStart, indexLength-delimiter.length()});
-            indexStart =i+1;
+            indecies.push_back({indexStart, indexLength});
+            // skip past the delimiter we just found
+            i += delimiter.length();
+            indexStart = i;
             indexLength = 0;
         }
+        indexLength++;
     }
     indecies.push_back({indexStart, indexLength});
 }
@@ -44,7 +46,7 @@ void ListData::generateIndecies()
 void ListData::push_back(string s)
 {
     // update the indecies
-    this->indecies.push_back({text.length() + 1, s.length()});
+    this->indecies.push_back({text.length() + delimiter.length(), s.length()});
     // add the text
     this->text += delimiter + s;
 }
@@ -54,7 +56,7 @@ void ListData::push_front(string s)
     // update the indecies
     for(pair<int, int> p : indecies)
     {
-        p.first = p.first + 1 + s.length();
+        p.first = p.first + delimiter.length() + s.length();
     }
     // add the index
     indecies.push_front({0, s.length()});
@@ -65,14 +67,14 @@ void ListData::push_front(string s)
 void ListData::pop_back()
 {
     // pop the text
-    text = text.substr(0, text.length() - (indecies.back().second + 1));
+    text = text.substr(0, text.length() - (indecies.back().second + delimiter.length()));
     // pop the index
     indecies.pop_back();
 }
 void ListData::pop_front()
 {
     // pop the text
-    text = text.substr(indecies.front().second + 1);
+    text = text.substr(indecies.front().second + delimiter.length());
     // pop the index
     indecies.pop_front();
 }
@@ -88,7 +90,7 @@ void ListData::insert(int index, string s)
     for(int i=0; i < indecies.size(); i++){
         if (i < index)
         {
-            earlyLength += 1 + (*itr).second;
+            earlyLength += delimiter.length() + (*itr).second;
         }
         else if ( i > index)
         {
@@ -96,29 +98,30 @@ void ListData::insert(int index, string s)
         }
         else if (i == index)
         {
-            lengthDiff = s.length() + 1;
+            lengthDiff = (delimiter.length() + s.length());
+            (*itr).first += lengthDiff;
             toInsert = itr;
         }
         ++itr;
     }
-    // insert the text
-    indecies.insert(itr, {earlyLength, s.length()});
+    // erase the index
+    indecies.insert(toInsert, {earlyLength + delimiter.length(), s.length()});
     // update text
-    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + lengthDiff);
-
+    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength);
 }
 
 void ListData::replace(int index, string s)
 {
     int earlyLength = 0;
     int lengthDiff = 0;
+    list<pair<int, int>>::iterator toInsert;
 
     // replace the element and augment the later indecies
     list<pair<int, int>>::iterator itr = indecies.begin();
     for(int i=0; i < indecies.size(); i++){
         if (i < index)
         {
-            earlyLength += 1 + (*itr).second;
+            earlyLength += delimiter.length() + (*itr).second;
         }
         else if ( i > index)
         {
@@ -126,13 +129,17 @@ void ListData::replace(int index, string s)
         }
         else if (i == index)
         {
-            lengthDiff = (*itr).second - s.length();
-            (*itr) = {earlyLength, s.length()};
+            lengthDiff = s.length() - (*itr).second;
+            (*itr).first += lengthDiff;
+            toInsert = itr;
         }
         ++itr;
     }
+    // erase the index
+    indecies.insert(toInsert, {earlyLength + delimiter.length(), s.length()});
+    indecies.erase(toInsert);
     // update text
-    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + s.length());
+    text = text.substr(0, earlyLength) + delimiter + s + text.substr(earlyLength + delimiter.length() + s.length() - lengthDiff);
 }
 
 void ListData::erase(int index)
@@ -146,7 +153,7 @@ void ListData::erase(int index)
     for(int i=0; i < indecies.size(); i++){
         if (i < index)
         {
-            earlyLength += 1 + (*itr).second;
+            earlyLength += delimiter.length() + (*itr).second;
         }
         else if ( i > index)
         {
@@ -154,7 +161,7 @@ void ListData::erase(int index)
         }
         else if (i == index)
         {
-            lengthDiff = - (1 +(*itr).second);
+            lengthDiff = - (delimiter.length() +(*itr).second);
             toErase = itr;
         }
         ++itr;
