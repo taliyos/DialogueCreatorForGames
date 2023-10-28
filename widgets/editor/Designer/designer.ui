@@ -104,6 +104,9 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="fieldContainer">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <item>
             <widget class="TextField" name="widget" native="true">
              <property name="sizePolicy">
