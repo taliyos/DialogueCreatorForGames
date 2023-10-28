@@ -104,13 +104,25 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
       </property>
       <item>
        <widget class="QWidget" name="clipboardWidget" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>113</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>166</width>
           <height>113</height>
          </size>
         </property>
-        <property name="maximumSize">
+        <property name="baseSize">
          <size>
           <width>166</width>
           <height>113</height>
@@ -145,11 +157,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            </property>
            <property name="minimumSize">
             <size>
-             <width>78</width>
+             <width>0</width>
              <height>25</height>
             </size>
            </property>
            <property name="maximumSize">
+            <size>
+             <width>78</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="baseSize">
             <size>
              <width>78</width>
              <height>25</height>
@@ -177,11 +195,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            </property>
            <property name="minimumSize">
             <size>
-             <width>78</width>
+             <width>0</width>
              <height>25</height>
             </size>
            </property>
            <property name="maximumSize">
+            <size>
+             <width>78</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="baseSize">
             <size>
              <width>78</width>
              <height>25</height>
@@ -237,11 +261,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            </property>
            <property name="minimumSize">
             <size>
-             <width>80</width>
+             <width>0</width>
              <height>90</height>
             </size>
            </property>
            <property name="maximumSize">
+            <size>
+             <width>80</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="baseSize">
             <size>
              <width>80</width>
              <height>90</height>
@@ -300,11 +330,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
        <widget class="QWidget" name="fieldsWidget" native="true">
         <property name="minimumSize">
          <size>
-          <width>304</width>
+          <width>0</width>
           <height>113</height>
          </size>
         </property>
         <property name="maximumSize">
+         <size>
+          <width>304</width>
+          <height>113</height>
+         </size>
+        </property>
+        <property name="baseSize">
          <size>
           <width>304</width>
           <height>113</height>
@@ -542,11 +578,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
        <widget class="QWidget" name="effectsWidget" native="true">
         <property name="minimumSize">
          <size>
-          <width>495</width>
+          <width>0</width>
           <height>113</height>
          </size>
         </property>
         <property name="maximumSize">
+         <size>
+          <width>495</width>
+          <height>113</height>
+         </size>
+        </property>
+        <property name="baseSize">
          <size>
           <width>495</width>
           <height>113</height>
@@ -815,11 +857,17 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
        <widget class="QWidget" name="presetsWidget" native="true">
         <property name="minimumSize">
          <size>
-          <width>805</width>
+          <width>0</width>
           <height>113</height>
          </size>
         </property>
         <property name="maximumSize">
+         <size>
+          <width>805</width>
+          <height>113</height>
+         </size>
+        </property>
+        <property name="baseSize">
          <size>
           <width>805</width>
           <height>113</height>
@@ -843,13 +891,25 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
          </property>
          <item row="0" column="1" rowspan="2">
           <widget class="QPushButton" name="preset2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
             <size>
              <width>170</width>
              <height>90</height>
             </size>
            </property>
-           <property name="maximumSize">
+           <property name="baseSize">
             <size>
              <width>170</width>
              <height>90</height>
@@ -862,13 +922,25 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
          </item>
          <item row="0" column="0" rowspan="2">
           <widget class="QPushButton" name="preset1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
             <size>
              <width>170</width>
              <height>90</height>
             </size>
            </property>
-           <property name="maximumSize">
+           <property name="baseSize">
             <size>
              <width>170</width>
              <height>90</height>
@@ -960,13 +1032,25 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
          </item>
          <item row="0" column="2" rowspan="2">
           <widget class="QPushButton" name="preset3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
             <size>
              <width>170</width>
              <height>90</height>
             </size>
            </property>
-           <property name="maximumSize">
+           <property name="baseSize">
             <size>
              <width>170</width>
              <height>90</height>
@@ -979,13 +1063,25 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
          </item>
          <item row="0" column="3" rowspan="2">
           <widget class="QPushButton" name="preset4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
             <size>
              <width>170</width>
              <height>90</height>
             </size>
            </property>
-           <property name="maximumSize">
+           <property name="baseSize">
             <size>
              <width>170</width>
              <height>90</height>
