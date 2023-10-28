@@ -4,7 +4,7 @@
 #include <utility>
 #include <string>
 #include <list>
-#include "fielddata.h"
+#include "data/Fields/MainFields/mainfielddata.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ using namespace std;
 // the base delimeter if one isn't set
 static const string baseDelimiter = "*";
 
-class ListData : public FieldData
+class ListData : public MainFieldData
 {
 public:
     // constructors

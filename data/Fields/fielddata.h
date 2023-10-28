@@ -39,8 +39,6 @@ protected:
     map<pair<int, int>, list<int>> textToEffects;
     // list of field effects applied to text
     list<int> fieldEffects;
-    // a character box
-    CharacterData* character;
 };
 
 #endif // FIELDDATA_H

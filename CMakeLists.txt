@@ -29,16 +29,25 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CustomDialog.h
         CustomDialog.cpp
 
-        data/Dialogue/fielddata.h
-        data/Dialogue/fielddata.cpp
+        data/Fields/fielddata.h
+        data/Fields/fielddata.cpp
+        data/Fields/MainFields/mainfielddata.h
+        data/Fields/MainFields/mainfielddata.cpp
+        data/Fields/MainFields/input/inputdata.h
+        data/Fields/MainFields/input/inputdata.cpp
+        data/Fields/MainFields/list/listdata.h
+        data/Fields/MainFields/list/listdata.cpp
+        data/Fields/MainFields/text/textdata.h
+        data/Fields/MainFields/text/textdata.cpp
+        data/Fields/SubFields/subfielddata.h
+        data/Fields/SubFields/subfielddata.cpp
+        data/Fields/SubFields/character/characterdata.h
+        data/Fields/SubFields/character/characterdata.cpp
 
         widgets/editor/EditorTools/editortools.h widgets/editor/EditorTools/editortools.cpp widgets/editor/EditorTools/editortools.ui
         widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
-        data/Dialogue/listdata.h data/Dialogue/listdata.cpp
-        data/Dialogue/inputdata.h data/Dialogue/inputdata.cpp
-        data/Dialogue/characterdata.h data/Dialogue/characterdata.cpp
 
 
 
