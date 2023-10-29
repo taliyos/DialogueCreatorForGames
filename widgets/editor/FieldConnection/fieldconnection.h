@@ -2,6 +2,7 @@
 #define FIELDCONNECTION_H
 
 #include <QWidget>
+#include <QCheckBox>
 
 namespace Ui {
 class FieldConnection;
@@ -14,6 +15,9 @@ class FieldConnection : public QWidget
 public:
     explicit FieldConnection(QWidget *parent = nullptr);
     ~FieldConnection();
+
+    QCheckBox* getAuto();
+    void setAutoText(std::string text);
 
 private:
     Ui::FieldConnection *ui;
