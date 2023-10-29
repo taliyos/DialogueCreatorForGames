@@ -1,8 +1,8 @@
 #include "connectiondata.h"
-#include "../Dialogue/DialogueData.h"
+#include "../Fields/fielddata.h"
 #include "../../widgets/editor/FieldConnection/fieldconnection.h"
 
-ConnectionData::ConnectionData(DialogueData* previous, DialogueData* next, FieldConnection* uiConnection) {
+ConnectionData::ConnectionData(FieldData* previous, FieldData* next, FieldConnection* uiConnection) {
     this->previous = previous;
     this->next = next;
 
@@ -10,8 +10,8 @@ ConnectionData::ConnectionData(DialogueData* previous, DialogueData* next, Field
     connect(uiConnection->getAuto(), &QCheckBox::stateChanged, this, &ConnectionData::onAutoToggled);
 }
 
-DialogueData* ConnectionData::replacePrevious(DialogueData* previous) {
-    DialogueData* old = this->previous;
+FieldData* ConnectionData::replacePrevious(FieldData* previous) {
+    FieldData* old = this->previous;
     this->previous = previous;
 
     // TODO: Update connection in old and new
@@ -19,8 +19,8 @@ DialogueData* ConnectionData::replacePrevious(DialogueData* previous) {
     return old;
 }
 
-DialogueData* ConnectionData::replaceNext(DialogueData* next) {
-    DialogueData* old = this->next;
+FieldData* ConnectionData::replaceNext(FieldData* next) {
+    FieldData* old = this->next;
     this->next = next;
 
     // TODO: Update connection in old and new

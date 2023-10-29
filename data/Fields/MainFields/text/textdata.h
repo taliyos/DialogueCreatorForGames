@@ -1,7 +1,7 @@
 #ifndef TEXTDATA_H
 #define TEXTDATA_H
 
-#include "data/Fields/MainFields/mainfielddata.h"
+#include "../mainfielddata.h"
 
 /// <summary>
 /// This class extends MainFieldData by abstracting its text as user input.

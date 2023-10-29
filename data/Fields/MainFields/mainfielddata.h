@@ -1,7 +1,7 @@
 #ifndef MAINFIELDDATA_H
 #define MAINFIELDDATA_H
 
-#include "data/Fields/fielddata.h"
+#include "../fielddata.h"
 
 
 /// <summary>
