@@ -4,6 +4,8 @@
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "widgets/editor/Fields/TextField/textfield.h"
+#include "widgets/editor/FieldConnection/fieldconnection.h"
+#include "data/ConnectionData/connectiondata.h"
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -171,8 +173,16 @@ void MainEditor::on_actionNew_triggered()
 }
 
 void MainEditor::createTextField() {
+    // Check fields
+
+    FieldConnection* fieldConnection = designer->createFieldConnection();
     TextField* textField = designer->createTextField();
 
-    // do whatever we want with the new text field
+    // TEST ONLY
+    FieldData* prevData = new FieldData();
+    FieldData* nextData = new FieldData();
+
+    // Add to data
+    connectionData = new ConnectionData(prevData, nextData, fieldConnection);
 
 }

@@ -44,10 +44,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         data/Fields/SubFields/character/characterdata.h
         data/Fields/SubFields/character/characterdata.cpp
 
+        data/ConnectionData/connectionData.h
+        data/ConnectionData/connectionData.cpp
+
         widgets/editor/EditorTools/editortools.h widgets/editor/EditorTools/editortools.cpp widgets/editor/EditorTools/editortools.ui
         widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
+        widgets/editor/FieldConnection/fieldconnection.h widgets/editor/FieldConnection/fieldconnection.cpp widgets/editor/FieldConnection/fieldconnection.ui
 
 
 
