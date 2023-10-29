@@ -48,6 +48,10 @@ FieldData* ConnectionData::getNext() {
     return next;
 }
 
+FieldConnection* ConnectionData::getUi() {
+    return ui;
+}
+
 void ConnectionData::removeAll() {
     if (next != nullptr) {
         next->removeAll();

@@ -11,6 +11,9 @@ FieldData::FieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData
     this->fromConnection = fromConnection;
     this->toConnection = toConnection;
 
+    qInfo("SET CONSTRUCTOR!!!");
+    qInfo("%d", this->fromConnection);
+
     this->text = string("");
     this->textToEffects = map<pair<int, int>, list<int>>();
     this->fieldEffects = list<int>();
@@ -142,9 +145,13 @@ void FieldData::addOrRemoveTextEffect(unsigned int index1, unsigned int index2, 
 
 
 const ConnectionData* FieldData::replaceFromConnection(ConnectionData* connection) {
-    ConnectionData* previous = fromConnection;
+    qInfo("storing old");
+    qInfo("OLD: %d\n", fromConnection);
+    //ConnectionData* previous = fromConnection;
+    qInfo("setting new");
     fromConnection = connection;
-    return previous;
+    qInfo("returning old");
+    return nullptr;
 }
 
 const ConnectionData* FieldData::replaceToConnection(ConnectionData* connection) {
@@ -159,6 +166,10 @@ ConnectionData* FieldData::getToConnection() {
 
 ConnectionData* FieldData::getFromConnection() {
     return fromConnection;
+}
+
+QWidget* FieldData::getUi() {
+    return ui;
 }
 
 void FieldData::removeAll() {

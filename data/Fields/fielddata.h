@@ -55,10 +55,13 @@ public:
     ConnectionData* getFromConnection();
     ConnectionData* getToConnection();
 
+    QWidget* getUi();
+
     /**
      * Deletes all forward connections (both FieldData and ConnectionData)
     */
     void removeAll();
+
 
 protected:
     // the raw text
@@ -72,8 +75,8 @@ private:
 
     // Language altered between ConnectionData and FieldData to make
     // the difference when using it clear.
-    ConnectionData* fromConnection;
-    ConnectionData* toConnection;
+    ConnectionData* fromConnection = nullptr;
+    ConnectionData* toConnection = nullptr;
 
     QWidget* ui;
 };

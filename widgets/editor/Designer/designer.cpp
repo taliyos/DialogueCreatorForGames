@@ -30,6 +30,10 @@ TextField* Designer::createTextField() {
     return textField;
 }
 
+void Designer::removeWidget(QWidget* widget) {
+    layout()->removeWidget(widget);
+}
+
 QPushButton* Designer::getCreateField() {
     return ui->createField;
 }

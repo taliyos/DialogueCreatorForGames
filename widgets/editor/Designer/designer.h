@@ -21,6 +21,8 @@ public:
     FieldConnection* createFieldConnection();
     TextField* createTextField();
 
+    void removeWidget(QWidget* widget);
+
     // Getters
     QPushButton* getCreateField();
 

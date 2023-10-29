@@ -34,6 +34,7 @@ private slots:
     void on_actionNew_triggered();
 
     void createTextField();
+    void removeHead();
 
 private:
     Ui::MainEditor *ui = nullptr;

@@ -23,6 +23,7 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getCopy(), &QAbstractButton::clicked, this, &MainEditor::on_actionCopy_triggered);
 
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+    connect(editorTools->getCustomField1(), &QAbstractButton::clicked, this, &MainEditor::removeHead);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
@@ -187,7 +188,6 @@ void MainEditor::createTextField() {
     }
 
     // Add a new text field with a connection if a head pointer (data) exists
-
     FieldData* last = data;
     while(last->getToConnection() != nullptr && last->getToConnection()->getNext() != nullptr) {
         last = last->getToConnection()->getNext();
@@ -197,9 +197,38 @@ void MainEditor::createTextField() {
     FieldConnection* fieldConnection = designer->createFieldConnection();
     // Create a new text field (UI)
     TextField* textField = designer->createTextField();
+    TextData* newText = new TextData(textField, nullptr, nullptr);
 
     // Create a connection
-    ConnectionData* connection = new ConnectionData(fieldConnection, last, nullptr);
+    ConnectionData* connection = new ConnectionData(fieldConnection, last, newText);
     last->replaceToConnection(connection);
+    newText->replaceFromConnection(connection);
+}
+
+void MainEditor::removeHead() {
+    if (data == nullptr) return;
+
+    FieldData* newHead = nullptr;
+
+    // Find the new head, if one exists
+    if (data->getToConnection() != nullptr) {
+        newHead = data->getToConnection()->getNext();
+        newHead->replaceFromConnection(nullptr);
+    }
+
+    // Remove UI widgets
+    designer->removeWidget(data->getUi());
+
+    if (data->getToConnection() != nullptr) {
+        designer->removeWidget(data->getToConnection()->getUi());
+        delete data->getToConnection();
+    }
+
+    // Delete contained data
+    delete data;
+
+    // Set the new head
+    data = newHead;
+
 
 }

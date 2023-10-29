@@ -34,16 +34,18 @@ public:
     FieldData* getPrevious();
     FieldData* getNext();
 
+    FieldConnection* getUi();
+
     /**
      * Removes this connection data, deleting all DialogueData nodes connected to next.
     */
     void removeAll();
 
 private:
-    FieldConnection* ui;
+    FieldConnection* ui = nullptr;
 
-    FieldData* previous;
-    FieldData* next;
+    FieldData* previous = nullptr;
+    FieldData* next = nullptr;
 
     bool isAuto;
 
