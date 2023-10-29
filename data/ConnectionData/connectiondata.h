@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QCheckBox>
-#include "../Dialogue/DialogueData.h"
+#include "../Fields/fielddata.h"
 #include "../../widgets/editor/FieldConnection/fieldconnection.h"
 
 class ConnectionData : public QObject
@@ -11,7 +11,7 @@ class ConnectionData : public QObject
     Q_OBJECT
 
 public:
-    ConnectionData(DialogueData* previous, DialogueData* next, FieldConnection* uiConnection);
+    ConnectionData(FieldData* previous, FieldData* next, FieldConnection* uiConnection);
 
     /**
      * Replaces the current previous DialougeData with the newly provided data.
@@ -19,7 +19,7 @@ public:
      * @param previous is the DialogueData occuring before this connection.
      * @return The old previous, which was removed.
     */
-    DialogueData* replacePrevious(DialogueData* previous);
+    FieldData* replacePrevious(FieldData* previous);
 
     /**
      * Replaces the current next DialougeData with the newly provided data.
@@ -27,7 +27,7 @@ public:
      * @param next is the DialogueData occuring before this connection.
      * @return The old next, which was removed.
     */
-    DialogueData* replaceNext(DialogueData* next);
+    FieldData* replaceNext(FieldData* next);
 
     bool getAuto();
 
@@ -39,8 +39,8 @@ public:
 private:
     FieldConnection* uiConnection;
 
-    DialogueData* previous;
-    DialogueData* next;
+    FieldData* previous;
+    FieldData* next;
 
     bool isAuto;
 

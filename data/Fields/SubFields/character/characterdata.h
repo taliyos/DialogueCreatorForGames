@@ -2,7 +2,7 @@
 #define CHARACTERDATA_H
 
 #include <string>
-#include "fielddata.h"
+#include "../../fielddata.h"
 
 using namespace std;
 

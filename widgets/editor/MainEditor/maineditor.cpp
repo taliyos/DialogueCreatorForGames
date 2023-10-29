@@ -179,8 +179,8 @@ void MainEditor::createTextField() {
     TextField* textField = designer->createTextField();
 
     // TEST ONLY
-    DialogueData* prevData = new DialogueData();
-    DialogueData* nextData = new DialogueData();
+    FieldData* prevData = new FieldData();
+    FieldData* nextData = new FieldData();
 
     // Add to data
     connectionData = new ConnectionData(prevData, nextData, fieldConnection);
