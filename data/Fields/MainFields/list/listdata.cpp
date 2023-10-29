@@ -1,14 +1,23 @@
+#include <QWidget>
 #include "listdata.h"
 #include <iterator>
 #include <qDebug>
 
-ListData::ListData(string txt, string delim)
+#include "../mainfielddata.h"
+
+
+ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection, string txt, string delim) : MainFieldData(ui, fromConnection, toConnection)
 {
     this->text = txt;
     this->delimiter = delim;
     this->indecies = list<pair<int, int>>();
     generateIndecies();
 }
+
+ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : MainFieldData(ui, fromConnection, toConnection)
+{
+}
+
 void ListData::setText(string txt)
 {
     this->text = txt;

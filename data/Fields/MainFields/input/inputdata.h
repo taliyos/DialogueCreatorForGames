@@ -1,6 +1,7 @@
 #ifndef INPUTDATA_H
 #define INPUTDATA_H
 
+#include <QWidget>
 #include <utility>
 #include <string>
 #include <list>
@@ -16,7 +17,7 @@ using namespace std;
 class InputData : protected MainFieldData
 {
 public:
-    InputData();
+    InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
 };
 
 #endif // INPUTDATA_H

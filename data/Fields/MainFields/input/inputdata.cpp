@@ -1,6 +1,9 @@
+#include <QWidget>
 #include "inputdata.h"
 
-InputData::InputData()
+#include "../mainfielddata.h"
+
+InputData::InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : MainFieldData(ui, fromConnection, toConnection)
 {
 
 }

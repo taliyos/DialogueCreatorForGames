@@ -1,6 +1,7 @@
 #ifndef SUBFIELDDATA_H
 #define SUBFIELDDATA_H
 
+#include <QWidget>
 #include "../fielddata.h"
 
 /// <summary>
@@ -11,7 +12,7 @@
 class SubFieldData : protected FieldData
 {
 public:
-    SubFieldData();
+    SubFieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
 };
 
 #endif // SUBFIELDDATA_H

@@ -1,6 +1,10 @@
+#include <QWidget>
 #include "textdata.h"
 
-TextData::TextData()
+#include "../../../ConnectionData/connectiondata.h"
+#include "../mainfielddata.h"
+
+TextData::TextData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : MainFieldData(ui, fromConnection, toConnection)
 {
 
 }

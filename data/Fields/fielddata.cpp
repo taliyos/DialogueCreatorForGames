@@ -1,13 +1,28 @@
-#include "fielddata.h"
+#include <QWidget>
 #include <algorithm>
 
+#include "fielddata.h"
+#include "../ConnectionData/connectionData.h"
+
 /// <summary>A class that holds the raw data for text fields.</summary>
-FieldData::FieldData()
+FieldData::FieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection)
 {
+    this->ui = ui;
+    this->fromConnection = fromConnection;
+    this->toConnection = toConnection;
+
     this->text = string("");
     this->textToEffects = map<pair<int, int>, list<int>>();
     this->fieldEffects = list<int>();
 }
+
+FieldData::~FieldData() {
+    // Delete the UI Widget before removing the data
+    if (ui != nullptr) {
+        delete ui;
+    }
+}
+
 
 void FieldData::setText(string newText)
 {
@@ -123,4 +138,33 @@ void FieldData::addOrRemoveTextEffect(unsigned int index1, unsigned int index2, 
         removeTextEffect(index1, index2, tag);
     else
         applyTextEffect(index1, index2, tag);
+}
+
+
+const ConnectionData* FieldData::replaceFromConnection(ConnectionData* connection) {
+    ConnectionData* previous = fromConnection;
+    fromConnection = connection;
+    return previous;
+}
+
+const ConnectionData* FieldData::replaceToConnection(ConnectionData* connection) {
+    ConnectionData* previous = toConnection;
+    toConnection = connection;
+    return previous;
+}
+
+ConnectionData* FieldData::getToConnection() {
+    return toConnection;
+}
+
+ConnectionData* FieldData::getFromConnection() {
+    return fromConnection;
+}
+
+void FieldData::removeAll() {
+    if (toConnection != nullptr) {
+        toConnection->removeAll();
+    }
+
+    delete this;
 }

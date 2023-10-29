@@ -1,6 +1,7 @@
 #ifndef LISTDATA_H
 #define LISTDATA_H
 
+#include <QWidget>
 #include <utility>
 #include <string>
 #include <list>
@@ -21,8 +22,8 @@ class ListData : public MainFieldData
 {
 public:
     // constructors
-    ListData();
-    ListData(string txt, string delim);
+    ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection, string txt, string delim);
+    ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
     // setters
     void setDelimiter (string delim);
     void setText (string txt);

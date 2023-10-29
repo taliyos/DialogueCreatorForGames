@@ -7,6 +7,8 @@
 #include "widgets/editor/FieldConnection/fieldconnection.h"
 #include "data/ConnectionData/connectiondata.h"
 
+#include "data/Fields/MainFields/text/textdata.h"
+
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainEditor)
@@ -23,6 +25,10 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+
+
+    // Create first dialogue box
+    createTextField();
 }
 
 MainEditor::~MainEditor()
@@ -173,16 +179,27 @@ void MainEditor::on_actionNew_triggered()
 }
 
 void MainEditor::createTextField() {
-    // Check fields
+    // Create a new head pointer if the data is currently null.
+    if (!data) {
+        TextField* textField = designer->createTextField();
+        data = new TextData(textField, nullptr, nullptr);
+        return;
+    }
 
+    // Add a new text field with a connection if a head pointer (data) exists
+
+    FieldData* last = data;
+    while(last->getToConnection() != nullptr && last->getToConnection()->getNext() != nullptr) {
+        last = last->getToConnection()->getNext();
+    }
+
+    // Create a new field connection (UI)
     FieldConnection* fieldConnection = designer->createFieldConnection();
+    // Create a new text field (UI)
     TextField* textField = designer->createTextField();
 
-    // TEST ONLY
-    FieldData* prevData = new FieldData();
-    FieldData* nextData = new FieldData();
-
-    // Add to data
-    connectionData = new ConnectionData(prevData, nextData, fieldConnection);
+    // Create a connection
+    ConnectionData* connection = new ConnectionData(fieldConnection, last, nullptr);
+    last->replaceToConnection(connection);
 
 }

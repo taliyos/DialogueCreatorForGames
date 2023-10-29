@@ -1,6 +1,7 @@
 #ifndef TEXTDATA_H
 #define TEXTDATA_H
 
+#include <QWidget>
 #include "../mainfielddata.h"
 
 /// <summary>
@@ -8,11 +9,11 @@
 /// </summary>
 
 // This class is currently a stub, not sure what else it needs over the base class.
-class TextData : protected MainFieldData
+class TextData : public MainFieldData
 {
 public:
     // constructors
-    TextData();
+    TextData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
     // deconstructor
     ~TextData();
 
