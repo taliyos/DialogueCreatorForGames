@@ -1,21 +1,22 @@
-#ifndef DIALOGUEDATA_H
-#define DIALOGUEDATA_H
+#ifndef FIELDDATA_H
+#define FIELDDATA_H
 
 #include <utility>
 #include <string>
 #include <map>
 #include <list>
+
+class CharacterData;
+
 using namespace std;
 
 /// <summary>A class that holds the raw data for text fields.</summary>
-class DialogueData
+class FieldData
 {
 
 public:
     // constructors
-    DialogueData();
-    // deconstructor
-    ~DialogueData();
+    FieldData();
     // accessors
     const string getText();
     // setters
@@ -31,13 +32,13 @@ public:
     void removeTextEffect(unsigned int index1, unsigned int index2, int tag);
     void addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag);
 
-private:
+protected:
     // the raw text
-    string* text;
+    string text;
     // maps substrings of text to text effect tags
-    map<pair<int, int>, list<int>>* textToEffects;
+    map<pair<int, int>, list<int>> textToEffects;
     // list of field effects applied to text
-    list<int>* fieldEffects;
+    list<int> fieldEffects;
 };
 
-#endif // DIALOGUEDATA_H
+#endif // FIELDDATA_H
