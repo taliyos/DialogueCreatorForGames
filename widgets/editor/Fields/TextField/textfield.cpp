@@ -13,7 +13,6 @@ TextField::TextField(QWidget *parent) :
 
 QString TextField::generateHtml(const QString& content) {
     QString base64Image;
-
     QString fullHtml;
     fullHtml += "<!DOCTYPE html>";
     fullHtml += "<html><head><title>Dialogue Preview</title>";
@@ -53,6 +52,26 @@ QString TextField::generateHtml(const QString& content) {
                 $(this).replaceWith('<span class="sped-up">' + wrappedContent + '</span>');
             });
 
+            $('effect[type="typed"]').each(function() {
+                let content = $(this).text();
+                let wrappedContent = '';
+                let delay = 1;
+                let delayIncrement = 0.2;
+
+                for(let i = 0; i < content.length; i++) {
+                    let char = content[i] === ' ' ? '&nbsp;' : content[i];  // Replace space with &nbsp;
+                    wrappedContent += '<span style="animation-delay:' + delay + 's">' + char + '</span>';
+                    delay += delayIncrement;
+                }
+
+                $(this).replaceWith('<span class="typed">' + wrappedContent + '</span>');
+            });
+
+            // Check for 'bold' effect
+            $('effect[type="bold"]').each(function() {
+                let content = $(this).text();
+                $(this).replaceWith('<span class="bold">' + content + '</span>');
+            });
         }
         </script>
 
@@ -80,6 +99,28 @@ QString TextField::generateHtml(const QString& content) {
             animation: flyInCharacter 2s infinite;  /* Adjust time for how long you want the animation to last */
             transform: translateY(100%);
             opacity: 0;
+        }
+
+        @keyframes typing {
+          from {opacity: 0;}
+          to {opacity: 1;}
+        }
+
+        .typed span {
+            opacity: 0;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 0.05s forwards;
+        }
+
+        @keyframes bolden {
+          0%, 80%, 100% {font-weight: 300;}
+          20% {transition: font-weight 500ms ease-in-out; font-weight: 900;}
+        }
+
+        .bold {
+            display: inline-block;
+            animation: bolden 1.5s infinite;
         }
 
         </style>
