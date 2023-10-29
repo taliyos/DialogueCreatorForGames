@@ -29,8 +29,20 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CustomDialog.h
         CustomDialog.cpp
 
-        data/Dialogue/DialogueData.h
-        data/Dialogue/DialogueData.cpp
+        data/Fields/fielddata.h
+        data/Fields/fielddata.cpp
+        data/Fields/MainFields/mainfielddata.h
+        data/Fields/MainFields/mainfielddata.cpp
+        data/Fields/MainFields/input/inputdata.h
+        data/Fields/MainFields/input/inputdata.cpp
+        data/Fields/MainFields/list/listdata.h
+        data/Fields/MainFields/list/listdata.cpp
+        data/Fields/MainFields/text/textdata.h
+        data/Fields/MainFields/text/textdata.cpp
+        data/Fields/SubFields/subfielddata.h
+        data/Fields/SubFields/subfielddata.cpp
+        data/Fields/SubFields/character/characterdata.h
+        data/Fields/SubFields/character/characterdata.cpp
 
         data/ConnectionData/connectionData.h
         data/ConnectionData/connectionData.cpp
@@ -40,6 +52,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
         widgets/editor/FieldConnection/fieldconnection.h widgets/editor/FieldConnection/fieldconnection.cpp widgets/editor/FieldConnection/fieldconnection.ui
+
+
+
 
 
     )
