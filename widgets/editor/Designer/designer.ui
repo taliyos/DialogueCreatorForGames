@@ -253,14 +253,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>TextField</class>
-   <extends>QWidget</extends>
-   <header>widgets/editor/Fields/TextField/textfield.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

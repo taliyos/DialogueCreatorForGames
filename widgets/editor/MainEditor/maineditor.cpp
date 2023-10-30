@@ -6,6 +6,7 @@
 #include "widgets/editor/Fields/TextField/textfield.h"
 #include "widgets/editor/FieldConnection/fieldconnection.h"
 #include "data/ConnectionData/connectiondata.h"
+#include <QWebEngineView>
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +24,23 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+    // Assuming textField is an instance of TextField or a pointer to one in your MainEditor
+    //connect(ui->preview, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+
+//    QWebEngineView* webView = ui->testWebWidget;
+//    webView->load(QUrl("https://qt-project.org/"));
+
 }
+
+
+void MainEditor::handlePreviewRequest(const QString& content) {
+    QString fullHtml = TextField::generateHtml(content);
+    QWebEngineView* view = ui->testWebWidget;
+    view->setHtml(fullHtml);
+    view->show();
+}
+
 
 MainEditor::~MainEditor()
 {
@@ -184,5 +201,7 @@ void MainEditor::createTextField() {
 
     // Add to data
     connectionData = new ConnectionData(prevData, nextData, fieldConnection);
+    connect(textField, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
+    // do whatever we want with the new text field
 
 }
