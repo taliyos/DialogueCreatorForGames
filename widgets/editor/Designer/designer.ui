@@ -107,42 +107,6 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item>
-            <widget class="TextField" name="widget" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>1</horstretch>
-               <verstretch>1</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>230</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>970</width>
-               <height>230</height>
-              </size>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>970</width>
-               <height>230</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>18</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
          <item>
@@ -250,11 +214,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>TextField</class>
-   <extends>QWidget</extends>
-   <header>textfield.h</header>
-  </customwidget>
   <customwidget>
    <class>QWebEngineView</class>
    <extends>QWidget</extends>

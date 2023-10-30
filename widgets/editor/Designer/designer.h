@@ -4,8 +4,9 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QWebEngineView>
-#include "../Fields/TextField/textfield.h"
 #include "../FieldConnection/fieldconnection.h"
+
+class TextField;
 
 namespace Ui {
 class Designer;
