@@ -35,6 +35,7 @@ private slots:
 
     void createTextField();
     void removeHead();
+    void removeField(TextField* field);
 
 private:
     Ui::MainEditor *ui = nullptr;

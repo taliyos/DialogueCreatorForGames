@@ -203,6 +203,8 @@ void MainEditor::createTextField() {
     ConnectionData* connection = new ConnectionData(fieldConnection, last, newText);
     last->replaceToConnection(connection);
     newText->replaceFromConnection(connection);
+
+    connect(textField, &TextField::removeField, this, &MainEditor::removeField);
 }
 
 void MainEditor::removeHead() {
@@ -231,4 +233,9 @@ void MainEditor::removeHead() {
     data = newHead;
 
 
+}
+
+
+void MainEditor::removeField(TextField* field) {
+    qInfo("remove field");
 }

@@ -173,6 +173,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>25</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>Copy</string>
            </property>
@@ -210,6 +213,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>78</width>
              <height>25</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>Cut</string>
@@ -276,6 +282,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>80</width>
              <height>90</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string/>
@@ -376,6 +385,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>35</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -395,6 +407,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>35</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -413,6 +428,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>80</width>
              <height>90</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string/>
@@ -443,6 +461,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>35</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -461,6 +482,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -481,6 +505,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>35</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -500,6 +527,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -518,6 +548,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -624,6 +657,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -642,6 +678,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -668,6 +707,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -686,6 +728,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -706,6 +751,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>35</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -724,6 +772,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -744,6 +795,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>35</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -762,6 +816,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -782,6 +839,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -800,6 +860,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>80</width>
              <height>90</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -915,6 +978,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -946,6 +1012,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -964,6 +1033,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -984,6 +1056,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -1002,6 +1077,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>35</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
@@ -1056,6 +1134,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <height>90</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -1086,6 +1167,9 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
              <width>170</width>
              <height>90</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>PushButton</string>
