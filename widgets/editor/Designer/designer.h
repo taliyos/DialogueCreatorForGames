@@ -3,6 +3,7 @@
 
 #include <QPushButton>
 #include <QWidget>
+#include <QWebEngineView>
 #include "../Fields/TextField/textfield.h"
 #include "../FieldConnection/fieldconnection.h"
 
@@ -23,6 +24,7 @@ public:
 
     // Getters
     QPushButton* getCreateField();
+    QWebEngineView* getPreview();
 
 private:
     Ui::Designer *ui;
