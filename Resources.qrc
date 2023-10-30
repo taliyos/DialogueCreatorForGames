@@ -29,4 +29,8 @@
         <file>img/icons/new.png</file>
         <file>img/icons/text.256x256.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>img/icons/auto/auto-off.png</file>
+        <file>img/icons/auto/auto-on.png</file>
+    </qresource>
 </RCC>

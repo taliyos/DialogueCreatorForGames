@@ -3,6 +3,7 @@
 
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
+#include "data/ConnectionData/connectiondata.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -39,6 +40,8 @@ private:
 
     EditorTools* editorTools;
     Designer* designer;
+
+    ConnectionData* connectionData;
 
     QString currentFile;
 };

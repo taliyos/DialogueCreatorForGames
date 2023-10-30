@@ -93,16 +93,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QWebEngineView" name="testWebWidget" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>500</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item>
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -265,12 +255,6 @@
    <class>Designer</class>
    <extends>QWidget</extends>
    <header>widgets/editor/Designer/designer.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>QWebEngineView</class>
-   <extends>QWidget</extends>
-   <header location="global">qwebengineview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

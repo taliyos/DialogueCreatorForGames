@@ -4,6 +4,8 @@
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "widgets/editor/Fields/TextField/textfield.h"
+#include "widgets/editor/FieldConnection/fieldconnection.h"
+#include "data/ConnectionData/connectiondata.h"
 #include <QWebEngineView>
 
 MainEditor::MainEditor(QWidget *parent) :
@@ -34,7 +36,7 @@ MainEditor::MainEditor(QWidget *parent) :
 
 void MainEditor::handlePreviewRequest(const QString& content) {
     QString fullHtml = TextField::generateHtml(content);
-    QWebEngineView* view = ui->testWebWidget;
+    QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();
 }
@@ -188,7 +190,17 @@ void MainEditor::on_actionNew_triggered()
 }
 
 void MainEditor::createTextField() {
+    // Check fields
+
+    FieldConnection* fieldConnection = designer->createFieldConnection();
     TextField* textField = designer->createTextField();
+
+    // TEST ONLY
+    FieldData* prevData = new FieldData();
+    FieldData* nextData = new FieldData();
+
+    // Add to data
+    connectionData = new ConnectionData(prevData, nextData, fieldConnection);
     connect(textField, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
     // do whatever we want with the new text field
 
