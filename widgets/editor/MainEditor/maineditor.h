@@ -33,8 +33,21 @@ private slots:
 
     void on_actionNew_triggered();
 
+    /**
+     * Creates a text field and adds it to the UI
+    */
     void createTextField();
+
+    /**
+     * Removes the head of the data (field container)
+    */
     void removeHead();
+
+    /**
+     * Removes the specified field from the data and UI
+     * 
+     * @param field - The ui field to remove
+    */
     void removeField(TextField* field);
 
 private:

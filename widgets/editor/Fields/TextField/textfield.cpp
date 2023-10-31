@@ -34,6 +34,5 @@ void TextField::setData(TextData* data) {
 }
 
 void TextField::sendRemove() {
-    qInfo("REMOVE!");
     emit removeField(this);
 }
