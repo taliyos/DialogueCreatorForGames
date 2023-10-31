@@ -83,7 +83,10 @@ QPushButton:Pressed {
 }</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <property name="spacing">
+      <property name="horizontalSpacing">
+       <number>15</number>
+      </property>
+      <property name="verticalSpacing">
        <number>0</number>
       </property>
       <item row="1" column="2">

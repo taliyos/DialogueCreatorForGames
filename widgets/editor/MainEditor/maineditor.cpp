@@ -237,8 +237,6 @@ void MainEditor::removeHead() {
 
     // Set the new head
     data = newHead;
-
-
 }
 
 void MainEditor::removeField(TextField* field) {
