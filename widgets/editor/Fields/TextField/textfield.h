@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QWidget>
+#include <QWebEngineView>
 
 namespace Ui {
 class TextField;
@@ -17,6 +18,10 @@ class TextField : public QWidget
 public:
     explicit TextField(QWidget *parent = nullptr);
     ~TextField();
+    static QString generateHtml(const QString& content);
+    void exportToBrowser();
+    void applyCharacterEffect(int effectNumber);
+    void setView(QWebEngineView* v);
 
     QLineEdit* getTextField();
     QPushButton* getPreview();
@@ -25,7 +30,9 @@ public:
     void setData(TextData* data);
 
 signals:
+    void previewRequested(const QString& content);
     void removeField(TextField* field);
+
 
 private:
     Ui::TextField *ui;

@@ -3,8 +3,10 @@
 
 #include <QPushButton>
 #include <QWidget>
-#include "../Fields/TextField/textfield.h"
-#include "../FieldConnection/fieldconnection.h"
+#include <QWebEngineView>
+
+class FieldConnection;
+class TextField;
 
 namespace Ui {
 class Designer;
@@ -25,6 +27,7 @@ public:
 
     // Getters
     QPushButton* getCreateField();
+    QWebEngineView* getPreview();
 
 private:
     Ui::Designer *ui;

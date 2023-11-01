@@ -389,7 +389,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/character.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -411,7 +422,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -465,7 +487,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -487,7 +520,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/list.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -509,7 +553,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -531,7 +586,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/settings.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -553,7 +619,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -661,7 +738,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/modifier-effect.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -683,7 +771,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -711,7 +810,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/character-effect.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -733,7 +843,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -755,7 +876,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -777,7 +909,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -799,7 +942,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -821,7 +975,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/custom.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -843,7 +1008,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/display-effect.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -865,7 +1041,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/settings.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -982,7 +1169,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -1016,7 +1203,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -1038,7 +1225,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/new.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -1060,7 +1258,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/settings.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>55</width>
+             <height>55</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -1082,7 +1291,18 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/rec/img/icons/more.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -1138,7 +1358,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -1172,7 +1392,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>

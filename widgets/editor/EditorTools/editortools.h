@@ -52,6 +52,10 @@ public:
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
 
+signals:
+    void characterEffectRequested(int effectNumber);
+
+
 private slots:
 
 private:
