@@ -16,9 +16,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -29,13 +26,32 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CustomDialog.h
         CustomDialog.cpp
 
-        data/Dialogue/DialogueData.h
-        data/Dialogue/DialogueData.cpp
+        data/Fields/fielddata.h
+        data/Fields/fielddata.cpp
+        data/Fields/MainFields/mainfielddata.h
+        data/Fields/MainFields/mainfielddata.cpp
+        data/Fields/MainFields/input/inputdata.h
+        data/Fields/MainFields/input/inputdata.cpp
+        data/Fields/MainFields/list/listdata.h
+        data/Fields/MainFields/list/listdata.cpp
+        data/Fields/MainFields/text/textdata.h
+        data/Fields/MainFields/text/textdata.cpp
+        data/Fields/SubFields/subfielddata.h
+        data/Fields/SubFields/subfielddata.cpp
+        data/Fields/SubFields/character/characterdata.h
+        data/Fields/SubFields/character/characterdata.cpp
+
+        data/ConnectionData/connectionData.h
+        data/ConnectionData/connectionData.cpp
 
         widgets/editor/EditorTools/editortools.h widgets/editor/EditorTools/editortools.cpp widgets/editor/EditorTools/editortools.ui
         widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
+        widgets/editor/FieldConnection/fieldconnection.h widgets/editor/FieldConnection/fieldconnection.cpp widgets/editor/FieldConnection/fieldconnection.ui
+
+
+
 
 
     )
@@ -89,6 +105,8 @@ message("${DUCKX_LIBRARY}")
 if( ${DUCKX_LIBRARY} STREQUAL "DUCKX_LIBRARY-NOTFOUND")
     message("Please set DUCKX variable to location of duckx")
 endif()
+
+set(DUCKX_LIBRARY "C:\\Users\\patchs2\\Documents\\build-DuckX-Desktop_Qt_6_6_0_MSVC2019_64bit-Debug\\duckx.lib")
 
 target_link_libraries(TexT_Editor PRIVATE ${DUCKX_LIBRARY})
 target_include_directories(TexT_Editor PUBLIC "C:\\Users\\patchs2\\Documents\\DuckX\\include")

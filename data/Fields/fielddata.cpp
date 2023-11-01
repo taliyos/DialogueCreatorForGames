@@ -1,49 +1,60 @@
-#include "DialogueData.h"
+#include <QWidget>
 #include <algorithm>
 
+#include "fielddata.h"
+#include "../ConnectionData/connectionData.h"
+
 /// <summary>A class that holds the raw data for text fields.</summary>
-DialogueData::DialogueData()
+FieldData::FieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection)
 {
-    this->text = "";
+    this->ui = ui;
+    this->fromConnection = fromConnection;
+    this->toConnection = toConnection;
+
+    qInfo("SET CONSTRUCTOR!!!");
+    qInfo("%d", this->fromConnection);
+
+    this->text = string("");
     this->textToEffects = map<pair<int, int>, list<int>>();
     this->fieldEffects = list<int>();
 }
-DialogueData::~DialogueData()
-{
-//    delete this->text;
-//    delete this-> textToEffects;
-//    delete this->fieldEffects;
+
+FieldData::~FieldData() {
+    // Delete the UI Widget before removing the data
+    if (ui != nullptr) {
+        delete ui;
+    }
 }
 
-void DialogueData::setText(string newText)
+void FieldData::setText(string newText)
 {
-    this->text = newText;
+    text = newText;
 }
-const string DialogueData::getText()
+const string FieldData::getText()
 {
-    return this->text;
+    return text;
 }
-const map<pair<int, int>, list<int>> DialogueData::getTextEffects()
+const map<pair<int, int>, list<int>> FieldData::getTextEffects()
 {
     return this->textToEffects;
 }
-const list<int> DialogueData::getFieldEffects()
+const list<int> FieldData::getFieldEffects()
 {
     return this->fieldEffects;
 }
-bool DialogueData::hasFieldEffect(int tag)
+bool FieldData::hasFieldEffect(int tag)
 {
     return find(fieldEffects.begin(), fieldEffects.end(), tag) != fieldEffects.end();
 }
-void DialogueData::applyFieldEffect(int tag)
+void FieldData::applyFieldEffect(int tag)
 {
-    this->fieldEffects.push_back(tag);
+    fieldEffects.push_back(tag);
 }
-void DialogueData::removeFieldEffect(int tag)
+void FieldData::removeFieldEffect(int tag)
 {
     fieldEffects.remove(tag);
 }
-void DialogueData::addOrRemoveFieldEffect(int tag)
+void FieldData::addOrRemoveFieldEffect(int tag)
 {
     if (hasFieldEffect(tag))
         removeFieldEffect(tag);
@@ -63,7 +74,7 @@ void DialogueData::addOrRemoveFieldEffect(int tag)
 /// returns:
 ///     if the given range has the text effect applied somewhere within
 /// </summary>
-bool DialogueData::hasTextEffect(unsigned int index1, unsigned int index2, int tag)
+bool FieldData::hasTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
     /*
     // Check to see if the range is valid
@@ -92,7 +103,7 @@ bool DialogueData::hasTextEffect(unsigned int index1, unsigned int index2, int t
 /// returns:
 ///     none
 /// </summary>
-void DialogueData::applyTextEffect(unsigned int index1, unsigned int index2, int tag)
+void FieldData::applyTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
@@ -111,7 +122,7 @@ void DialogueData::applyTextEffect(unsigned int index1, unsigned int index2, int
 /// returns:
 ///     none
 /// </summary>
-void DialogueData::removeTextEffect(unsigned int index1, unsigned int index2, int tag)
+void FieldData::removeTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
@@ -131,7 +142,7 @@ void DialogueData::removeTextEffect(unsigned int index1, unsigned int index2, in
 /// returns:
 ///     none
 /// </summary>
-void DialogueData::addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag)
+void FieldData::addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
     if (hasTextEffect(index1, index2, tag))
         removeTextEffect(index1, index2, tag);
@@ -139,7 +150,44 @@ void DialogueData::addOrRemoveTextEffect(unsigned int index1, unsigned int index
         applyTextEffect(index1, index2, tag);
 }
 
-const nlohmann::json DialogueData::toJson()
+
+const ConnectionData* FieldData::replaceFromConnection(ConnectionData* connection) {
+    qInfo("storing old");
+    qInfo("OLD: %d\n", fromConnection);
+    //ConnectionData* previous = fromConnection;
+    qInfo("setting new");
+    fromConnection = connection;
+    qInfo("returning old");
+    return nullptr;
+}
+
+const ConnectionData* FieldData::replaceToConnection(ConnectionData* connection) {
+    ConnectionData* previous = toConnection;
+    toConnection = connection;
+    return previous;
+}
+
+ConnectionData* FieldData::getToConnection() {
+    return toConnection;
+}
+
+ConnectionData* FieldData::getFromConnection() {
+    return fromConnection;
+}
+
+QWidget* FieldData::getUi() {
+    return ui;
+}
+
+void FieldData::removeAll() {
+    if (toConnection != nullptr) {
+        toConnection->removeAll();
+    }
+
+    delete this;
+}
+
+const nlohmann::json FieldData::toJson()
 {
     nlohmann::json j;
     j["text"] = this->text;
@@ -149,7 +197,7 @@ const nlohmann::json DialogueData::toJson()
     return j;
 }
 
-void DialogueData::fromJson(nlohmann::json j)
+void FieldData::fromJson(nlohmann::json j)
 {
     this->text = j["text"];
     list<int> fieldEffects = j["fieldEffects"];

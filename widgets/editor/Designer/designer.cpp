@@ -2,6 +2,7 @@
 #include "ui_designer.h"
 
 #include "../Fields/TextField/textfield.h"
+#include "../FieldConnection/fieldConnection.h"
 
 Designer::Designer(QWidget *parent) :
     QWidget(parent),
@@ -15,11 +16,22 @@ Designer::~Designer()
     delete ui;
 }
 
+FieldConnection* Designer::createFieldConnection() {
+    FieldConnection* fieldConnection = new FieldConnection();
+
+    ui->fieldContainer->addWidget(fieldConnection, 0, Qt::AlignCenter);
+    return fieldConnection;
+}
+
 TextField* Designer::createTextField() {
     TextField* textField = new TextField();
 
     ui->fieldContainer->addWidget(textField);
     return textField;
+}
+
+void Designer::removeWidget(QWidget* widget) {
+    layout()->removeWidget(widget);
 }
 
 QPushButton* Designer::getCreateField() {

@@ -4,10 +4,14 @@
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "widgets/editor/Fields/TextField/textfield.h"
-#include "data/Dialogue/DialogueData.h"
-#include <duckx.hpp>
+#include "widgets/editor/FieldConnection/fieldconnection.h"
+#include "data/ConnectionData/connectiondata.h"
+
+#include "duckx.hpp"
 #include <json.hpp>
 #include <fstream>
+
+#include "data/Fields/MainFields/text/textdata.h"
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -23,8 +27,13 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getCopy(), &QAbstractButton::clicked, this, &MainEditor::on_actionCopy_triggered);
 
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+    connect(editorTools->getCustomField1(), &QAbstractButton::clicked, this, &MainEditor::removeHead);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+
+
+    // Create first dialogue box
+    createTextField();
 }
 
 MainEditor::~MainEditor()
@@ -132,85 +141,90 @@ void MainEditor::on_actionSaveAs_triggered()
 
 void MainEditor::on_actionImportTxt_triggered()
 {
-//    QString fileName = QFileDialog::getOpenFileName(this, "Import txt file");
-//    if (fileName.split('.')[1] != QString("txt"))
-//    {
-//        QMessageBox::warning(this, "Warning", "Cannot open file: not a .txt file");
-//        return;
-//    }
-//    QFile file(fileName);
-//    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-//        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
-//        return;
-//    }
+    QString fileName = QFileDialog::getOpenFileName(this, "Import txt file");
+    if (fileName.split('.')[1] != QString("txt"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .txt file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
 
-//    currentFile = fileName;
-//    setWindowTitle(fileName);
-//    QTextStream in(&file);
-//    QString line = in.readLine();
-//    QListIterator<DialogueData> itr(textBoxes);
+    currentFile = fileName;
+    setWindowTitle(fileName);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    FieldData* currentField = data;
 
-//    while(!line.isNull())
-//    {
-//        if (line.trimmed().isEmpty())
-//        {
-//            line = in.readLine();
-//            continue;
-//        }
+    while(!line.isNull())
+    {
+        if (line.trimmed().isEmpty())
+        {
+            line = in.readLine();
+            continue;
+        }
 
-//        DialogueData* currentTextBox;
-//        if (itr.hasNext())
-//            currentTextBox = itr.next();
-//        else
-//        {
-//            this->createTextField();
-//            currentTextBox = textBoxes.last();
-//        }
+        if (currentField == nullptr)
+        {
+            createTextField();
+            currentField = data;
+            while (currentField->getToConnection()!=nullptr && currentField->getToConnection()->getNext() != nullptr)
+            {
+                currentField = currentField->getToConnection()->getNext();
+            }
+        }
 
-//        currentTextBox->setText(line);
-//        line = in.readLine();
-//    }
+        qDebug() << line;
+        currentField->setText(line.toStdString());
+        currentField->getToConnection()->getUi()->setAutoText(line.toStdString());
+        line = in.readLine();
+    }
 
-//    file.close();
+    file.close();
 }
 
 void MainEditor::on_actionImportDocx_triggered()
 {
-//    QString fileName = QFileDialog::getOpenFileName(this, "Import docx file");
-//    if (fileName.split('.')[1] != QString("docx"))
-//    {
-//        QMessageBox::warning(this, "Warning", "Cannot open file: not a .docx file");
-//        return;
-//    }
-//    QFile file(fileName);
-//    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-//        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
-//        return;
-//    }
+    QString fileName = QFileDialog::getOpenFileName(this, "Import docx file");
+    if (fileName.split('.')[1] != QString("docx"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .docx file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
 
-//    duckx::Document doc(fileName.toStdString());
-//    doc.open();
+    duckx::Document doc(fileName.toStdString());
+    doc.open();
 
-
-//    QListIterator<DialogueData> itr(textBoxes);
+//    FieldData* currentField = data;
 //    for (auto p : doc.paragraphs())
+//    {
 //        for (auto r : p.runs())
 //        {
 //            QString line = QString::fromStdString(r.get_text());
 //            if (line.trimmed().isEmpty())
 //                continue;
 
-//            DialogueData* currentTextBox;
-//            if (itr.hasNext())
-//                currentTextBox = itr.next();
-//            else
+//            if (currentField == nullptr)
 //            {
-//                this->createTextField();
-//                currentTextBox = textBoxes.last();
+//                createTextField();
+//                currentField = data;
+//                while (currentField->getToConnection()!=nullptr && currentField->getToConnection()->getNext() != nullptr)
+//                {
+//                    currentField = currentField->getToConnection()->getNext();
+//                }
 //            }
 
-//            currentTextBox->setText(line.toStdString());
+//            currentField->setText(line.toStdString());
 //        }
+//    }
 }
 
 void MainEditor::on_actionImportJson_triggered()
@@ -229,27 +243,32 @@ void MainEditor::on_actionImportJson_triggered()
     }
 
     std::ifstream f(fileName.toStdString());
-    nlohmann::json data = nlohmann::json::parse(f);
-    nlohmann::detail::iter_impl itr = data.begin();
+    nlohmann::json j = nlohmann::json::parse(f);
+    nlohmann::detail::iter_impl itr = j.begin();
 
-    // Sample textBoxes list, should be real list of DialogueData objects
-    QList<DialogueData> textBoxes = {};
-    QList<DialogueData>::Iterator d_itr = textBoxes.begin();
+    FieldData* currentField = data;
 
     // Iterate through each of the json values where each json value represents
-    //  a DialogueData object
-    while(itr != data.end())
+    //  a FieldData object
+    while(itr != j.end())
     {
-        if (d_itr != textBoxes.end())
+        if (currentField == nullptr)
         {
-            d_itr->fromJson(data[itr.key()]);
-            d_itr++;
+             // Create a new text field (FieldData object) and call fromJson
+            createTextField();
+            currentField = data;
+            while (currentField->getToConnection()->getNext() != nullptr)
+            {
+                currentField = currentField->getToConnection()->getNext();
+            }
+            currentField->fromJson(j[*itr]);
         }
         else
         {
-            // Create a new text field (DialogueData object) and call fromJson
+            currentField->fromJson(j[*itr]);
         }
         itr++;
+        currentField = currentField->getToConnection()->getNext();
     }
 }
 
@@ -272,27 +291,18 @@ void MainEditor::on_actionExportJson_triggered()
     setWindowTitle(fileName);
     QTextStream out(&file);
 
-    // For now, create a sample DialogueData object
-    // There should be some QList<DialogueData> to actually use
-    DialogueData test = DialogueData();
-    test.setText("Test");
-    test.applyFieldEffect(1);
-    test.applyFieldEffect(2);
-    test.applyTextEffect(0, 1, 1);
-    test.applyTextEffect(2,3,2);
-    QList<DialogueData> textBoxes = {test, test};
-    QList<DialogueData>::Iterator itr = textBoxes.begin();
+    FieldData* currentField = data;
     nlohmann::json j;
 
     // For each DialogueData object, create a json object
     int box_num = 1;
-    while(itr != textBoxes.end())
+    while(currentField != nullptr)
     {
         string box = "text box " + std::to_string(box_num);
-        nlohmann::json data = itr->toJson();
+        nlohmann::json data = currentField->toJson();
         j[box] = data;
         box_num++;
-        itr++;
+        currentField = currentField->getToConnection()->getNext();
     }
 
     out << QString::fromStdString(j.dump());
@@ -343,8 +353,62 @@ void MainEditor::on_actionNew_triggered()
 }
 
 void MainEditor::createTextField() {
+    // Create a new head pointer if the data is currently null.
+    if (!data) {
+        TextField* textField = designer->createTextField();
+        data = new TextData(textField, nullptr, nullptr);
+        return;
+    }
+
+    // Add a new text field with a connection if a head pointer (data) exists
+    FieldData* last = data;
+    while(last->getToConnection() != nullptr && last->getToConnection()->getNext() != nullptr) {
+        last = last->getToConnection()->getNext();
+    }
+
+    // Create a new field connection (UI)
+    FieldConnection* fieldConnection = designer->createFieldConnection();
+    // Create a new text field (UI)
     TextField* textField = designer->createTextField();
+    TextData* newText = new TextData(textField, nullptr, nullptr);
 
-    // do whatever we want with the new text field
+    // Create a connection
+    ConnectionData* connection = new ConnectionData(fieldConnection, last, newText);
+    last->replaceToConnection(connection);
+    newText->replaceFromConnection(connection);
 
+    connect(textField, &TextField::removeField, this, &MainEditor::removeField);
+}
+
+void MainEditor::removeHead() {
+    if (data == nullptr) return;
+
+    FieldData* newHead = nullptr;
+
+    // Find the new head, if one exists
+    if (data->getToConnection() != nullptr) {
+        newHead = data->getToConnection()->getNext();
+        newHead->replaceFromConnection(nullptr);
+    }
+
+    // Remove UI widgets
+    designer->removeWidget(data->getUi());
+
+    if (data->getToConnection() != nullptr) {
+        designer->removeWidget(data->getToConnection()->getUi());
+        delete data->getToConnection();
+    }
+
+    // Delete contained data
+    delete data;
+
+    // Set the new head
+    data = newHead;
+
+
+}
+
+
+void MainEditor::removeField(TextField* field) {
+    qInfo("remove field");
 }

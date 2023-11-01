@@ -3,6 +3,7 @@
 
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
+#include "data/Fields/fielddata.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -37,12 +38,16 @@ private slots:
     void on_actionNew_triggered();
 
     void createTextField();
+    void removeHead();
+    void removeField(TextField* field);
 
 private:
-    Ui::MainEditor *ui;
+    Ui::MainEditor *ui = nullptr;
 
-    EditorTools* editorTools;
-    Designer* designer;
+    EditorTools* editorTools = nullptr;
+    Designer* designer = nullptr;
+
+    FieldData* data = nullptr;
 
     QString currentFile;
 };
