@@ -37,3 +37,7 @@ void Designer::removeWidget(QWidget* widget) {
 QPushButton* Designer::getCreateField() {
     return ui->createField;
 }
+
+QWebEngineView* Designer::getPreview() {
+    return ui->preview;
+}

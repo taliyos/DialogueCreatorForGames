@@ -32,10 +32,10 @@ private slots:
     void on_actionRedo_triggered();
 
     void on_actionNew_triggered();
-
     /**
      * Creates a text field and adds it to the UI
     */
+    void handlePreviewRequest(const QString& content);
     void createTextField();
 
     /**

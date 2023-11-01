@@ -6,6 +6,7 @@
 #include "widgets/editor/Fields/TextField/textfield.h"
 #include "widgets/editor/FieldConnection/fieldconnection.h"
 #include "data/ConnectionData/connectiondata.h"
+#include <QWebEngineView>
 
 #include "data/Fields/MainFields/text/textdata.h"
 
@@ -27,10 +28,20 @@ MainEditor::MainEditor(QWidget *parent) :
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
-
     // Create first dialogue box
     createTextField();
+    // Assuming textField is an instance of TextField or a pointer to one in your MainEditor
+    //connect(ui->preview, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
 }
+
+
+void MainEditor::handlePreviewRequest(const QString& content) {
+    QString fullHtml = TextField::generateHtml(content);
+    QWebEngineView* view = designer->getPreview();
+    view->setHtml(fullHtml);
+    view->show();
+}
+
 
 MainEditor::~MainEditor()
 {
