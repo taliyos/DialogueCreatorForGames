@@ -19,8 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        settings.cpp
-        settings.h
+
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,6 +38,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/MainEditor/maineditor.h widgets/editor/MainEditor/maineditor.cpp widgets/editor/MainEditor/maineditor.ui
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
+        widgets/editor/Settings/settings.h widgets/editor/Settings/settings.cpp widgets/editor/Settings/settings.ui
 
 
     )

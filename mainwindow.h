@@ -7,8 +7,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QScrollArea>
-#include "settings.h"
-#include "qmessagebox.h"
+//#include "qmessagebox.h"
 namespace Ui {
 class MainWindow;
 }
@@ -47,9 +46,7 @@ private slots:
     void exportToHtml(const QString& filePath);
     void onPreviewButtonClicked();
     void selectBackgroundImage();
-    void saveLineEditSettings();
-    void saveCheckBoxSettings();
-    void loadSettings();
+
 
 
 
@@ -60,7 +57,7 @@ private:
     QSplitter *splitter = new QSplitter(Qt::Vertical);
 
     QList<DialogueEntry> textBoxes;
-    Settings *settings;
+
     QScrollArea* scrollArea;
     QWidget* scrollWidget;
 

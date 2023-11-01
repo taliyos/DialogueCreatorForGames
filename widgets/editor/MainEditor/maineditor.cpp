@@ -2,8 +2,11 @@
 #include <QMessageBox>
 #include "maineditor.h"
 #include "ui_maineditor.h"
+
 #include "widgets/editor/EditorTools/editortools.h"
 #include "widgets/editor/Fields/TextField/textfield.h"
+#include "widgets/editor/Settings/settings.h"
+
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +16,8 @@ MainEditor::MainEditor(QWidget *parent) :
 
     editorTools = ui->toolsWidget;
     designer = ui->designerWidget;
+    // Create an instance of the Settings class
+    settings = new Settings();
 
     connect(editorTools->getPaste(), &QAbstractButton::clicked, this, &MainEditor::on_actionPaste_triggered);
     connect(editorTools->getCut(), &QAbstractButton::clicked, this, &MainEditor::on_actionCut_triggered);
@@ -21,6 +26,13 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+
+    // Connect UI elements to settings functions
+    connect(ui->lineEdit, &QLineEdit::editingFinished, this, &MainEditor::saveLineEditSettings);
+    connect(ui->checkBox, &QCheckBox::toggled, this, &MainEditor::saveCheckBoxSettings);
+    // Load settings on startup
+    loadSettings();
+
 }
 
 MainEditor::~MainEditor()
@@ -175,4 +187,23 @@ void MainEditor::createTextField() {
 
     // do whatever we want with the new text field
 
+}
+
+void MainEditor::saveLineEditSettings() {
+    //    Settings *settings = new Settings()
+    QString text = ui->lineEdit->text();
+    settings->saveSettings("LineEditText", text);
+}
+
+void MainEditor::saveCheckBoxSettings() {
+    bool isChecked = ui->checkBox->isChecked();
+    settings->saveSettings("CheckBoxState", isChecked);
+}
+
+void MainEditor::loadSettings() {
+    QString text = settings->loadSettings("LineEditText").toString();
+    bool isChecked = settings->loadSettings("CheckBoxState", false).toBool();
+
+    ui->lineEdit->setText(text);
+    ui->checkBox->setChecked(isChecked);
 }

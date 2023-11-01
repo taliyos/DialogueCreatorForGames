@@ -3,6 +3,7 @@
 
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
+#include "widgets/editor/Settings/settings.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -33,10 +34,13 @@ private slots:
     void on_actionNew_triggered();
 
     void createTextField();
+    void saveLineEditSettings();
+    void saveCheckBoxSettings();
+    void loadSettings();
 
 private:
     Ui::MainEditor *ui;
-
+    Settings* settings;
     EditorTools* editorTools;
     Designer* designer;
 
