@@ -3,7 +3,7 @@
 
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
-#include "data/ConnectionData/connectiondata.h"
+#include "data/Fields/fielddata.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -32,16 +32,31 @@ private slots:
     void on_actionRedo_triggered();
 
     void on_actionNew_triggered();
+    /**
+     * Creates a text field and adds it to the UI
+    */
     void handlePreviewRequest(const QString& content);
     void createTextField();
 
+    /**
+     * Removes the head of the data (field container)
+    */
+    void removeHead();
+
+    /**
+     * Removes the specified field from the data and UI
+     * 
+     * @param field - The ui field to remove
+    */
+    void removeField(TextField* field);
+
 private:
-    Ui::MainEditor *ui;
+    Ui::MainEditor *ui = nullptr;
 
-    EditorTools* editorTools;
-    Designer* designer;
+    EditorTools* editorTools = nullptr;
+    Designer* designer = nullptr;
 
-    ConnectionData* connectionData;
+    FieldData* data = nullptr;
 
     QString currentFile;
 };

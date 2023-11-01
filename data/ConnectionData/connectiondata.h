@@ -11,7 +11,8 @@ class ConnectionData : public QObject
     Q_OBJECT
 
 public:
-    ConnectionData(FieldData* previous, FieldData* next, FieldConnection* uiConnection);
+    ConnectionData(FieldConnection* ui, FieldData* previous, FieldData* next);
+    ~ConnectionData();
 
     /**
      * Replaces the current previous DialougeData with the newly provided data.
@@ -30,17 +31,21 @@ public:
     FieldData* replaceNext(FieldData* next);
 
     bool getAuto();
+    FieldData* getPrevious();
+    FieldData* getNext();
+
+    FieldConnection* getUi();
 
     /**
      * Removes this connection data, deleting all DialogueData nodes connected to next.
     */
-    void remove();
+    void removeAll();
 
 private:
-    FieldConnection* uiConnection;
+    FieldConnection* ui = nullptr;
 
-    FieldData* previous;
-    FieldData* next;
+    FieldData* previous = nullptr;
+    FieldData* next = nullptr;
 
     bool isAuto;
 

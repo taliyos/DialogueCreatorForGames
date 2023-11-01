@@ -1,6 +1,7 @@
 #ifndef MAINFIELDDATA_H
 #define MAINFIELDDATA_H
 
+#include <QWidget>
 #include "../fielddata.h"
 
 
@@ -8,15 +9,11 @@
 /// This class extends FieldData, adding nessecary UI elements.
 /// </summary>
 
-class MainFieldData : protected FieldData
+class MainFieldData : public FieldData
 {
 public:
-    MainFieldData();
-    bool getIsAuto();
-    void setIsAuto(bool value);
+    MainFieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
 protected:
-    // whether the field is toggled to auto
-    bool isAuto;
     // the character data possibly connected to this field
     CharacterData* character;
 };

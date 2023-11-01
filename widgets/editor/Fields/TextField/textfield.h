@@ -1,6 +1,7 @@
 #ifndef TEXTFIELD_H
 #define TEXTFIELD_H
 
+#include "data/Fields/MainFields/text/textdata.h"
 #include <QLineEdit>
 #include <QPushButton>
 #include <QWidget>
@@ -14,9 +15,6 @@ class TextField : public QWidget
 {
     Q_OBJECT
 
-    QLineEdit* getTextField();
-    QPushButton* getPreview();
-
 public:
     explicit TextField(QWidget *parent = nullptr);
     ~TextField();
@@ -25,12 +23,22 @@ public:
     void applyCharacterEffect(int effectNumber);
     void setView(QWebEngineView* v);
 
+    QLineEdit* getTextField();
+    QPushButton* getPreview();
+
+    TextData* getData();
+    void setData(TextData* data);
+
 signals:
     void previewRequested(const QString& content);
+    void removeField(TextField* field);
 
 
 private:
     Ui::TextField *ui;
+    TextData* data = nullptr;
+
+    void sendRemove();
 };
 
 #endif // TEXTFIELD_H

@@ -1,12 +1,14 @@
 #include "textfield.h"
 #include "ui_textfield.h"
+#include <QPushButton>
 #include <QWebEngineView>
+
 TextField::TextField(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TextField)
 {
     ui->setupUi(this);
-
+    connect(ui->remove, &QAbstractButton::clicked, this, &TextField::sendRemove);
     connect(ui->preview, &QPushButton::clicked, this, &TextField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
 }
@@ -190,4 +192,16 @@ QLineEdit* TextField::getTextField() {
 
 QPushButton* TextField::getPreview() {
     return ui->preview;
+}
+
+TextData* TextField::getData() {
+    return data;
+}
+
+void TextField::setData(TextData* data) {
+    this->data = data;
+}
+
+void TextField::sendRemove() {
+    emit removeField(this);
 }

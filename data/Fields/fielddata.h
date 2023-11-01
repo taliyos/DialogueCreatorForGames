@@ -6,6 +6,9 @@
 #include <map>
 #include <list>
 
+#include <QWidget>
+
+class ConnectionData;
 class CharacterData;
 
 using namespace std;
@@ -16,7 +19,8 @@ class FieldData
 
 public:
     // constructors
-    FieldData();
+    FieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
+    ~FieldData();
     // accessors
     const string getText();
     // setters
@@ -32,6 +36,33 @@ public:
     void removeTextEffect(unsigned int index1, unsigned int index2, int tag);
     void addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag);
 
+
+    /**
+     * Replaces the current fromConnection with a new value.
+     * 
+     * @params connection - the new connection to use
+     * @return the old from connection, which was removed.
+    */
+    const ConnectionData* replaceFromConnection(ConnectionData* connection);
+    
+    /**
+     * Replaces the current toConnection with a new value.
+     * 
+     * @params connection - the new connection to use
+     * @return the old from connection, which was removed.
+    */
+    const ConnectionData* replaceToConnection(ConnectionData* connection);
+    ConnectionData* getFromConnection();
+    ConnectionData* getToConnection();
+
+    QWidget* getUi();
+
+    /**
+     * Deletes all forward connections (both FieldData and ConnectionData)
+    */
+    void removeAll();
+
+
 protected:
     // the raw text
     string text;
@@ -39,6 +70,15 @@ protected:
     map<pair<int, int>, list<int>> textToEffects;
     // list of field effects applied to text
     list<int> fieldEffects;
+
+private:
+
+    // Language altered between ConnectionData and FieldData to make
+    // the difference when using it clear.
+    ConnectionData* fromConnection = nullptr;
+    ConnectionData* toConnection = nullptr;
+
+    QWidget* ui;
 };
 
 #endif // FIELDDATA_H

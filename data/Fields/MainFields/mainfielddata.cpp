@@ -1,16 +1,9 @@
+#include <QWidget>
 #include "mainfielddata.h"
 
-MainFieldData::MainFieldData()
+#include "../../ConnectionData/connectionData.h"
+
+MainFieldData::MainFieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : FieldData(ui, fromConnection, toConnection)
 {
 
-}
-
-bool MainFieldData::getIsAuto()
-{
-    return this->isAuto;
-}
-
-void MainFieldData::setIsAuto(bool value)
-{
-    this->isAuto = value;
 }

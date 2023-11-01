@@ -2,12 +2,19 @@
 #include "../Fields/fielddata.h"
 #include "../../widgets/editor/FieldConnection/fieldconnection.h"
 
-ConnectionData::ConnectionData(FieldData* previous, FieldData* next, FieldConnection* uiConnection) {
+ConnectionData::ConnectionData(FieldConnection* ui, FieldData* previous, FieldData* next) {
+    this->ui = ui;
+    
     this->previous = previous;
     this->next = next;
 
-    this->uiConnection = uiConnection;
-    connect(uiConnection->getAuto(), &QCheckBox::stateChanged, this, &ConnectionData::onAutoToggled);
+    connect(ui->getAuto(), &QCheckBox::stateChanged, this, &ConnectionData::onAutoToggled);
+}
+
+ConnectionData::~ConnectionData() {
+    if (ui != nullptr) {
+        delete ui;
+    }
 }
 
 FieldData* ConnectionData::replacePrevious(FieldData* previous) {
@@ -15,6 +22,7 @@ FieldData* ConnectionData::replacePrevious(FieldData* previous) {
     this->previous = previous;
 
     // TODO: Update connection in old and new
+
 
     return old;
 }
@@ -32,18 +40,27 @@ bool ConnectionData::getAuto() {
     return isAuto;
 }
 
-void ConnectionData::remove() {
+FieldData* ConnectionData::getPrevious() {
+    return previous;
+}
+
+FieldData* ConnectionData::getNext() {
+    return next;
+}
+
+FieldConnection* ConnectionData::getUi() {
+    return ui;
+}
+
+void ConnectionData::removeAll() {
     if (next != nullptr) {
-        //next->remove(); Action not supported yet.
+        next->removeAll();
     }
 
-    delete uiConnection;
-    delete this;
-    
+    delete this;    
 }
 
 void ConnectionData::onAutoToggled(int state) {
-    qInfo("AUTO CLICKED!");
     if (state == Qt::Unchecked || state == Qt::PartiallyChecked) isAuto = false;
     else isAuto = true;
 }

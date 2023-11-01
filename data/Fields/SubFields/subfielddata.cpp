@@ -1,6 +1,9 @@
+#include <QWidget>
 #include "subfielddata.h"
 
-SubFieldData::SubFieldData()
+#include "../../ConnectionData/connectionData.h"
+
+SubFieldData::SubFieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : FieldData(ui, fromConnection, toConnection)
 {
 
 }

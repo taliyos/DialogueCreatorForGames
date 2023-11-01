@@ -28,6 +28,16 @@
         <file>img/icons/save.png</file>
         <file>img/icons/new.png</file>
         <file>img/icons/text.256x256.png</file>
+        <file>img/icons/preview.png</file>
+        <file>img/icons/remove.png</file>
+        <file>img/icons/character.png</file>
+        <file>img/icons/custom.png</file>
+        <file>img/icons/list.png</file>
+        <file>img/icons/settings.png</file>
+        <file>img/icons/character-effect.png</file>
+        <file>img/icons/display-effect.png</file>
+        <file>img/icons/modifier-effect.png</file>
+        <file>img/icons/more.png</file>
     </qresource>
     <qresource prefix="/">
         <file>img/icons/auto/auto-off.png</file>
