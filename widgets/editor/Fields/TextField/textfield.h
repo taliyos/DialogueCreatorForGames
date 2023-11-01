@@ -23,10 +23,6 @@ public:
     void applyCharacterEffect(int effectNumber);
     void setView(QWebEngineView* v);
 
-signals:
-    void previewRequested(const QString& content);
-
-
     QLineEdit* getTextField();
     QPushButton* getPreview();
 
@@ -34,7 +30,9 @@ signals:
     void setData(TextData* data);
 
 signals:
+    void previewRequested(const QString& content);
     void removeField(TextField* field);
+
 
 private:
     Ui::TextField *ui;

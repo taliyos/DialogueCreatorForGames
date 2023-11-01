@@ -30,8 +30,6 @@ MainEditor::MainEditor(QWidget *parent) :
 
     // Create first dialogue box
     createTextField();
-    // Assuming textField is an instance of TextField or a pointer to one in your MainEditor
-    //connect(ui->preview, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
 }
 
 
@@ -199,6 +197,7 @@ void MainEditor::createTextField() {
         // Connect the removeField signal to the MainEditor's removeField function so that the
         // field is removed when the remove button is clicked within the UI.
         connect(textField, &TextField::removeField, this, &MainEditor::removeField);
+        connect(textField, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
         return;
     }
 
@@ -222,6 +221,7 @@ void MainEditor::createTextField() {
     // Connect the removeField signal to the MainEditor's removeField function so that the
     // field is removed when the remove button is clicked within the UI.
     connect(textField, &TextField::removeField, this, &MainEditor::removeField);
+    connect(textField, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
 }
 
 void MainEditor::removeHead() {

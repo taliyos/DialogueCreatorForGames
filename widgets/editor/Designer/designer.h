@@ -4,8 +4,8 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QWebEngineView>
-#include "../FieldConnection/fieldconnection.h"
 
+class FieldConnection;
 class TextField;
 
 namespace Ui {
