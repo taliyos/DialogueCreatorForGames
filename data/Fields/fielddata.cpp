@@ -194,5 +194,6 @@ void FieldData::fromJson(nlohmann::json j)
     this->text = j["text"];
     list<int> fieldEffects = j["fieldEffects"];
     this->fieldEffects = fieldEffects;
-    this->textToEffects = j["textEffects"];
+    this->textToEffects =  j["textEffects"];
+//    list<list<list<int>>> textEffects = j["textEffects"];
 }

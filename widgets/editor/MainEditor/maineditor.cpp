@@ -56,10 +56,13 @@ MainEditor::~MainEditor()
 // File -> Open
 void MainEditor::on_actionOpen_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
-
-    if (fileName.isEmpty()) return;
-
+    // Get json filename from Windows Explorer popup and verify it is json
+    QString fileName = QFileDialog::getOpenFileName(this, "Open file");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("json"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .json file");
+        return;
+    }
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
@@ -68,90 +71,137 @@ void MainEditor::on_actionOpen_triggered()
 
     currentFile = fileName;
     setWindowTitle(fileName);
-    QTextStream in(&file);
-    QString text = in.readAll();
+    std::ifstream f(fileName.toStdString());
+    nlohmann::json j = nlohmann::json::parse(f);
+    nlohmann::detail::iter_impl itr = j.begin();
 
-    /*QTextEdit* editor = this->currentText();
-    if(editor) {
-        editor->setText(text);
-    } else {
-        // If no editor is focused, use the main one
-        //ui->textEdit->setText(text);
-    }*/
+    FieldData* currentField = data;
 
-    file.close();
+    // Iterate through each of the json values where each json value represents
+    //  a FieldData object
+    while(itr != j.end())
+    {
+        if (currentField == nullptr)
+        {
+            // Create a new text field (FieldData object) and call fromJson
+            createTextField();
+            currentField = data;
+            while (currentField->getToConnection() != nullptr && currentField->getToConnection()->getNext() != nullptr)
+            {
+                currentField = currentField->getToConnection()->getNext();
+            }
+        }
+        currentField->fromJson(j[itr.key()]);
+        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+        field->getTextField()->setText(QString::fromStdString(currentField->getText()));
+        itr++;
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            currentField = nullptr;
+    }
 }
 
 // File -> Save
+// Identical to exportJson, except it uses the currentFile (current filename)
 void MainEditor::on_actionSave_triggered()
 {
     QString fileName;
     if (currentFile.isEmpty()) {
-        fileName = QFileDialog::getSaveFileName(this, "Save");
-        currentFile = fileName;
+        on_actionSaveAs_triggered();
+        return;
     }
-    else fileName = currentFile;
 
-    if (fileName.isEmpty()) return;
+    fileName = currentFile;
+    setWindowTitle(fileName);
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        return;
+    }
+    QTextStream out(&file);
 
+    FieldData* currentField = data;
+    nlohmann::json j;
+
+    // For each FieldData object, create a json object
+    int box_num = 1;
+    while(currentField != nullptr)
+    {
+        string box = "text box " + std::to_string(box_num);
+
+        // Currently, the FieldData text must be set from the text box
+        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+        QString text = field->getTextField()->text();
+        currentField->setText(text.toStdString());
+
+        nlohmann::json d = currentField->toJson();
+        j[box] = d;
+        box_num++;
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            currentField = nullptr;
+    }
+
+    out << QString::fromStdString(j.dump());
+    file.close();
+
+
+}
+
+// File -> Save As
+// Identical to exportJson except it sets currentFile
+void MainEditor::on_actionSaveAs_triggered()
+{
+    // Get json filename from Windows Explorer popup and verify it is json
+    QString fileName = QFileDialog::getSaveFileName(this, "Export json file");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("json"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot save file: not a .json file");
+        return;
+    }
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
         return;
     }
 
-    // Get all of the text boxes and write to file
-
-    /* OLD, do not use
-    QTextEdit* editor = this->currentText();
-    QString content;
-    if(editor) {
-        content = editor->toPlainText();
-    } else {
-        // If no editor is focused, use the main one
-        //content = ui->textEdit->toPlainText();
-    }*/
-
-    setWindowTitle(fileName);
-    // QTextStream out(&file);
-    // out << content;
-    file.close();
-}
-
-// File -> Save As
-void MainEditor::on_actionSaveAs_triggered()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, "Save As");
-    QFile file (fileName);
-
-    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
-        return;
-    }
-
-    if (fileName.isEmpty()) return;
-
-    /* Old, do not use
-     * QTextEdit* editor = this->currentText();
-    QString content;
-    if(editor) {
-        content = editor->toPlainText();
-    } else {
-        // If no editor is focused, use the main one
-        //content = ui->textEdit->toPlainText();
-    }*/
-
     currentFile = fileName;
     setWindowTitle(fileName);
-    // QTextStream out(&file);
-    // out << content;
+    QTextStream out(&file);
+
+    FieldData* currentField = data;
+    nlohmann::json j;
+
+    // For each FieldData object, create a json object
+    int box_num = 1;
+    while(currentField != nullptr)
+    {
+        string box = "text box " + std::to_string(box_num);
+
+        // Currently, the FieldData text must be set from the text box
+        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+        QString text = field->getTextField()->text();
+        currentField->setText(text.toStdString());
+
+        nlohmann::json d = currentField->toJson();
+        j[box] = d;
+        box_num++;
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            currentField = nullptr;
+    }
+
+    out << QString::fromStdString(j.dump());
     file.close();
 }
 
 void MainEditor::on_actionImportTxt_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Import txt file");
-    if (fileName.split('.')[1] != QString("txt"))
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("txt"))
     {
         QMessageBox::warning(this, "Warning", "Cannot open file: not a .txt file");
         return;
@@ -186,9 +236,13 @@ void MainEditor::on_actionImportTxt_triggered()
             }
         }
 
-        qDebug() << line;
         currentField->setText(line.toStdString());
-        currentField->getToConnection()->getUi()->setAutoText(line.toStdString());
+        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+        field->getTextField()->setText(line);
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            currentField = nullptr;
         line = in.readLine();
     }
 
@@ -198,7 +252,7 @@ void MainEditor::on_actionImportTxt_triggered()
 void MainEditor::on_actionImportDocx_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Import docx file");
-    if (fileName.split('.')[1] != QString("docx"))
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("docx"))
     {
         QMessageBox::warning(this, "Warning", "Cannot open file: not a .docx file");
         return;
@@ -212,35 +266,41 @@ void MainEditor::on_actionImportDocx_triggered()
     duckx::Document doc(fileName.toStdString());
     doc.open();
 
-//    FieldData* currentField = data;
-//    for (auto p : doc.paragraphs())
-//    {
-//        for (auto r : p.runs())
-//        {
-//            QString line = QString::fromStdString(r.get_text());
-//            if (line.trimmed().isEmpty())
-//                continue;
+    FieldData* currentField = data;
+    for (auto p : doc.paragraphs())
+    {
+        for (auto r : p.runs())
+        {
+            QString line = QString::fromStdString(r.get_text());
+            if (line.trimmed().isEmpty())
+                continue;
 
-//            if (currentField == nullptr)
-//            {
-//                createTextField();
-//                currentField = data;
-//                while (currentField->getToConnection()!=nullptr && currentField->getToConnection()->getNext() != nullptr)
-//                {
-//                    currentField = currentField->getToConnection()->getNext();
-//                }
-//            }
+            if (currentField == nullptr)
+            {
+                createTextField();
+                currentField = data;
+                while (currentField->getToConnection()!=nullptr && currentField->getToConnection()->getNext() != nullptr)
+                {
+                    currentField = currentField->getToConnection()->getNext();
+                }
+            }
 
-//            currentField->setText(line.toStdString());
-//        }
-//    }
+            currentField->setText(line.toStdString());
+            TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+            field->getTextField()->setText(line);
+            if (currentField->getToConnection() != nullptr)
+                currentField = currentField->getToConnection()->getNext();
+            else
+                currentField = nullptr;
+        }
+    }
 }
 
 void MainEditor::on_actionImportJson_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
     QString fileName = QFileDialog::getOpenFileName(this, "Import Json file");
-    if (fileName.split('.')[1] != QString("json"))
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("json"))
     {
         QMessageBox::warning(this, "Warning", "Cannot open file: not a .json file");
         return;
@@ -266,26 +326,27 @@ void MainEditor::on_actionImportJson_triggered()
              // Create a new text field (FieldData object) and call fromJson
             createTextField();
             currentField = data;
-            while (currentField->getToConnection()->getNext() != nullptr)
+            while (currentField->getToConnection() != nullptr && currentField->getToConnection()->getNext() != nullptr)
             {
                 currentField = currentField->getToConnection()->getNext();
             }
-            currentField->fromJson(j[*itr]);
         }
-        else
-        {
-            currentField->fromJson(j[*itr]);
-        }
+        currentField->fromJson(j[itr.key()]);
+        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+        field->getTextField()->setText(QString::fromStdString(currentField->getText()));
         itr++;
-        currentField = currentField->getToConnection()->getNext();
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            currentField = nullptr;
     }
 }
 
 void MainEditor::on_actionExportJson_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
-    QString fileName = QFileDialog::getSaveFileName(this, "Import json file");
-    if (fileName.split('.')[1] != QString("json"))
+    QString fileName = QFileDialog::getSaveFileName(this, "Export json file");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("json"))
     {
         QMessageBox::warning(this, "Warning", "Cannot save file: not a .json file");
         return;
@@ -296,22 +357,29 @@ void MainEditor::on_actionExportJson_triggered()
         return;
     }
 
-    currentFile = fileName;
-    setWindowTitle(fileName);
     QTextStream out(&file);
 
     FieldData* currentField = data;
     nlohmann::json j;
 
-    // For each DialogueData object, create a json object
+    // For each FieldData object, create a json object
     int box_num = 1;
     while(currentField != nullptr)
     {
         string box = "text box " + std::to_string(box_num);
-        nlohmann::json data = currentField->toJson();
-        j[box] = data;
+
+        // Currently, the FieldData text must be set from the text box
+        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+        QString text = field->getTextField()->text();
+        currentField->setText(text.toStdString());
+
+        nlohmann::json d = currentField->toJson();
+        j[box] = d;
         box_num++;
-        currentField = currentField->getToConnection()->getNext();
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            currentField = nullptr;
     }
 
     out << QString::fromStdString(j.dump());
