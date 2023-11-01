@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QWebEngineView>
-
+class CharacterField;
 namespace Ui {
 class TextField;
 }
@@ -28,6 +28,9 @@ public:
 
     TextData* getData();
     void setData(TextData* data);
+    void onCharacterClicked();
+    void addCharacterWidget();
+    void removeCharacterWidget();
 
 signals:
     void previewRequested(const QString& content);
@@ -37,7 +40,8 @@ signals:
 private:
     Ui::TextField *ui;
     TextData* data = nullptr;
-
+    bool characterFieldAdded = false;
+    CharacterField* characterField = nullptr;
     void sendRemove();
 };
 
