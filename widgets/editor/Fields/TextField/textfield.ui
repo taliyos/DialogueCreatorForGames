@@ -185,7 +185,17 @@ QPushButton:Pressed {
         <item>
          <widget class="QPushButton" name="addCharacter">
           <property name="text">
-           <string>character</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../../../Resources.qrc">
+            <normaloff>:/rec/img/icons/character.png</normaloff>:/rec/img/icons/character.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -196,6 +206,8 @@ QPushButton:Pressed {
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
