@@ -34,9 +34,6 @@ private slots:
     void on_actionNew_triggered();
 
     void createTextField();
-    void saveLineEditSettings();
-    void saveCheckBoxSettings();
-    void loadSettings();
 
 private:
     Ui::MainEditor *ui;

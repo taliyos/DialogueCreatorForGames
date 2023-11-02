@@ -2,6 +2,7 @@
 #define EDITORTOOLS_H
 
 #include <QPushButton>
+#include "widgets/editor/Settings/settings.h"
 #include <QWidget>
 
 namespace Ui {
@@ -43,6 +44,8 @@ public:
     QPushButton* getCharacterFavorite2();
     QPushButton* getEffectSettings();
 
+
+    Settings* getSettings();
     // Presets
     QPushButton* getPreset1();
     QPushButton* getPreset2();

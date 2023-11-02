@@ -13,6 +13,8 @@ EditorTools::~EditorTools()
     delete ui;
 }
 
+
+
 // Clipboard
 QPushButton* EditorTools::getPaste() { return ui->paste; }
 QPushButton* EditorTools::getCut() { return ui->cut; }
@@ -39,6 +41,10 @@ QPushButton* EditorTools::getCharacter() { return ui->character; }
 QPushButton* EditorTools::getCharacterFavorite1() { return ui->characterFavorite1; }
 QPushButton* EditorTools::getCharacterFavorite2() { return ui->characterFavorite2; }
 QPushButton* EditorTools::getEffectSettings() { return ui->effectSettings; }
+
+
+//Settings
+Settings* EditorTools::getSettings(){return ui->settingsWidget;}
 
 // Presets
 QPushButton* EditorTools::getPreset1() { return ui->preset1; }

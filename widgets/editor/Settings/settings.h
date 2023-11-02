@@ -1,14 +1,26 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
-#include <QSettings>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QWidget>
 
-class Settings {
+namespace Ui {
+class Settings;
+}
+
+class Settings : public QWidget
+{
+    Q_OBJECT
+
+    QLineEdit* getLineEdit();
+    QCheckBox* getCheckBox();
+
 public:
-    Settings();
-    void saveSettings(const QString &key, const QVariant &value);
-    QVariant loadSettings(const QString &key, const QVariant &defaultValue = QVariant());
-
+    explicit Settings(QWidget *parent = nullptr);
+    bool showSettings();
+    bool hideSettings();
+    ~Settings();
 private:
-    QSettings *settings;
+    Ui::Settings *ui;
 };
 #endif // SETTINGS_H
