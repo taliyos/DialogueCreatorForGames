@@ -58,10 +58,7 @@ QPushButton:Pressed {
 	background-color: #a3a3a3;
 }</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
+  <layout class="QGridLayout" name="gridLayout_7">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -74,8 +71,17 @@ QPushButton:Pressed {
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item>
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="AboveFieldLayout"/>
+   </item>
+   <item row="1" column="0">
     <widget class="QWidget" name="InnerTextField" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
       <string notr="true">QLineEdit {
 	border-radius: 5px;
@@ -100,6 +106,27 @@ QPushButton:Pressed {
         <property name="icon">
          <iconset>
           <normalon>:/rec/img/icons/preview.png</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="remove">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/rec/img/icons/remove.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">
@@ -153,32 +180,34 @@ QPushButton:Pressed {
         </property>
        </spacer>
       </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="remove">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/rec/img/icons/remove.png</normalon>
-         </iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-       </widget>
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="addCharacter">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../../../Resources.qrc">
+            <normaloff>:/rec/img/icons/character.png</normaloff>:/rec/img/icons/character.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

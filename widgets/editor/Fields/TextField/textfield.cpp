@@ -2,6 +2,7 @@
 #include "ui_textfield.h"
 #include <QPushButton>
 #include <QWebEngineView>
+#include "widgets/editor/Fields/CharacterField//characterfield.h"
 
 TextField::TextField(QWidget *parent) :
     QWidget(parent),
@@ -9,9 +10,37 @@ TextField::TextField(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->remove, &QAbstractButton::clicked, this, &TextField::sendRemove);
+    connect(ui->addCharacter, &QAbstractButton::clicked, this, &TextField::onCharacterClicked);
     connect(ui->preview, &QPushButton::clicked, this, &TextField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
 }
+
+void TextField::onCharacterClicked() {
+    if (characterFieldAdded) {
+        // If already added, remove the widget
+        removeCharacterWidget();
+    } else {
+        addCharacterWidget();
+    }
+
+    // Toggle the state
+    characterFieldAdded = !characterFieldAdded;
+}
+
+void TextField::removeCharacterWidget() {
+    if (characterField) {
+        ui->AboveFieldLayout->removeWidget(characterField);
+        delete characterField;
+        characterField = nullptr;
+    }
+}
+
+
+void TextField::addCharacterWidget() {
+    characterField = new CharacterField(this);
+    ui->AboveFieldLayout->addWidget(characterField);
+}
+
 
 QString TextField::generateHtml(const QString& content) {
     QString base64Image;
