@@ -2,7 +2,7 @@
 #include "ui_textfield.h"
 #include <QPushButton>
 #include <QWebEngineView>
-#include "CharacterField/characterfield.h"
+#include "widgets/editor/Fields/CharacterField//characterfield.h"
 
 TextField::TextField(QWidget *parent) :
     QWidget(parent),
