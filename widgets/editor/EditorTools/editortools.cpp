@@ -6,11 +6,22 @@ EditorTools::EditorTools(QWidget *parent) :
     ui(new Ui::EditorTools)
 {
     ui->setupUi(this);
+    // set up the settings pages
+    effectSettings = new EffectSettings(this);
+    listSettings = new ListSettings(this);
+    presetSettings = new PresetSettings(this);
+    // connect the buttons to show the settings pages
+    connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
+    connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
+    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
 }
 
 EditorTools::~EditorTools()
 {
     delete ui;
+    delete effectSettings;
+    delete listSettings;
+    delete presetSettings;
 }
 
 // Clipboard
@@ -48,3 +59,8 @@ QPushButton* EditorTools::getPreset4() { return ui->preset4; }
 QPushButton* EditorTools::getAddPreset() { return ui->addPreset; }
 QPushButton* EditorTools::getMorePresets() { return ui->morePresets; }
 QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
+
+// Methods
+void EditorTools::openEffectSettings() { effectSettings->open(); }
+void EditorTools::openListSettings() { listSettings->open(); }
+void EditorTools::openPresetSettings() { presetSettings->open(); }

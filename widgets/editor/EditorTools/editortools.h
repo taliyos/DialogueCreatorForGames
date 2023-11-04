@@ -3,6 +3,9 @@
 
 #include <QPushButton>
 #include <QWidget>
+#include "Settings/effectsettings.h"
+#include "Settings/listsettings.h"
+#include "Settings/presetsettings.h"
 
 namespace Ui {
 class EditorTools;
@@ -52,6 +55,11 @@ public:
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
 
+    // Methods
+    void openEffectSettings();
+    void openListSettings();
+    void openPresetSettings();
+
 signals:
     void characterEffectRequested(int effectNumber);
 
@@ -60,6 +68,9 @@ private slots:
 
 private:
     Ui::EditorTools *ui;
+    EffectSettings *effectSettings;
+    ListSettings *listSettings;
+    PresetSettings *presetSettings;
 };
 
 #endif // EDITORTOOLS_H

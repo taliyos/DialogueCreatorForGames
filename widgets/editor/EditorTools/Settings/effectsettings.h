@@ -13,10 +13,11 @@ class EffectSettings : public QDialog
     Q_OBJECT
 
 public:
+    // constructor and destructor
     explicit EffectSettings(QWidget *parent = nullptr);
     ~EffectSettings();
 
-    // Buttons
+    // buttons
     QPushButton* getOK();
     QPushButton* getCancel();
 
