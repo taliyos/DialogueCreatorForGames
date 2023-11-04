@@ -1,11 +1,31 @@
 #ifndef PRESETSETTINGS_H
 #define PRESETSETTINGS_H
 
+#include <QPushButton>
+#include <QDialog>
 
-class PresetSettings
+namespace Ui {
+class PresetSettings;
+}
+
+class PresetSettings : public QDialog
 {
+    Q_OBJECT
+
 public:
-    PresetSettings();
+    explicit PresetSettings(QWidget *parent = nullptr);
+    ~PresetSettings();
+
+    // Buttons
+    QPushButton* getOK();
+    QPushButton* getCancel();
+
+signals:
+
+private slots:
+
+private:
+    Ui::PresetSettings *ui;
 };
 
 #endif // PRESETSETTINGS_H
