@@ -40,11 +40,29 @@ void TextField::addCharacterWidget() {
     characterField = new CharacterField(this);
     ui->AboveFieldLayout->addWidget(characterField);
 }
+QString TextField::generateHtml(const QString& content, TextData* textData) {
+
+    QString newContent = content;
+    // 1 = wobble
+    if (textData->hasFieldEffect(1))
+        newContent = "<effect type=\"wobble\">" + content + "</effect>";
+    // 2 = enlarge
+    else if (textData->hasFieldEffect(2))
+        newContent = "<effect type=\"enlarge\">" + content + "</effect>";
+    // 3 = speedUp
+    else if (textData->hasFieldEffect(3))
+        newContent = "<effect type=\"speedUp\">" + content + "</effect>";
+    // 4 = bold
+    else if (textData->hasFieldEffect(4))
+        newContent = "<effect type=\"bold\">" + content + "</effect>";
+    // 5 = typed
+    else if (textData->hasFieldEffect(5))
+        newContent = "<effect type=\"typed\">" + content + "</effect>";
 
 
-QString TextField::generateHtml(const QString& content) {
     QString base64Image;
     QString fullHtml;
+
     fullHtml += "<!DOCTYPE html>";
     fullHtml += "<html><head><title>Dialogue Preview</title>";
     fullHtml += R"(<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>)";
@@ -186,7 +204,7 @@ QString TextField::generateHtml(const QString& content) {
     )";
 
     fullHtml += "</head><body>";
-    fullHtml += "<div class='dialogue-box'>" + content + "</div>";
+    fullHtml += "<div class='dialogue-box'>" + newContent + "</div>";
     fullHtml += "</body></html>";
 
     return fullHtml;
@@ -207,7 +225,7 @@ void TextField::applyCharacterEffect(int effectNumber) {
 
 void TextField::exportToBrowser() {
     QString content = ui->textField->text();
-    emit previewRequested(content);
+    emit previewRequested(content, data);
 }
 
 TextField::~TextField()

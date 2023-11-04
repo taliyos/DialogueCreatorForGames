@@ -33,8 +33,8 @@ MainEditor::MainEditor(QWidget *parent) :
 }
 
 
-void MainEditor::handlePreviewRequest(const QString& content) {
-    QString fullHtml = TextField::generateHtml(content);
+void MainEditor::handlePreviewRequest(const QString& content, TextData* textData) {
+    QString fullHtml = TextField::generateHtml(content, textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();
@@ -188,6 +188,37 @@ void MainEditor::on_actionNew_triggered()
 
 }
 
+// Enlarge field effect
+void MainEditor::on_actionWobble_triggered()
+{
+    FieldData* currentField = getActiveField();
+    currentField->addOrRemoveFieldEffect(1);
+  }
+
+void MainEditor::on_actionEnlarge_triggered()
+{
+    FieldData* currentField = getActiveField();
+    currentField->addOrRemoveFieldEffect(2);
+}
+
+void MainEditor::on_actionSpeedup_triggered()
+{
+    FieldData* currentField = getActiveField();
+    currentField->addOrRemoveFieldEffect(3);
+}
+
+void MainEditor::on_actionBold_triggered()
+{
+    FieldData* currentField = getActiveField();
+    currentField->addOrRemoveFieldEffect(4);
+}
+
+void MainEditor::on_actionTyped_triggered()
+{
+    FieldData* currentField = getActiveField();
+    currentField->addOrRemoveFieldEffect(5);
+}
+
 void MainEditor::createTextField() {
     // Create a new head pointer if the data is currently null.
     if (!data) {
@@ -298,4 +329,26 @@ void MainEditor::removeField(TextField* field) {
     designer->removeWidget(field);
     delete fieldData;
     
+}
+
+// Gets active text field
+// If no active text field, return most recent active text field
+FieldData* MainEditor::getActiveField()
+{
+    if (data == nullptr)
+        return nullptr;
+    FieldData* currentField = data;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    while (!field->getTextField()->hasFocus())
+    {
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            return lastActive;
+
+        field = reinterpret_cast <TextField*>(currentField->getUi());
+    }
+
+    lastActive = currentField;
+    return currentField;
 }

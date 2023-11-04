@@ -4,6 +4,7 @@
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "data/Fields/fielddata.h"
+#include "data/Fields/MainFields/text/textdata.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -32,10 +33,18 @@ private slots:
     void on_actionRedo_triggered();
 
     void on_actionNew_triggered();
+
+    // Effects
+    void on_actionWobble_triggered();
+    void on_actionEnlarge_triggered();
+    void on_actionSpeedup_triggered();
+    void on_actionBold_triggered();
+    void on_actionTyped_triggered();
+
     /**
      * Creates a text field and adds it to the UI
     */
-    void handlePreviewRequest(const QString& content);
+    void handlePreviewRequest(const QString& content, TextData* textData);
     void createTextField();
 
     /**
@@ -50,6 +59,8 @@ private slots:
     */
     void removeField(TextField* field);
 
+    FieldData* getActiveField();
+
 private:
     Ui::MainEditor *ui = nullptr;
 
@@ -57,6 +68,7 @@ private:
     Designer* designer = nullptr;
 
     FieldData* data = nullptr;
+    FieldData* lastActive = nullptr;
 
     QString currentFile;
 };

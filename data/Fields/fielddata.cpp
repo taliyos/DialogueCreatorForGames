@@ -49,7 +49,11 @@ void FieldData::addOrRemoveFieldEffect(int tag)
     if (hasFieldEffect(tag))
         removeFieldEffect(tag);
     else
+    {
+        // Since only one field effect can be active, remove the previous effects here
+        fieldEffects = list<int>();
         applyFieldEffect(tag);
+    }
 }
 
 // TODO: FINISH THIS ****

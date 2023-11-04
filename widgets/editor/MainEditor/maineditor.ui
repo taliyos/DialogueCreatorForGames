@@ -137,6 +137,17 @@
     <property name="title">
      <string>Effects</string>
     </property>
+    <widget class="QMenu" name="menuField_Effects">
+     <property name="title">
+      <string>Field Effects</string>
+     </property>
+     <addaction name="actionWobble"/>
+     <addaction name="actionEnlarge"/>
+     <addaction name="actionSpeedup"/>
+     <addaction name="actionBold"/>
+     <addaction name="actionTyped"/>
+    </widget>
+    <addaction name="menuField_Effects"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -237,6 +248,37 @@
    </property>
    <property name="toolTip">
     <string>Creates a new dialogue file.</string>
+   </property>
+  </action>
+  <action name="actionWobble">
+   <property name="text">
+    <string>wobble</string>
+   </property>
+  </action>
+  <action name="actionEnlarge">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>enlarge</string>
+   </property>
+  </action>
+  <action name="actionSpeedup">
+   <property name="text">
+    <string>speedup</string>
+   </property>
+  </action>
+  <action name="actionBold">
+   <property name="text">
+    <string>bold</string>
+   </property>
+  </action>
+  <action name="actionTyped">
+   <property name="text">
+    <string>typed</string>
    </property>
   </action>
  </widget>
