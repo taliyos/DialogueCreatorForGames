@@ -60,6 +60,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/EditorTools/Settings/effectsettings.ui
         widgets/editor/EditorTools/Settings/presetsettings.ui
         widgets/editor/EditorTools/Settings/listsettings.ui
+        widgets/editor/EditorTools/Settings/settingsoption.h widgets/editor/EditorTools/Settings/settingsoption.cpp widgets/editor/EditorTools/Settings/settingsoption.ui
 
 
 

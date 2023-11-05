@@ -3,7 +3,7 @@
 
 #include <QPushButton>
 #include <QDialog>
-#include <QLineEdit>
+#include "widgets/editor/EditorTools/Settings/settingsoption.h"
 
 using namespace std;
 
@@ -36,7 +36,7 @@ private slots:
 private:
     Ui::ListSettings *ui;
     list<string> *data;
-    list<QLineEdit*> *listElements;
+    list<SettingsOption*> *listElements;
 };
 
 #endif // LISTSETTINGS_H

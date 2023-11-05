@@ -2,13 +2,15 @@
 #include <QLineEdit>
 #include "ui_listsettings.h"
 
+
 ListSettings::ListSettings(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ListSettings)
 {
     ui->setupUi(this);
     data = new list<string>();
-    listElements = new list<QLineEdit*>();
+    listElements = new list<SettingsOption*>();
+    connect(ui->Add, &QAbstractButton::clicked, this, &ListSettings::addOption);
 }
 
 ListSettings::~ListSettings()
@@ -19,16 +21,18 @@ ListSettings::~ListSettings()
     //delete[] listElements;
 }
 
+
+
 void ListSettings::addOption()
 {
-    QLineEdit* qLine = new QLineEdit("OPTION", ui->listView);
+    SettingsOption* qLine = new  SettingsOption(ui->listView);
     listElements->push_back(qLine);
     qLine->show();
 }
 void ListSettings::eraseOption(int index)
 {
     list<string>::iterator itr = data->begin();
-    list<QLineEdit*>::iterator itr2 = listElements->begin();
+    list<SettingsOption*>::iterator itr2 = listElements->begin();
     for(int i = 0; i < index; i++)
     {
         itr++;
@@ -53,20 +57,21 @@ void ListSettings::loadOptions()
         }
     }
     list<string>::iterator itr = data->begin();
-    list<QLineEdit*>::iterator itr2 = listElements->begin();
+    list<SettingsOption*>::iterator itr2 = listElements->begin();
     // fill in the text
     for(int i = 0; i < data->size(); i++)
     {
-        (*itr2)->setText(QString::fromStdString(*itr));
+        (*itr2)->getLineEdit()->setText(QString::fromStdString(*itr));
         itr++;
         itr2++;
     }
+
 }
 
 void ListSettings::saveOptions()
 {
-    for(QLineEdit* element : (*listElements))
+    for(SettingsOption* element : (*listElements))
     {
-        data->push_back(element->text().toStdString());
+        data->push_back(element->getLineEdit()->text().toStdString());
     }
 }
