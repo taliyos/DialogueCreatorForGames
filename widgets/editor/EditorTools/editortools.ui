@@ -1404,6 +1404,36 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>paste</tabstop>
+  <tabstop>cut</tabstop>
+  <tabstop>copy</tabstop>
+  <tabstop>textField</tabstop>
+  <tabstop>customField1</tabstop>
+  <tabstop>customField2</tabstop>
+  <tabstop>customField3</tabstop>
+  <tabstop>customField4</tabstop>
+  <tabstop>customField5</tabstop>
+  <tabstop>customField6</tabstop>
+  <tabstop>fieldSettings</tabstop>
+  <tabstop>displayEffect</tabstop>
+  <tabstop>displayEffectFavorite1</tabstop>
+  <tabstop>displayEffectFavorite2</tabstop>
+  <tabstop>modifier</tabstop>
+  <tabstop>modifierFavorite1</tabstop>
+  <tabstop>modifierFavorite2</tabstop>
+  <tabstop>character</tabstop>
+  <tabstop>characterFavorite1</tabstop>
+  <tabstop>characterFavorite2</tabstop>
+  <tabstop>effectSettings</tabstop>
+  <tabstop>preset1</tabstop>
+  <tabstop>preset2</tabstop>
+  <tabstop>preset3</tabstop>
+  <tabstop>preset4</tabstop>
+  <tabstop>addPreset</tabstop>
+  <tabstop>morePresets</tabstop>
+  <tabstop>presetSettings</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../Resources.qrc"/>
  </resources>

@@ -2,7 +2,7 @@
 #include "ui_effectsdropdown.h"
 
 EffectsDropdown::EffectsDropdown(QWidget *parent) :
-    QWidget(parent),
+    QMenu(parent),
     ui(new Ui::EffectsDropdown)
 {
     ui->setupUi(this);

@@ -66,14 +66,11 @@ private:
     EffectsDropdown* characterDropdown;
     EffectsDropdown* modifierDropdown;
 
+    void showDropdown(EffectsDropdown* dropdown, const QPoint point);
+
     void showDisplayDropdown();
-    void hideDisplayDropdown();
-
     void showCharacterDropdown();
-    void hideCharacterDropdown();
-
     void showModifierDropdown();
-    void hideModifierDropdown();
 };
 
 #endif // EDITORTOOLS_H

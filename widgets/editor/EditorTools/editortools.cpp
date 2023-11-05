@@ -7,8 +7,8 @@ EditorTools::EditorTools(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    characterDropdown = new EffectsDropdown();
     displayDropdown = new EffectsDropdown();
+    characterDropdown = new EffectsDropdown();
     modifierDropdown = new EffectsDropdown();
 
     connect(ui->displayEffect, &QAbstractButton::clicked, this, &EditorTools::showDisplayDropdown);
@@ -18,6 +18,10 @@ EditorTools::EditorTools(QWidget *parent) :
 
 EditorTools::~EditorTools()
 {
+    delete displayDropdown;
+    delete characterDropdown;
+    delete modifierDropdown;
+
     delete ui;
 }
 
@@ -56,3 +60,14 @@ QPushButton* EditorTools::getPreset4() { return ui->preset4; }
 QPushButton* EditorTools::getAddPreset() { return ui->addPreset; }
 QPushButton* EditorTools::getMorePresets() { return ui->morePresets; }
 QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
+
+// Effects Dropdowns
+void EditorTools::showDropdown(EffectsDropdown* dropdown, QPoint point) {
+    point.setX(point.x() - 32);
+    point.setY(point.y() + ui->character->height());
+    dropdown->popup(point);
+}
+
+void EditorTools::showDisplayDropdown() {showDropdown(displayDropdown, ui->displayEffect->mapToGlobal(ui->displayEffect->pos())); }
+void EditorTools::showCharacterDropdown() { showDropdown(characterDropdown, ui->displayEffect->mapToGlobal(ui->character->pos())); }
+void EditorTools::showModifierDropdown() { showDropdown(modifierDropdown, ui->displayEffect->mapToGlobal(ui->modifier->pos())); }

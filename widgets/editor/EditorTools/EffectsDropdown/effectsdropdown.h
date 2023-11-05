@@ -1,13 +1,13 @@
 #ifndef EFFECTSDROPDOWN_H
 #define EFFECTSDROPDOWN_H
 
-#include <QWidget>
+#include <QMenu>
 
 namespace Ui {
 class EffectsDropdown;
 }
 
-class EffectsDropdown : public QWidget
+class EffectsDropdown : public QMenu
 {
     Q_OBJECT
 

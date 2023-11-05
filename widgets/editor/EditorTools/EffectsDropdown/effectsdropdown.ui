@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>EffectsDropdown</class>
  <widget class="QWidget" name="EffectsDropdown">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -38,6 +41,9 @@
    <font>
     <pointsize>11</pointsize>
    </font>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -141,6 +147,9 @@ QPushButton:Pressed {
        <pointsize>11</pointsize>
       </font>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="text">
       <string>Wobble</string>
      </property>
@@ -183,6 +192,9 @@ QPushButton:Pressed {
       <font>
        <pointsize>11</pointsize>
       </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
       <string>More</string>
