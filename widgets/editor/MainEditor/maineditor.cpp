@@ -219,6 +219,16 @@ void MainEditor::on_actionTyped_triggered()
     currentField->addOrRemoveFieldEffect(5);
 }
 
+void MainEditor::on_actionRemoveFieldEffect_triggered()
+{
+    FieldData* currentField = getActiveField();
+
+    for (int i = 1; i <= 5; i++)
+    {
+        currentField->removeFieldEffect(i);
+    }
+}
+
 void MainEditor::on_actionWobbleText_triggered()
 {
     applyTextEffect(1);

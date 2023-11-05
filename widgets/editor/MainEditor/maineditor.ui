@@ -146,6 +146,8 @@
      <addaction name="actionSpeedup"/>
      <addaction name="actionBold"/>
      <addaction name="actionTyped"/>
+     <addaction name="separator"/>
+     <addaction name="actionRemoveFieldEffect"/>
     </widget>
     <widget class="QMenu" name="menuText_Effects">
      <property name="title">
@@ -326,6 +328,11 @@
    </property>
   </action>
   <action name="actionRemoveEffect">
+   <property name="text">
+    <string>Remove effect</string>
+   </property>
+  </action>
+  <action name="actionRemoveFieldEffect">
    <property name="text">
     <string>Remove effect</string>
    </property>

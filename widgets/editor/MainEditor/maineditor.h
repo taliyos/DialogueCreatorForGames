@@ -40,6 +40,7 @@ private slots:
     void on_actionSpeedup_triggered();
     void on_actionBold_triggered();
     void on_actionTyped_triggered();
+    void on_actionRemoveFieldEffect_triggered();
 
     // Text Effects
     void on_actionWobbleText_triggered();
