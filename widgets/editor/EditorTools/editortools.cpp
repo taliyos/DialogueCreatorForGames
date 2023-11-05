@@ -6,6 +6,14 @@ EditorTools::EditorTools(QWidget *parent) :
     ui(new Ui::EditorTools)
 {
     ui->setupUi(this);
+
+    characterDropdown = new EffectsDropdown();
+    displayDropdown = new EffectsDropdown();
+    modifierDropdown = new EffectsDropdown();
+
+    connect(ui->displayEffect, &QAbstractButton::clicked, this, &EditorTools::showDisplayDropdown);
+    connect(ui->character, &QAbstractButton::clicked, this, &EditorTools::showCharacterDropdown);
+    connect(ui->modifier, &QAbstractButton::clicked, this, &EditorTools::showModifierDropdown);
 }
 
 EditorTools::~EditorTools()

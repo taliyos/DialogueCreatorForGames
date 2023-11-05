@@ -3,6 +3,7 @@
 
 #include <QPushButton>
 #include <QWidget>
+#include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
 
 namespace Ui {
 class EditorTools;
@@ -60,6 +61,19 @@ private slots:
 
 private:
     Ui::EditorTools *ui;
+
+    EffectsDropdown* displayDropdown;
+    EffectsDropdown* characterDropdown;
+    EffectsDropdown* modifierDropdown;
+
+    void showDisplayDropdown();
+    void hideDisplayDropdown();
+
+    void showCharacterDropdown();
+    void hideCharacterDropdown();
+
+    void showModifierDropdown();
+    void hideModifierDropdown();
 };
 
 #endif // EDITORTOOLS_H
