@@ -27,13 +27,10 @@ public:
     void addOption();
     void eraseOption(int index);
     void loadOptions();
-    void saveSettings();
+    void saveOptions();
 
 signals:
     void optionErased (int index);
-
-public slots:
-    void saveOptions();
 
 private:
     Ui::ListSettings *ui;

@@ -1,12 +1,21 @@
 #include "settingsoption.h"
 #include "ui_settingsoption.h"
 
-SettingsOption::SettingsOption(QWidget *parent, int index) :
+#include "widgets/editor/EditorTools/Settings/listsettings.h"
+
+SettingsOption::SettingsOption(QWidget *parent, int index, ListSettings* listParent) :
     QWidget(parent),
     ui(new Ui::SettingsOption)
 {
     ui->setupUi(this);
     this->index = index;
+    this->listParent = listParent;
+}
+
+void SettingsOption::erase()
+{
+    if (listParent != nullptr)
+        emit listParent->optionErased(index);
 }
 
 SettingsOption::~SettingsOption()

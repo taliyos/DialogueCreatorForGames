@@ -12,6 +12,7 @@ ListSettings::ListSettings(QWidget *parent) :
     listElements = new list<SettingsOption*>();
     connect(ui->Add, &QAbstractButton::clicked, this, &ListSettings::addOption);
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &ListSettings::saveOptions);
+    connect(this, &ListSettings::optionErased, this, &ListSettings::eraseOption);
 }
 
 ListSettings::~ListSettings()
@@ -22,34 +23,28 @@ ListSettings::~ListSettings()
     //delete[] listElements;
 }
 
-
-
 void ListSettings::addOption()
 {
-    SettingsOption* qLine = new  SettingsOption(ui->listView);
-    listElements->push_back(qLine);
-    qLine->show();
-    connect(qLine->getButton(), &QPushButton::clicked, this, &ListSettings::optionErased);
+    SettingsOption* option = new  SettingsOption(ui->listView, listElements->size(), this);
+    listElements->push_back(option);
+    option->show();
+    connect(option->getButton(), &QPushButton::clicked, option, &SettingsOption::erase);
 }
-
-
-
-
 
 void ListSettings::eraseOption(int index)
 {
-    list<string>::iterator itr = data->begin();
-    list<SettingsOption*>::iterator itr2 = listElements->begin();
+    qDebug() << "Index: " << index;
+
+    list<SettingsOption*>::iterator itr = listElements->begin();
     for(int i = 0; i < index; i++)
     {
-        itr++;
-        itr2++;
+        ++itr;
     }
     // Delete the UI element
-    delete (*itr2);
+    (*itr)->deleteLater();
     // Wipe the element and string from their lists
-    listElements->erase(itr2);
-    data->erase(itr);
+    listElements->erase(itr);
+
 }
 
 void ListSettings::loadOptions()
@@ -76,12 +71,9 @@ void ListSettings::loadOptions()
 
 void ListSettings::saveOptions()
 {
+    data->clear();
     for(SettingsOption* element : (*listElements))
     {
         data->push_back(element->getLineEdit()->text().toStdString());
     }
-    /*for (SettingsOption* option : *listElements) {
-        emit saveSettings(option);
-    }
-    */
 }
