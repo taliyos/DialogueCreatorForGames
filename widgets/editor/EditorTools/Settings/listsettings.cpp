@@ -1,7 +1,7 @@
 #include "listsettings.h"
 #include <QLineEdit>
 #include "ui_listsettings.h"
-
+#include <QDialogButtonBox>
 
 ListSettings::ListSettings(QWidget *parent) :
     QDialog(parent),
@@ -11,6 +11,7 @@ ListSettings::ListSettings(QWidget *parent) :
     data = new list<string>();
     listElements = new list<SettingsOption*>();
     connect(ui->Add, &QAbstractButton::clicked, this, &ListSettings::addOption);
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &ListSettings::saveOptions);
 }
 
 ListSettings::~ListSettings()
@@ -28,7 +29,13 @@ void ListSettings::addOption()
     SettingsOption* qLine = new  SettingsOption(ui->listView);
     listElements->push_back(qLine);
     qLine->show();
+    connect(qLine->getButton(), &QPushButton::clicked, this, &ListSettings::optionErased);
 }
+
+
+
+
+
 void ListSettings::eraseOption(int index)
 {
     list<string>::iterator itr = data->begin();
@@ -65,7 +72,6 @@ void ListSettings::loadOptions()
         itr++;
         itr2++;
     }
-
 }
 
 void ListSettings::saveOptions()
@@ -74,4 +80,8 @@ void ListSettings::saveOptions()
     {
         data->push_back(element->getLineEdit()->text().toStdString());
     }
+    /*for (SettingsOption* option : *listElements) {
+        emit saveSettings(option);
+    }
+    */
 }

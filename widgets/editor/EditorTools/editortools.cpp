@@ -62,5 +62,6 @@ QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
 
 // Methods
 void EditorTools::openEffectSettings() { effectSettings->open(); }
-void EditorTools::openListSettings() { listSettings->open(); }
+void EditorTools::openListSettings() { listSettings->open();
+    listSettings->loadOptions();}
 void EditorTools::openPresetSettings() { presetSettings->open(); }

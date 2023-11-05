@@ -26,17 +26,20 @@ public:
     // List methods
     void addOption();
     void eraseOption(int index);
-    void saveOptions();
     void loadOptions();
+    void saveSettings();
 
 signals:
+    void optionErased (int index);
 
-private slots:
+public slots:
+    void saveOptions();
 
 private:
     Ui::ListSettings *ui;
     list<string> *data;
     list<SettingsOption*> *listElements;
+
 };
 
 #endif // LISTSETTINGS_H

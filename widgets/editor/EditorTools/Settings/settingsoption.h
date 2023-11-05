@@ -2,6 +2,7 @@
 #define SETTINGSOPTION_H
 #include <QLineEdit>
 #include <QWidget>
+#include <QPushButton>
 
 namespace Ui {
 class SettingsOption;
@@ -13,12 +14,14 @@ class SettingsOption : public QWidget
 
 public:
     //make a fucntion to access Qline
-    explicit SettingsOption(QWidget *parent = nullptr);
+    explicit SettingsOption(QWidget *parent = nullptr, int index = 0);
     ~SettingsOption();
-   QLineEdit* getLineEdit();
+    QLineEdit* getLineEdit();
+    QPushButton* getButton();
 
 private:
     Ui::SettingsOption *ui;
+    int index;
 };
 
 #endif // SETTINGSOPTION_H
