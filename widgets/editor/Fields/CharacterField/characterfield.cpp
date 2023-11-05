@@ -12,3 +12,8 @@ CharacterField::~CharacterField()
 {
     delete ui;
 }
+
+QString CharacterField::getText() const
+{
+    return ui->lineEdit->text();
+}
