@@ -211,7 +211,7 @@ QString TextField::generateHtml(const QString& content, const QString& content2)
 
     fullHtml += "</head><body>";
     fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
-    fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
+    if (content2 != "") fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
     fullHtml += R"(<div class='dialogue-box'>)" + content + R"(</div>)";
     fullHtml += R"(</div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
