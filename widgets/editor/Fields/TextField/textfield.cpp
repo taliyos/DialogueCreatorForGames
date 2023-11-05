@@ -59,6 +59,35 @@ QString TextField::generateHtml(const QString& content, TextData* textData) {
     else if (textData->hasFieldEffect(5))
         newContent = "<effect type=\"typed\">" + content + "</effect>";
 
+    if (newContent == content)
+    {
+        const map<pair<int,int>, list<int>> textEffects = textData->getTextEffects();
+        int totalAddedChars = 0;
+        for(map<pair<int,int>,list<int>>::const_iterator it = textEffects.begin(); it != textEffects.end(); it++)
+        {
+            int start = it->first.first;
+            int end = it->first.second;
+            int tag = it->second.front();
+
+            QString string1 = "";
+            QString string2 = "</effect>";
+            if (tag == 1)
+                string1 = "<effect type=\"wobble\">";
+            else if (tag == 2)
+                string1 = "<effect type=\"enlarge\">";
+            else if (tag == 3)
+                string1 = "<effect type=\"speedUp\">";
+            else if (tag == 4)
+                string1 = "<effect type=\"bold\">";
+            else if (tag == 5)
+                string1 = "<effect type=\"typed\">";
+
+            newContent.insert(start + totalAddedChars, string1);
+            totalAddedChars += string1.length();
+            newContent.insert(end + totalAddedChars,string2);
+            totalAddedChars += string2.length();
+        }
+        }
 
     QString base64Image;
     QString fullHtml;

@@ -34,12 +34,21 @@ private slots:
 
     void on_actionNew_triggered();
 
-    // Effects
+    // Field Effects
     void on_actionWobble_triggered();
     void on_actionEnlarge_triggered();
     void on_actionSpeedup_triggered();
     void on_actionBold_triggered();
     void on_actionTyped_triggered();
+
+    // Text Effects
+    void on_actionWobbleText_triggered();
+    void on_actionEnlargeText_triggered();
+    void on_actionSpeedupText_triggered();
+    void on_actionBoldText_triggered();
+    void on_actionTypedText_triggered();
+    void applyTextEffect(int tag);
+    void on_actionRemoveEffect_triggered();
 
     /**
      * Creates a text field and adds it to the UI

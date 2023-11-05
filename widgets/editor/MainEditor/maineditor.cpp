@@ -7,6 +7,7 @@
 #include "widgets/editor/FieldConnection/fieldconnection.h"
 #include "data/ConnectionData/connectiondata.h"
 #include <QWebEngineView>
+#include <QDebug>
 
 #include "data/Fields/MainFields/text/textdata.h"
 
@@ -188,7 +189,6 @@ void MainEditor::on_actionNew_triggered()
 
 }
 
-// Enlarge field effect
 void MainEditor::on_actionWobble_triggered()
 {
     FieldData* currentField = getActiveField();
@@ -217,6 +217,70 @@ void MainEditor::on_actionTyped_triggered()
 {
     FieldData* currentField = getActiveField();
     currentField->addOrRemoveFieldEffect(5);
+}
+
+void MainEditor::on_actionWobbleText_triggered()
+{
+    applyTextEffect(1);
+}
+
+void MainEditor::on_actionEnlargeText_triggered()
+{
+    applyTextEffect(2);
+}
+
+void MainEditor::on_actionSpeedupText_triggered()
+{
+    applyTextEffect(3);
+}
+
+void MainEditor::on_actionBoldText_triggered()
+{
+    applyTextEffect(4);
+}
+
+void MainEditor::on_actionTypedText_triggered()
+{
+    applyTextEffect(5);
+}
+
+void MainEditor::applyTextEffect(int tag)
+{
+    FieldData* currentField = getActiveField();
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    if (!field->getTextField()->hasSelectedText())
+        return;
+
+    int start = field->getTextField()->selectionStart();
+    int end = field->getTextField()->selectionEnd();
+
+    if (currentField->hasTextEffect(start, end, tag))
+    {
+        qDebug() << "already exists";
+        return;
+    }
+
+    currentField->addOrRemoveTextEffect(start, end, tag);
+}
+
+void MainEditor::on_actionRemoveEffect_triggered()
+{
+    FieldData* currentField = getActiveField();
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    if (!field->getTextField()->hasSelectedText())
+        return;
+
+    int start = field->getTextField()->selectionStart();
+    int end = field->getTextField()->selectionEnd();
+    for (int i = 1; i <= 5; i++)
+    {
+        if (currentField->hasTextEffect(start, end, i))
+        {
+            qDebug() << "test";
+            currentField->removeTextEffect(start,end,i);
+            return;
+        }
+    }
 }
 
 void MainEditor::createTextField() {
