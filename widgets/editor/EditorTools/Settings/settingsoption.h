@@ -20,6 +20,8 @@ public:
     ~SettingsOption();
     QLineEdit* getLineEdit();
     QPushButton* getButton();
+    int getIndex();
+    void setIndex(int value);
     void erase();
 
 private:

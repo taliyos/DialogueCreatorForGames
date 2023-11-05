@@ -12,22 +12,31 @@ SettingsOption::SettingsOption(QWidget *parent, int index, ListSettings* listPar
     this->listParent = listParent;
 }
 
+SettingsOption::~SettingsOption()
+{
+    delete ui;
+}
+
+
+int SettingsOption::getIndex()
+{
+    return index;
+}
+
+void SettingsOption::setIndex(int value)
+{
+    index = value;
+}
+
 void SettingsOption::erase()
 {
     if (listParent != nullptr)
         emit listParent->optionErased(index);
 }
 
-SettingsOption::~SettingsOption()
-{
-    delete ui;
-}
 QPushButton* SettingsOption:: getButton(){
     return ui->pushButton;
 }
-
-
-
 
  QLineEdit* SettingsOption::getLineEdit()
 {

@@ -25,9 +25,10 @@ ListSettings::~ListSettings()
 
 void ListSettings::addOption()
 {
-    SettingsOption* option = new  SettingsOption(ui->listView, listElements->size(), this);
-    listElements->push_back(option);
+    SettingsOption* option = new SettingsOption(nullptr, listElements->size(), this);
+    ui->verticalLayoutWidget->layout()->addWidget(option);
     option->show();
+    listElements->push_back(option);
     connect(option->getButton(), &QPushButton::clicked, option, &SettingsOption::erase);
 }
 
@@ -44,7 +45,12 @@ void ListSettings::eraseOption(int index)
     (*itr)->deleteLater();
     // Wipe the element and string from their lists
     listElements->erase(itr);
-
+    int count = 0;
+    for(SettingsOption* option : (*listElements))
+    {
+        option->setIndex(count);
+        count++;
+    }
 }
 
 void ListSettings::loadOptions()
