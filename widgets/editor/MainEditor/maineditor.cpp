@@ -11,6 +11,7 @@
 
 #include "data/Fields/MainFields/text/textdata.h"
 
+
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainEditor)
@@ -28,6 +29,44 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getCustomField1(), &QAbstractButton::clicked, this, &MainEditor::removeHead);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
+
+    typedef std::function<void ()> EffectFunc;
+    typedef std::pair<std::string, EffectFunc> EffectPair;
+    typedef std::vector<EffectPair> EffectsVector;
+    EffectsVector displayEffects;
+    EffectsVector characterEffects;
+    EffectsVector modifierEffects;
+
+    EffectPair wobbleField = EffectPair(std::string("Wobble"), std::bind(&MainEditor::on_actionWobble_triggered, this));
+    EffectPair speedupField = EffectPair(std::string("Speedup"), std::bind(&MainEditor::on_actionSpeedup_triggered, this));
+    EffectPair enlargeField = EffectPair(std::string("Enlarge"), std::bind(&MainEditor::on_actionEnlarge_triggered, this));
+    EffectPair boldField = EffectPair(std::string("Bold"), std::bind(&MainEditor::on_actionBold_triggered, this));
+    EffectPair typedField = EffectPair(std::string("Typed"), std::bind(&MainEditor::on_actionTyped_triggered, this));
+
+    EffectPair wobbleText = EffectPair(std::string("Wobble"), std::bind(&MainEditor::on_actionWobbleText_triggered, this));
+    EffectPair speedupText = EffectPair(std::string("Speedup"), std::bind(&MainEditor::on_actionSpeedupText_triggered, this));
+    EffectPair enlargeText = EffectPair(std::string("Enlarge"), std::bind(&MainEditor::on_actionEnlargeText_triggered, this));
+    EffectPair boldText = EffectPair(std::string("Bold"), std::bind(&MainEditor::on_actionBoldText_triggered, this));
+
+
+    displayEffects.push_back(wobbleField);
+    displayEffects.push_back(typedField);
+    displayEffects.push_back(speedupField);
+    displayEffects.push_back(enlargeField);
+    displayEffects.push_back(boldField);
+
+    characterEffects.push_back(enlargeText);
+    characterEffects.push_back(wobbleText);
+    characterEffects.push_back(boldText);
+    modifierEffects.push_back(speedupText);
+
+    editorTools->populateDisplayEffects(displayEffects);
+    editorTools->populateCharacterEffects(characterEffects);
+    editorTools->populateModifierEffects(modifierEffects);
+
+    connect(editorTools->getDisplayDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveFieldEffect_triggered);
+    connect(editorTools->getCharacterDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveEffect_triggered);
+    connect(editorTools->getModifierDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveEffect_triggered);
 
     // Create first dialogue box
     createTextField();
@@ -303,6 +342,8 @@ void MainEditor::createTextField() {
         // field is removed when the remove button is clicked within the UI.
         connect(textField, &TextField::removeField, this, &MainEditor::removeField);
         connect(textField, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+        lastActive = data;
         return;
     }
 

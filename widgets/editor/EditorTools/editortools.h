@@ -53,6 +53,19 @@ public:
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
 
+    // Dropdowns
+    EffectsDropdown* getDisplayDropdown() const;
+    EffectsDropdown* getCharacterDropdown() const;
+    EffectsDropdown* getModifierDropdown() const;
+
+    typedef std::function<void ()> EffectFunc;
+    typedef std::pair<std::string, EffectFunc> EffectPair;
+    typedef std::vector<EffectPair> EffectsVector;
+
+    void populateDisplayEffects(EffectsVector effects);
+    void populateCharacterEffects(EffectsVector effects);
+    void populateModifierEffects(EffectsVector effects);
+
 signals:
     void characterEffectRequested(int effectNumber);
 
@@ -65,6 +78,8 @@ private:
     EffectsDropdown* displayDropdown;
     EffectsDropdown* characterDropdown;
     EffectsDropdown* modifierDropdown;
+
+    void populateEffects(EffectsDropdown* dropdown, EffectsVector effects);
 
     void showDropdown(EffectsDropdown* dropdown, const QPoint point);
 
