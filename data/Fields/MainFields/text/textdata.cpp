@@ -10,6 +10,8 @@ TextData::TextData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* 
     TextField* field = reinterpret_cast <TextField*>(ui);
     field->setData(this);
 
+    setFieldType(Text);
+
 }
 
 const int TextData::getID()

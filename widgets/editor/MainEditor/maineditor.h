@@ -5,6 +5,8 @@
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "data/Fields/MainFields/list/listdata.h"
+#include "data/Fields/fielddata.h"
+#include "data/Fields/MainFields/text/textdata.h"
 #include <QMainWindow>
 #include <typeinfo>
 
@@ -21,6 +23,12 @@ public:
     ~MainEditor();
 signals:
 
+    void preset_createTextField();
+    void preset_createTextFieldAndCharacter();
+    void preset_createListField();
+    void preset_createUserPromptField();
+    void preset_createUserListField();
+
 private slots:
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
@@ -35,10 +43,31 @@ private slots:
     void on_actionRedo_triggered();
 
     void on_actionNew_triggered();
+
+    // Field Effects
+    void on_actionWobble_triggered();
+    void on_actionEnlarge_triggered();
+    void on_actionSpeedup_triggered();
+    void on_actionBold_triggered();
+    void on_actionTyped_triggered();
+    void on_actionRemoveFieldEffect_triggered();
+
+    // Text Effects
+    void on_actionWobbleText_triggered();
+    void on_actionEnlargeText_triggered();
+    void on_actionSpeedupText_triggered();
+    void on_actionBoldText_triggered();
+    void on_actionTypedText_triggered();
+    void applyTextEffect(int tag);
+    void on_actionRemoveEffect_triggered();
+
+    void createPreset();
+    void applyPreset(Preset* preset);
+
     /**
      * Creates a text field and adds it to the UI
     */
-    void handlePreviewRequest(const QString& content);
+    void handlePreviewRequest(const QString& content, const QString& content2, TextData* textData);
     void createTextField();
     void createListField();
 
@@ -61,6 +90,8 @@ private slots:
      */
     void updateListFields(string txt);
 
+    FieldData* getActiveField();
+
 private:
     Ui::MainEditor *ui = nullptr;
 
@@ -68,6 +99,7 @@ private:
     Designer* designer = nullptr;
 
     FieldData* data = nullptr;
+    FieldData* lastActive = nullptr;
 
     QString currentFile;
 };

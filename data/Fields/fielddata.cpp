@@ -23,6 +23,12 @@ FieldData::~FieldData() {
     }
 }
 
+void FieldData::setFieldType(FieldTypes type) {
+    fieldType = type;
+}
+
+FieldTypes FieldData::getFieldType() const { return fieldType; }
+
 
 void FieldData::setText(string newText)
 {
@@ -49,7 +55,16 @@ void FieldData::addOrRemoveFieldEffect(int tag)
     if (hasFieldEffect(tag))
         removeFieldEffect(tag);
     else
+    {
+        // Since only one field effect can be active, remove the previous effects here
+        fieldEffects = list<int>();
         applyFieldEffect(tag);
+    }
+}
+
+const map<pair<int, int>, list<int>> FieldData::getTextEffects()
+{
+    return this->textToEffects;
 }
 
 // TODO: FINISH THIS ****
@@ -66,19 +81,27 @@ void FieldData::addOrRemoveFieldEffect(int tag)
 /// </summary>
 bool FieldData::hasTextEffect(unsigned int index1, unsigned int index2, int tag)
 {
-    /*
+    qDebug() << "test";
+
     // Check to see if the range is valid
-    if (index1 > index2 || index1 >= text->length() || index2 >= text->length())
+    if (index1 >= index2) //|| index1 >= text.length()|| index2 >= text.length())
         return false;
+    qDebug() << "test2";
     // Look for a mapping of the text fields that covers this range
-    for(map<pair<int,int>,list<int>>::iterator it = textToEffects->begin(); it != textToEffects->end(); it++)
+    for(map<pair<int,int>,list<int>>::iterator it = textToEffects.begin(); it != textToEffects.end(); it++)
     {
         // Check to see if this range contains the effect
-        if (it->first.first <= index1 && it->first.second <= index2)
-            return find(it->second.begin(), it->second.end(), tag) != it->second.end();
+//        if (it->first.first <= index1 && it->first.second <= index2)
+//            return find(it->second.begin(), it->second.end(), tag) != it->second.end();
+
+        // Check to see if this range contains ANY effect. If so, return true
+        qDebug() << "in loop";
+        qDebug() << index1 << index2 << it->first.first << it->first.second;
+        if ((index1 >= it->first.first && index1 < it->first.second) || (index2 >= it->first.first && index2 < it->first.second) )
+            return true;
     }
     // Return false if it isn't found
-    */
+
     return false;
 }
 
@@ -97,8 +120,7 @@ void FieldData::applyTextEffect(unsigned int index1, unsigned int index2, int ta
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
-    list<int> * effects = &(textToEffects[key]);
-    effects->push_back(tag);
+    textToEffects[key] = {tag};
 }
 
 /// <summary>
@@ -116,8 +138,7 @@ void FieldData::removeTextEffect(unsigned int index1, unsigned int index2, int t
 {
     // remember: map<pair<int, int>, list<int>>*
     pair<int, int> key = pair<int, int>(index1, index2);
-    list<int> * effects = &(textToEffects[key]);
-    effects->remove(tag);
+    textToEffects.erase(key);
 }
 
 /// <summary>
@@ -139,7 +160,6 @@ void FieldData::addOrRemoveTextEffect(unsigned int index1, unsigned int index2, 
     else
         applyTextEffect(index1, index2, tag);
 }
-
 
 const ConnectionData* FieldData::replaceFromConnection(ConnectionData* connection) {
     fromConnection = connection;

@@ -30,6 +30,7 @@ void TextField::onCharacterClicked() {
 void TextField::removeCharacterWidget() {
     if (characterField) {
         ui->AboveFieldLayout->removeWidget(characterField);
+        data->setFieldType(Text);
         delete characterField;
         characterField = nullptr;
     }
@@ -38,13 +39,61 @@ void TextField::removeCharacterWidget() {
 
 void TextField::addCharacterWidget() {
     characterField = new CharacterField(this);
+    data->setFieldType(TextCharacter);
     ui->AboveFieldLayout->addWidget(characterField);
 }
+QString TextField::generateHtml(const QString& content, const QString& content2, TextData* textData) {
 
+    QString newContent = content;
+    // 1 = wobble
+    if (textData->hasFieldEffect(1))
+        newContent = "<effect type=\"wobble\">" + content + "</effect>";
+    // 2 = enlarge
+    else if (textData->hasFieldEffect(2))
+        newContent = "<effect type=\"enlarge\">" + content + "</effect>";
+    // 3 = speedUp
+    else if (textData->hasFieldEffect(3))
+        newContent = "<effect type=\"speedUp\">" + content + "</effect>";
+    // 4 = bold
+    else if (textData->hasFieldEffect(4))
+        newContent = "<effect type=\"bold\">" + content + "</effect>";
+    // 5 = typed
+    else if (textData->hasFieldEffect(5))
+        newContent = "<effect type=\"typed\">" + content + "</effect>";
 
-QString TextField::generateHtml(const QString& content) {
+    if (newContent == content)
+    {
+        const map<pair<int,int>, list<int>> textEffects = textData->getTextEffects();
+        int totalAddedChars = 0;
+        for(map<pair<int,int>,list<int>>::const_iterator it = textEffects.begin(); it != textEffects.end(); it++)
+        {
+            int start = it->first.first;
+            int end = it->first.second;
+            int tag = it->second.front();
+
+            QString string1 = "";
+            QString string2 = "</effect>";
+            if (tag == 1)
+                string1 = "<effect type=\"wobble\">";
+            else if (tag == 2)
+                string1 = "<effect type=\"enlarge\">";
+            else if (tag == 3)
+                string1 = "<effect type=\"speedUp\">";
+            else if (tag == 4)
+                string1 = "<effect type=\"bold\">";
+            else if (tag == 5)
+                string1 = "<effect type=\"typed\">";
+
+            newContent.insert(start + totalAddedChars, string1);
+            totalAddedChars += string1.length();
+            newContent.insert(end + totalAddedChars,string2);
+            totalAddedChars += string2.length();
+        }
+    }
+
     QString base64Image;
     QString fullHtml;
+
     fullHtml += "<!DOCTYPE html>";
     fullHtml += "<html><head><title>Dialogue Preview</title>";
     fullHtml += R"(<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>)";
@@ -170,23 +219,49 @@ QString TextField::generateHtml(const QString& content) {
             overflow: hidden; // Hide any overflow content
         }
 
+        .dialogue-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: top;
+            align-items: left;
+        }
+
         .dialogue-box {
-            position: absolute;
-            top: 0;
-            left: 0;
             background: #ECEFF1;
-            border-radius: 100px;
+            border-radius: 15px;
             padding: 1rem;
             width: 390px;
             height: 160px;
             box-shadow: 10px 10px rgba(0,0,0,0.2);
             font-size: 24px;
+            margin-top: 10px;
         }
+
+        .character-box {
+            background: #ECEFF1;
+            border-radius: 15px;
+            padding: 1rem;
+            width: 300px; /* Adjust width as necessary */
+            height: 20px; /* Adjust height as necessary */
+            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+            z-index: 2;
+        }
+
+
     </style>
     )";
 
+    // ... (The rest of your styles remain the same)
+
     fullHtml += "</head><body>";
-    fullHtml += "<div class='dialogue-box'>" + content + "</div>";
+    fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
+    if (content2 != "") fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
+    fullHtml += R"(<div class='dialogue-box'>)" + newContent + R"(</div>)";
+    fullHtml += R"(</div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
 
     return fullHtml;
@@ -207,7 +282,11 @@ void TextField::applyCharacterEffect(int effectNumber) {
 
 void TextField::exportToBrowser() {
     QString content = ui->textField->text();
-    emit previewRequested(content);
+    QString content2;
+    if (characterField){
+        content2 = characterField->getText();
+    }
+    emit previewRequested(content, content2, data);
 }
 
 TextField::~TextField()

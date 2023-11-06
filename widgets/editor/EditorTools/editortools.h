@@ -7,6 +7,10 @@
 #include "Settings/listsettings.h"
 #include "Settings/presetsettings.h"
 
+#include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
+
+class Preset;
+
 namespace Ui {
 class EditorTools;
 }
@@ -55,6 +59,7 @@ public:
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
 
+
     // Settings Pages
     EffectSettings* getEffectSettingsPage();
     ListSettings* getListSettingsPage();
@@ -65,18 +70,49 @@ public:
     void openListSettings();
     void openPresetSettings();
 
+    // Dropdowns
+    EffectsDropdown* getDisplayDropdown() const;
+    EffectsDropdown* getCharacterDropdown() const;
+    EffectsDropdown* getModifierDropdown() const;
+
+    typedef std::function<void ()> EffectFunc;
+    typedef std::pair<std::string, EffectFunc> EffectPair;
+    typedef std::vector<EffectPair> EffectsVector;
+
+    void populateDisplayEffects(EffectsVector effects);
+    void populateCharacterEffects(EffectsVector effects);
+    void populateModifierEffects(EffectsVector effects);
+
+    void addPreset(Preset* preset);
+
 signals:
     void characterEffectRequested(int effectNumber);
+    void applyPreset(Preset* preset);
     void listFieldUpdateRequested(string txt);
 
-
 private slots:
+    void sendPresetSignal(int index);
 
 private:
     Ui::EditorTools *ui;
+
     EffectSettings *effectSettings;
     ListSettings *listSettings;
     PresetSettings *presetSettings;
+
+    EffectsDropdown* displayDropdown;
+    EffectsDropdown* characterDropdown;
+    EffectsDropdown* modifierDropdown;
+
+    void populateEffects(EffectsDropdown* dropdown, EffectsVector effects);
+
+    void showDropdown(EffectsDropdown* dropdown, const QPoint point);
+
+    void showDisplayDropdown();
+    void showCharacterDropdown();
+    void showModifierDropdown();
+
+    std::vector<Preset*> presets = std::vector<Preset*>();
 };
 
 #endif // EDITORTOOLS_H

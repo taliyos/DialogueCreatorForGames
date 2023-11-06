@@ -5,7 +5,7 @@
 
 InputData::InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : MainFieldData(ui, fromConnection, toConnection)
 {
-
+    setFieldType(UserPrompt);
 }
 
 
