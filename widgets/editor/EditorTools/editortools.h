@@ -3,6 +3,7 @@
 
 #include <QPushButton>
 #include <QWidget>
+#include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
 
 namespace Ui {
 class EditorTools;
@@ -52,6 +53,19 @@ public:
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
 
+    // Dropdowns
+    EffectsDropdown* getDisplayDropdown() const;
+    EffectsDropdown* getCharacterDropdown() const;
+    EffectsDropdown* getModifierDropdown() const;
+
+    typedef std::function<void ()> EffectFunc;
+    typedef std::pair<std::string, EffectFunc> EffectPair;
+    typedef std::vector<EffectPair> EffectsVector;
+
+    void populateDisplayEffects(EffectsVector effects);
+    void populateCharacterEffects(EffectsVector effects);
+    void populateModifierEffects(EffectsVector effects);
+
 signals:
     void characterEffectRequested(int effectNumber);
 
@@ -60,6 +74,18 @@ private slots:
 
 private:
     Ui::EditorTools *ui;
+
+    EffectsDropdown* displayDropdown;
+    EffectsDropdown* characterDropdown;
+    EffectsDropdown* modifierDropdown;
+
+    void populateEffects(EffectsDropdown* dropdown, EffectsVector effects);
+
+    void showDropdown(EffectsDropdown* dropdown, const QPoint point);
+
+    void showDisplayDropdown();
+    void showCharacterDropdown();
+    void showModifierDropdown();
 };
 
 #endif // EDITORTOOLS_H
