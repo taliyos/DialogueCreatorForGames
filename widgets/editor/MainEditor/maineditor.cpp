@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
+#include "data/Presets/preset.h"
 #include "maineditor.h"
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
@@ -67,6 +68,10 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getDisplayDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveFieldEffect_triggered);
     connect(editorTools->getCharacterDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveEffect_triggered);
     connect(editorTools->getModifierDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveEffect_triggered);
+
+    // Connect presets
+    connect(editorTools->getAddPreset(), &QAbstractButton::clicked, this, &MainEditor::createPreset);
+    connect(editorTools, &EditorTools::applyPreset, this, &MainEditor::applyPreset);
 
     // Create first dialogue box
     createTextField();
@@ -505,4 +510,13 @@ void MainEditor::preset_createUserPromptField() {
 }
 void MainEditor::preset_createUserListField() {
     createTextField();
+}
+
+void MainEditor::createPreset() {
+    Preset* preset = new Preset(data);
+    editorTools->addPreset(preset);
+}
+
+void MainEditor::applyPreset(Preset* preset) {
+    preset->apply(data, this);
 }

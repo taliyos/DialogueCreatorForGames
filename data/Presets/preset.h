@@ -27,8 +27,11 @@ public:
      */
     void apply(FieldData* data, MainEditor* editor);
 
+    QString getDescription() const;
+
 private:
-    std::vector<FieldTypes> storage;
+    std::vector<FieldTypes> storage = std::vector<FieldTypes>();
+    QString description = QString();
 };
 
 #endif // PRESET_H

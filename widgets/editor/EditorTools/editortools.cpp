@@ -1,6 +1,8 @@
 #include "editortools.h"
 #include "ui_editortools.h"
 
+#include "data/Presets/preset.h"
+
 EditorTools::EditorTools(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditorTools)
@@ -18,6 +20,12 @@ EditorTools::EditorTools(QWidget *parent) :
     connect(ui->displayEffect, &QAbstractButton::clicked, this, &EditorTools::showDisplayDropdown);
     connect(ui->character, &QAbstractButton::clicked, this, &EditorTools::showCharacterDropdown);
     connect(ui->modifier, &QAbstractButton::clicked, this, &EditorTools::showModifierDropdown);
+
+    // Preset connection
+    connect(EditorTools::getPreset1(), &QAbstractButton::clicked, this, [this]() { EditorTools::sendPresetSignal(0); });
+    connect(EditorTools::getPreset2(), &QAbstractButton::clicked, this, [this]() { EditorTools::sendPresetSignal(1); });
+    connect(EditorTools::getPreset3(), &QAbstractButton::clicked, this, [this]() { EditorTools::sendPresetSignal(2); });
+    connect(EditorTools::getPreset4(), &QAbstractButton::clicked, this, [this]() { EditorTools::sendPresetSignal(3); });
 }
 
 EditorTools::~EditorTools()
@@ -25,6 +33,9 @@ EditorTools::~EditorTools()
     delete displayDropdown;
     delete characterDropdown;
     delete modifierDropdown;
+    for (int i = 0; i < presets.size(); i++) {
+        delete presets[i];
+    }
 
     delete ui;
 }
@@ -95,3 +106,25 @@ void EditorTools::showDropdown(EffectsDropdown* dropdown, QPoint point) {
 void EditorTools::showDisplayDropdown() {showDropdown(displayDropdown, ui->displayEffect->mapToGlobal(ui->displayEffect->pos())); }
 void EditorTools::showCharacterDropdown() { showDropdown(characterDropdown, ui->displayEffect->mapToGlobal(ui->character->pos())); }
 void EditorTools::showModifierDropdown() { showDropdown(modifierDropdown, ui->displayEffect->mapToGlobal(ui->modifier->pos())); }
+
+// Presets
+void EditorTools::sendPresetSignal(int index) {
+    if (presets.size() <= index) return;
+    emit applyPreset(presets[index]);
+}
+
+void EditorTools::addPreset(Preset* preset) {
+    presets.push_back(preset);
+    if (presets.size() == 1) {
+        EditorTools::getPreset1()->setText(preset->getDescription());
+    }
+    else if (presets.size() == 2) {
+        EditorTools::getPreset2()->setText(preset->getDescription());
+    }
+    else if (presets.size() == 3) {
+        EditorTools::getPreset3()->setText(preset->getDescription());
+    }
+    else if (presets.size() == 4) {
+        EditorTools::getPreset4()->setText(preset->getDescription());
+    }
+}
