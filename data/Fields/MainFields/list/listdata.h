@@ -37,15 +37,14 @@ public:
     void erase(int i);
     void replace(int i, string s);
     list<string> toList();
-    list<pair<int,int>> getIndecies();
+    list<pair<int,int>> getIndicies();
     void print();
-    const int getID() override;
 private:
     string delimiter;
     // <startLocation, length>
-    list<pair<int, int>> indecies;
+    list<pair<int, int>> indicies;
     // parses the indecies
-    void generateIndecies();
+    void generateIndicies();
 };
 
 #endif // LISTDATA_H

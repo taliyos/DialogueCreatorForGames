@@ -7,9 +7,3 @@ InputData::InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData
 {
     setFieldType(UserPrompt);
 }
-
-
-const int InputData::getID()
-{
-    return 3;
-}
