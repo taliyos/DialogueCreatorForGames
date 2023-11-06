@@ -5,6 +5,8 @@
 #include <QWidget>
 #include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
 
+class Preset;
+
 namespace Ui {
 class EditorTools;
 }
@@ -66,11 +68,15 @@ public:
     void populateCharacterEffects(EffectsVector effects);
     void populateModifierEffects(EffectsVector effects);
 
+    void addPreset(Preset* preset);
+
 signals:
     void characterEffectRequested(int effectNumber);
+    void applyPreset(Preset* preset);
 
 
 private slots:
+    void sendPresetSignal(int index);
 
 private:
     Ui::EditorTools *ui;
@@ -86,6 +92,8 @@ private:
     void showDisplayDropdown();
     void showCharacterDropdown();
     void showModifierDropdown();
+
+    std::vector<Preset*> presets = std::vector<Preset*>();
 };
 
 #endif // EDITORTOOLS_H

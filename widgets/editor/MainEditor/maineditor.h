@@ -57,6 +57,9 @@ private slots:
     void applyTextEffect(int tag);
     void on_actionRemoveEffect_triggered();
 
+    void createPreset();
+    void applyPreset(Preset* preset);
+
     /**
      * Creates a text field and adds it to the UI
     */
