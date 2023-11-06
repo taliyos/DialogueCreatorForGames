@@ -7,6 +7,7 @@
 #include "widgets/editor/FieldConnection/fieldconnection.h"
 #include "data/ConnectionData/connectiondata.h"
 #include <QWebEngineView>
+#include <QDebug>
 
 #include "data/Fields/MainFields/text/textdata.h"
 
@@ -33,8 +34,8 @@ MainEditor::MainEditor(QWidget *parent) :
 }
 
 
-void MainEditor::handlePreviewRequest(const QString& content, const QString& content2) {
-    QString fullHtml = TextField::generateHtml(content, content2);
+void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, TextData* textData) {
+    QString fullHtml = TextField::generateHtml(content, content2, textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();
@@ -188,6 +189,125 @@ void MainEditor::on_actionNew_triggered()
 
 }
 
+void MainEditor::on_actionWobble_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(1);
+  }
+
+void MainEditor::on_actionEnlarge_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(2);
+}
+
+void MainEditor::on_actionSpeedup_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(3);
+}
+
+void MainEditor::on_actionBold_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(4);
+}
+
+void MainEditor::on_actionTyped_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(5);
+}
+
+void MainEditor::on_actionRemoveFieldEffect_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    for (int i = 1; i <= 5; i++)
+    {
+        currentField->removeFieldEffect(i);
+    }
+}
+
+void MainEditor::on_actionWobbleText_triggered()
+{
+    applyTextEffect(1);
+}
+
+void MainEditor::on_actionEnlargeText_triggered()
+{
+    applyTextEffect(2);
+}
+
+void MainEditor::on_actionSpeedupText_triggered()
+{
+    applyTextEffect(3);
+}
+
+void MainEditor::on_actionBoldText_triggered()
+{
+    applyTextEffect(4);
+}
+
+void MainEditor::on_actionTypedText_triggered()
+{
+    applyTextEffect(5);
+}
+
+void MainEditor::applyTextEffect(int tag)
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    if (!field->getTextField()->hasSelectedText())
+        return;
+
+    int start = field->getTextField()->selectionStart();
+    int end = field->getTextField()->selectionEnd();
+
+    if (currentField->hasTextEffect(start, end, tag))
+    {
+        qDebug() << "already exists";
+        return;
+    }
+
+    currentField->addOrRemoveTextEffect(start, end, tag);
+}
+
+void MainEditor::on_actionRemoveEffect_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    if (!field->getTextField()->hasSelectedText())
+        return;
+
+    int start = field->getTextField()->selectionStart();
+    int end = field->getTextField()->selectionEnd();
+    for (int i = 1; i <= 5; i++)
+    {
+        if (currentField->hasTextEffect(start, end, i))
+        {
+            qDebug() << "test";
+            currentField->removeTextEffect(start,end,i);
+            return;
+        }
+    }
+}
+
 void MainEditor::createTextField() {
     // Create a new head pointer if the data is currently null.
     if (!data) {
@@ -298,4 +418,27 @@ void MainEditor::removeField(TextField* field) {
     designer->removeWidget(field);
     delete fieldData;
     
+}
+
+// Gets active text field
+// If no active text field, return most recent active text field
+// If no recent text field, returns nullptr
+FieldData* MainEditor::getActiveField()
+{
+    if (data == nullptr)
+        return nullptr;
+    FieldData* currentField = data;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    while (!field->getTextField()->hasFocus())
+    {
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            return lastActive;
+
+        field = reinterpret_cast <TextField*>(currentField->getUi());
+    }
+
+    lastActive = currentField;
+    return currentField;
 }

@@ -40,9 +40,55 @@ void TextField::addCharacterWidget() {
     characterField = new CharacterField(this);
     ui->AboveFieldLayout->addWidget(characterField);
 }
+QString TextField::generateHtml(const QString& content, const QString& content2, TextData* textData) {
 
+    QString newContent = content;
+    // 1 = wobble
+    if (textData->hasFieldEffect(1))
+        newContent = "<effect type=\"wobble\">" + content + "</effect>";
+    // 2 = enlarge
+    else if (textData->hasFieldEffect(2))
+        newContent = "<effect type=\"enlarge\">" + content + "</effect>";
+    // 3 = speedUp
+    else if (textData->hasFieldEffect(3))
+        newContent = "<effect type=\"speedUp\">" + content + "</effect>";
+    // 4 = bold
+    else if (textData->hasFieldEffect(4))
+        newContent = "<effect type=\"bold\">" + content + "</effect>";
+    // 5 = typed
+    else if (textData->hasFieldEffect(5))
+        newContent = "<effect type=\"typed\">" + content + "</effect>";
 
-QString TextField::generateHtml(const QString& content, const QString& content2) {
+    if (newContent == content)
+    {
+        const map<pair<int,int>, list<int>> textEffects = textData->getTextEffects();
+        int totalAddedChars = 0;
+        for(map<pair<int,int>,list<int>>::const_iterator it = textEffects.begin(); it != textEffects.end(); it++)
+        {
+            int start = it->first.first;
+            int end = it->first.second;
+            int tag = it->second.front();
+
+            QString string1 = "";
+            QString string2 = "</effect>";
+            if (tag == 1)
+                string1 = "<effect type=\"wobble\">";
+            else if (tag == 2)
+                string1 = "<effect type=\"enlarge\">";
+            else if (tag == 3)
+                string1 = "<effect type=\"speedUp\">";
+            else if (tag == 4)
+                string1 = "<effect type=\"bold\">";
+            else if (tag == 5)
+                string1 = "<effect type=\"typed\">";
+
+            newContent.insert(start + totalAddedChars, string1);
+            totalAddedChars += string1.length();
+            newContent.insert(end + totalAddedChars,string2);
+            totalAddedChars += string2.length();
+        }
+    }
+
     QString base64Image;
     QString fullHtml;
 
@@ -212,7 +258,7 @@ QString TextField::generateHtml(const QString& content, const QString& content2)
     fullHtml += "</head><body>";
     fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
     if (content2 != "") fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
-    fullHtml += R"(<div class='dialogue-box'>)" + content + R"(</div>)";
+    fullHtml += R"(<div class='dialogue-box'>)" + newContent + R"(</div>)";
     fullHtml += R"(</div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
 
@@ -238,7 +284,7 @@ void TextField::exportToBrowser() {
     if (characterField){
         content2 = characterField->getText();
     }
-    emit previewRequested(content, content2);
+    emit previewRequested(content, content2, data);
 }
 
 TextField::~TextField()

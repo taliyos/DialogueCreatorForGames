@@ -31,6 +31,7 @@ public:
     void removeFieldEffect(int tag);
     void addOrRemoveFieldEffect(int tag);
     // Text effect functions
+    const map<pair<int, int>, list<int>> getTextEffects();
     bool hasTextEffect(unsigned int index1, unsigned int index2, int tag);
     void applyTextEffect(unsigned int index1, unsigned int index2, int tag);
     void removeTextEffect(unsigned int index1, unsigned int index2, int tag);

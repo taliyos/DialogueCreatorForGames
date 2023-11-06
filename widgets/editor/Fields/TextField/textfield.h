@@ -18,7 +18,7 @@ class TextField : public QWidget
 public:
     explicit TextField(QWidget *parent = nullptr);
     ~TextField();
-    static QString generateHtml(const QString& content, const QString& content2);
+    static QString generateHtml(const QString& content, const QString& content2, TextData* textData);
     void exportToBrowser();
     void applyCharacterEffect(int effectNumber);
     void setView(QWebEngineView* v);
@@ -33,7 +33,7 @@ public:
     void removeCharacterWidget();
 
 signals:
-    void previewRequested(const QString& content,const QString& content2);
+    void previewRequested(const QString& content,const QString& content2, TextData* textData);
     void removeField(TextField* field);
 
 
