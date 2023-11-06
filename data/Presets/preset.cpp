@@ -8,6 +8,47 @@ Preset::Preset(FieldData* data)
     Preset::createPreset(data);
 }
 
+Preset::Preset(std::vector<FieldTypes> fieldTypes)
+{
+    int totalText = 0;
+    int totalCharacter =0;
+    int totalList = 0;
+    int totalUserPrompt = 0;
+    int totalUserList = 0;
+    for (std::vector<FieldTypes>::iterator itr = fieldTypes.begin(); itr != fieldTypes.end(); itr++)
+    {
+        storage.push_back(*itr);
+        switch (*itr) {
+        case Text:
+            totalText++;
+            break;
+        case TextCharacter:
+            totalCharacter++;
+            break;
+        case List:
+            totalList++;
+            break;
+        case UserPrompt:
+            totalUserPrompt++;
+            break;
+        case UserList:
+            totalUserList++;
+            break;
+        }
+    }
+
+    std::string desc = "";
+    if (totalText != 0) desc += "Text: "+ std::to_string(totalText) + ", ";
+    if (totalCharacter != 0) desc += "Character: " + std::to_string(totalCharacter) + ", ";
+    if (totalList != 0) desc += "List: " + std::to_string(totalList) + ", ";
+    if (totalUserPrompt != 0) desc += "User Prompt: " + std::to_string(totalUserPrompt) + ", ";
+    if (totalUserList != 0) desc += "User List: " + std::to_string(totalUserList) + ", ";
+
+    desc = desc.substr(0, desc.size() - 2);
+
+    description = QString::fromStdString(desc);
+}
+
 void Preset::createPreset(FieldData* data) {
     FieldData* curr = data;
     int totalText = 0;
@@ -83,4 +124,9 @@ void Preset::apply(FieldData* data, MainEditor* editor) {
 
 QString Preset::getDescription() const {
     return description;
+}
+
+std::vector<FieldTypes> Preset::getStorage() const
+{
+    return storage;
 }

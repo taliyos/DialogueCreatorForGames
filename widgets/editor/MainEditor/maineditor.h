@@ -63,6 +63,8 @@ private slots:
 
     void createPreset();
     void applyPreset(Preset* preset);
+    void on_actionImportPreset_triggered();
+    void on_actionExportPreset_triggered();
 
     /**
      * Creates a text field and adds it to the UI

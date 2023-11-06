@@ -180,9 +180,17 @@
     <addaction name="menuField_Effects"/>
     <addaction name="menuText_Effects"/>
    </widget>
+   <widget class="QMenu" name="menuPresets">
+    <property name="title">
+     <string>Presets</string>
+    </property>
+    <addaction name="actionImportPreset"/>
+    <addaction name="actionExportPreset"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuEffects"/>
+   <addaction name="menuPresets"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
@@ -371,6 +379,16 @@
   <action name="actionImportJson">
    <property name="text">
     <string>json</string>
+   </property>
+  </action>
+  <action name="actionImportPreset">
+   <property name="text">
+    <string>Import preset</string>
+   </property>
+  </action>
+  <action name="actionExportPreset">
+   <property name="text">
+    <string>Export preset</string>
    </property>
   </action>
  </widget>

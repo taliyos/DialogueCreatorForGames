@@ -128,3 +128,8 @@ void EditorTools::addPreset(Preset* preset) {
         EditorTools::getPreset4()->setText(preset->getDescription());
     }
 }
+
+const std::vector<Preset*> EditorTools::getPresets()
+{
+    return presets;
+}

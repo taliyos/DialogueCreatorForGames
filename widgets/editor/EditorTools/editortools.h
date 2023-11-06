@@ -54,6 +54,7 @@ public:
     QPushButton* getAddPreset();
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
+    const std::vector<Preset*> getPresets();
 
     // Dropdowns
     EffectsDropdown* getDisplayDropdown() const;

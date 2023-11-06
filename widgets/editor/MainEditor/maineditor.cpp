@@ -790,6 +790,94 @@ void MainEditor::createPreset() {
     editorTools->addPreset(preset);
 }
 
+void MainEditor::on_actionImportPreset_triggered()
+{
+    // Get json filename from Windows Explorer popup and verify it is json
+    QString fileName = QFileDialog::getOpenFileName(this, "Import preset file");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("preset"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .preset file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+
+    std::ifstream f(fileName.toStdString());
+    nlohmann::json j = nlohmann::json::parse(f);
+    nlohmann::detail::iter_impl itr = j.begin();
+
+    std::vector<FieldTypes> fieldTypes = std::vector<FieldTypes>();
+    while(itr != j.end())
+    {
+        if (*itr == "Text")
+            fieldTypes.push_back(Text);
+        else if (*itr == "TextCharacter")
+            fieldTypes.push_back(TextCharacter);
+
+        itr++;
+    }
+
+    Preset* preset = new Preset(fieldTypes);
+    editorTools->addPreset(preset);
+}
+
+void MainEditor::on_actionExportPreset_triggered()
+{
+    // Get json filename from Windows Explorer popup and verify it is json
+    QString fileName = QFileDialog::getSaveFileName(this, "Export preset file");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("preset"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot save file: not a .preset file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+    nlohmann::json j;
+
+    if (editorTools->getPresets().empty())
+        return;
+    Preset* preset = editorTools->getPresets().front();
+    if (preset == nullptr)
+        return;
+
+    int index = 0;
+    std::vector<FieldTypes> storage = preset->getStorage();
+    list<string> types = list<string>();
+    for (std::vector<FieldTypes>::iterator itr = storage.begin(); itr != storage.end(); itr++) {
+        switch (*itr) {
+        case Text:
+            types.push_back("Text");
+            break;
+        case TextCharacter:
+            types.push_back("TextCharacter");
+            break;
+        case List:
+            types.push_back("List");
+            break;
+        case UserPrompt:
+            types.push_back("UserPrompt");
+            break;
+        case UserList:
+            types.push_back("UserList");
+            break;
+        }
+        index++;
+    }
+
+    j = types;
+
+    out << QString::fromStdString(j.dump());
+    file.close();
+}
+
 void MainEditor::applyPreset(Preset* preset) {
     preset->apply(data, this);
 }
