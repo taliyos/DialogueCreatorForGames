@@ -42,6 +42,22 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
+	background-color: white;
+}
+
+QPushButton:Hover {
+	background-color: #c3c3c3;
+}
+
+QPushButton:Pressed {
+	background-color: #a3a3a3;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <widget class="QWidget" name="InnerTextField" native="true">
@@ -52,10 +68,11 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">QLineEdit {
+      <string notr="true">QComboBox {
 	border-radius: 5px;
 	background-color:white;
-}</string>
+}
+</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="horizontalSpacing">
@@ -66,6 +83,12 @@
       </property>
       <item row="2" column="2">
        <widget class="QPushButton" name="preview">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>48</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -110,6 +133,9 @@
           <pointsize>18</pointsize>
          </font>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="mouseTracking">
          <bool>true</bool>
         </property>
@@ -120,6 +146,18 @@
       </item>
       <item row="2" column="0">
        <widget class="QPushButton" name="remove">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>1</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>

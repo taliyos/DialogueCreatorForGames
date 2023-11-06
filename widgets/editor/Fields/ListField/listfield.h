@@ -32,7 +32,7 @@ public:
     void updateUI();
 
 signals:
-    void previewRequested(const QString& content,const QString& content2, ListData* textData);
+    void previewRequested(const QString& content, const QString& content2, ListData* textData);
     void removeField(ListField* field);
     void updateRequested();
 

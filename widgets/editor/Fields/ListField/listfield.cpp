@@ -230,7 +230,6 @@ QString ListField::generateHtml(const QString& content, const QString& content2,
 
     fullHtml += "</head><body>";
     fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
-    if (content2 != "") fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
     fullHtml += R"(<div class='dialogue-box'>)" + newContent + R"(</div>)";
     fullHtml += R"(</div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
@@ -252,12 +251,8 @@ void ListField::applyCharacterEffect(int effectNumber) {
 
 
 void ListField::exportToBrowser() {
-    QString content = QString::fromStdString(data->getText());
-    QString content2;
-    if (characterField){
-        content2 = characterField->getText();
-    }
-    emit previewRequested(content, content2, data);
+    QString content = ui->comboBox->currentText();
+    emit previewRequested(content, nullptr, data);
 }
 
 ListField::~ListField()

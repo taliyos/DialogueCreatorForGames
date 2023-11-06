@@ -82,9 +82,9 @@ MainEditor::MainEditor(QWidget *parent) :
 
 void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData) {
     QString fullHtml;
-    if (data->getID() == 1)
+    if (data->getFieldType() == Text || data->getFieldType() == TextCharacter)
         fullHtml = TextField::generateHtml(content, content2, (TextData*) textData);
-    else if (data->getID() == 2)
+    else if (data->getFieldType() == List)
         fullHtml = ListField::generateHtml(content, content2, (ListData*) textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
