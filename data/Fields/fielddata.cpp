@@ -24,6 +24,7 @@ FieldData::~FieldData() {
 }
 
 void FieldData::setFieldType(FieldTypes type) {
+    qInfo("set field type to: " + type);
     fieldType = type;
 }
 
@@ -190,9 +191,4 @@ void FieldData::removeAll() {
     }
 
     delete this;
-}
-
-const int FieldData::getID()
-{
-    return 0;
 }
