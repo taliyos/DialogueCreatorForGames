@@ -741,6 +741,10 @@ void MainEditor::removeField(TextField* field) {
     ConnectionData* fromConnection = fieldData->getFromConnection();
     ConnectionData* toConnection = fieldData->getToConnection();
 
+    bool changeActive = false;
+
+    if (fieldData == lastActive) changeActive = true;
+
     // STEP 1) Reconfigure connections to remove references to fieldData
 
     // Modify the head if the field is the current head of the data field container
@@ -783,6 +787,8 @@ void MainEditor::removeField(TextField* field) {
     // STEP 2) Cleanup and free memory
     designer->removeWidget(field);
     delete fieldData;
+
+    if (changeActive) lastActive = data;
     
 }
 
