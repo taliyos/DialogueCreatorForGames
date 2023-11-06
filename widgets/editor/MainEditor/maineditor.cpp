@@ -604,9 +604,9 @@ void MainEditor::updateListFields(string txt)
     FieldData* currData = data;
     while (currData != nullptr)
     {
-        qDebug() << "Looking at field with ID = " << currData->getID();
+        qDebug() << "Looking at field with ID = " << currData->getFieldType();
         // check to see if this is a list field
-        if (currData->getID() == 2)
+        if (currData->getFieldType() == List)
         {
             qDebug() << "Main Editor: Updating a field";
             ((ListData*)currData)->setDelimiterAndText(baseDelimiter, txt);
