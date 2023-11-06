@@ -56,7 +56,7 @@ void Preset::createPreset(FieldData* data) {
 // MAIN EDITOR SHOULD NOT BE INCLUDED. THIS IS TEMPORARY.
 void Preset::apply(FieldData* data, MainEditor* editor) {
     FieldData* curr = data;
-    while (curr->getToConnection() != nullptr) {
+    while (curr != nullptr && curr->getToConnection() != nullptr) {
         curr = curr->getToConnection()->getNext();
     }
 
