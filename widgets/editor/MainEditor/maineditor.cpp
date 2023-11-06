@@ -674,6 +674,7 @@ void MainEditor::createListField() {
     if (!data) {
         ListField* listField = designer->createListField();
         data = new ListData(listField, nullptr, nullptr);
+        data->setFieldType(List);
 
         // Connect the removeField signal to the MainEditor's removeField function so that the
         // field is removed when the remove button is clicked within the UI.
@@ -693,6 +694,7 @@ void MainEditor::createListField() {
     // Create a new text field (UI)
     ListField* listField = designer->createListField();
     ListData* newList = new ListData(listField, nullptr, nullptr);
+    newList->setFieldType(List);
 
     // Create a connection
     ConnectionData* connection = new ConnectionData(fieldConnection, last, newList);
@@ -899,7 +901,7 @@ void MainEditor::preset_createTextFieldAndCharacter() {
 }
 
 void MainEditor::preset_createListField() {
-    createTextField();
+    createListField();
 }
 void MainEditor::preset_createUserPromptField() {
     createTextField();
@@ -939,6 +941,12 @@ void MainEditor::on_actionImportPreset_2_triggered()
             fieldTypes.push_back(Text);
         else if (*itr == "TextCharacter")
             fieldTypes.push_back(TextCharacter);
+        else if (*itr == "List")
+            fieldTypes.push_back(List);
+        else if (*itr == "UserPrompt")
+            fieldTypes.push_back(UserPrompt);
+        else if (*itr == "UserList")
+            fieldTypes.push_back(UserList);
 
         itr++;
     }
