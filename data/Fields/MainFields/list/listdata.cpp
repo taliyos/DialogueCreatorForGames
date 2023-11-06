@@ -12,6 +12,8 @@ ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* 
     this->delimiter = delim;
     this->indecies = list<pair<int, int>>();
     generateIndecies();
+
+    setFieldType(List);
 }
 
 ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : MainFieldData(ui, fromConnection, toConnection)

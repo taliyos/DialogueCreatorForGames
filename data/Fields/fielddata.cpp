@@ -23,6 +23,12 @@ FieldData::~FieldData() {
     }
 }
 
+void FieldData::setFieldType(FieldTypes type) {
+    fieldType = type;
+}
+
+FieldTypes FieldData::getFieldType() const { return fieldType; }
+
 
 void FieldData::setText(string newText)
 {

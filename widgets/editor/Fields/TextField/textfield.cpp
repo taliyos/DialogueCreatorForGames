@@ -30,6 +30,7 @@ void TextField::onCharacterClicked() {
 void TextField::removeCharacterWidget() {
     if (characterField) {
         ui->AboveFieldLayout->removeWidget(characterField);
+        data->setFieldType(Text);
         delete characterField;
         characterField = nullptr;
     }
@@ -38,6 +39,7 @@ void TextField::removeCharacterWidget() {
 
 void TextField::addCharacterWidget() {
     characterField = new CharacterField(this);
+    data->setFieldType(TextCharacter);
     ui->AboveFieldLayout->addWidget(characterField);
 }
 QString TextField::generateHtml(const QString& content, const QString& content2, TextData* textData) {
