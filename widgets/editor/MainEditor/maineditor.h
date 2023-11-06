@@ -19,6 +19,12 @@ public:
     explicit MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
 
+    void preset_createTextField();
+    void preset_createTextFieldAndCharacter();
+    void preset_createListField();
+    void preset_createUserPromptField();
+    void preset_createUserListField();
+
 private slots:
     void on_actionOpen_triggered();
     void on_actionSave_triggered();

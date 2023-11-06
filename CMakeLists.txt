@@ -56,6 +56,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/Fields/CharacterField/characterfield.h widgets/editor/Fields/CharacterField/characterfield.cpp widgets/editor/Fields/CharacterField/characterfield.ui
         widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.cpp widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.ui
 
+        data/Presets/preset.h data/Presets/preset.cpp
+        data/Fields/FieldTypes.h
+
 
 
 

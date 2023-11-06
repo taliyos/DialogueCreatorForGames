@@ -483,3 +483,26 @@ FieldData* MainEditor::getActiveField()
     lastActive = currentField;
     return currentField;
 }
+
+void MainEditor::preset_createTextField() {
+    createTextField();
+}
+void MainEditor::preset_createTextFieldAndCharacter() {
+    createTextField();
+    FieldData* curr = data;
+    while (curr->getToConnection()) {
+        curr = curr->getToConnection()->getNext();
+    }
+    TextField* field = reinterpret_cast<TextField*>(curr->getUi());
+    field->addCharacterWidget();
+}
+
+void MainEditor::preset_createListField() {
+    createTextField();
+}
+void MainEditor::preset_createUserPromptField() {
+    createTextField();
+}
+void MainEditor::preset_createUserListField() {
+    createTextField();
+}
