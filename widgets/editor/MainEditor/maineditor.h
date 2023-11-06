@@ -4,7 +4,6 @@
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "data/Fields/fielddata.h"
-#include "data/Fields/MainFields/text/textdata.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -73,8 +72,9 @@ private slots:
     /**
      * Creates a text field and adds it to the UI
     */
-    void handlePreviewRequest(const QString& content, const QString& content2, TextData* textData);
+    void handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData);
     void createTextField();
+    void createListField();
 
     /**
      * Removes the head of the data (field container)
@@ -87,6 +87,13 @@ private slots:
      * @param field - The ui field to remove
     */
     void removeField(TextField* field);
+    void removeListField(ListField* field);
+
+    /**
+     * @brief updateListFields
+     * @param options
+     */
+    void updateListFields(string txt);
 
     FieldData* getActiveField();
 

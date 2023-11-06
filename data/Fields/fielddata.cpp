@@ -198,6 +198,11 @@ void FieldData::removeAll() {
     delete this;
 }
 
+const int FieldData::getID()
+{
+    return 0;
+}
+
 const nlohmann::json FieldData::toJson()
 {
     nlohmann::json j;

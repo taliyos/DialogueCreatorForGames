@@ -4,10 +4,13 @@
 #include <qDebug>
 
 #include "../mainfielddata.h"
-
+#include "widgets/editor/Fields/ListField/listfield.h"
 
 ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection, string txt, string delim) : MainFieldData(ui, fromConnection, toConnection)
 {
+    ListField* field = reinterpret_cast <ListField*>(ui);
+    field->setData(this);
+
     this->text = txt;
     this->delimiter = delim;
     this->indecies = list<pair<int, int>>();
@@ -18,6 +21,8 @@ ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* 
 
 ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection) : MainFieldData(ui, fromConnection, toConnection)
 {
+    ListField* field = reinterpret_cast <ListField*>(ui);
+    field->setData(this);
 }
 
 void ListData::setText(string txt)
@@ -25,11 +30,18 @@ void ListData::setText(string txt)
     this->text = txt;
     generateIndecies();
 }
-void ListData::setDelimiter(string delim)
+void ListData::setDelimiter(string delim = baseDelimiter)
 {
     this->delimiter = delim;
     generateIndecies();
 }
+void ListData::setDelimiterAndText(string delim = baseDelimiter, string txt = "")
+{
+    this->text = txt;
+    this->delimiter = delim;
+    generateIndecies();
+}
+
 void ListData::generateIndecies()
 {
     indecies = list<pair<int,int>>();
@@ -216,4 +228,9 @@ void ListData::print()
         qDebug() << p << " " << getText().substr(p.first, p.second) <<" " <<count << "\n";
         count++;
     }
+}
+
+const int ListData::getID()
+{
+    return 2;
 }

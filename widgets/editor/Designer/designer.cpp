@@ -3,6 +3,7 @@
 
 #include "../Fields/TextField/textfield.h"
 #include "../FieldConnection/fieldConnection.h"
+#include "../Fields/ListField/listfield.h"
 
 Designer::Designer(QWidget *parent) :
     QWidget(parent),
@@ -28,6 +29,13 @@ TextField* Designer::createTextField() {
 
     ui->fieldContainer->addWidget(textField);
     return textField;
+}
+
+ListField* Designer::createListField() {
+    ListField* listField = new ListField();
+
+    ui->fieldContainer->addWidget(listField);
+    return listField;
 }
 
 void Designer::removeWidget(QWidget* widget) {

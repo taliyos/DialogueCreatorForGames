@@ -3,6 +3,10 @@
 
 #include <QPushButton>
 #include <QWidget>
+#include "Settings/effectsettings.h"
+#include "Settings/listsettings.h"
+#include "Settings/presetsettings.h"
+
 #include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
 
 class Preset;
@@ -56,6 +60,17 @@ public:
     QPushButton* getPresetSettings();
     const std::vector<Preset*> getPresets();
 
+
+    // Settings Pages
+    EffectSettings* getEffectSettingsPage();
+    ListSettings* getListSettingsPage();
+    PresetSettings* getPresetSettingsPage();
+
+    // Methods
+    void openEffectSettings();
+    void openListSettings();
+    void openPresetSettings();
+
     // Dropdowns
     EffectsDropdown* getDisplayDropdown() const;
     EffectsDropdown* getCharacterDropdown() const;
@@ -74,13 +89,17 @@ public:
 signals:
     void characterEffectRequested(int effectNumber);
     void applyPreset(Preset* preset);
-
+    void listFieldUpdateRequested(string txt);
 
 private slots:
     void sendPresetSignal(int index);
 
 private:
     Ui::EditorTools *ui;
+
+    EffectSettings *effectSettings;
+    ListSettings *listSettings;
+    PresetSettings *presetSettings;
 
     EffectsDropdown* displayDropdown;
     EffectsDropdown* characterDropdown;

@@ -12,3 +12,8 @@ TextData::TextData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* 
     setFieldType(Text);
 
 }
+
+const int TextData::getID()
+{
+    return 1;
+}

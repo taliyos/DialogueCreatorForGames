@@ -24,6 +24,11 @@ public:
     ~FieldData();
     // accessors
     const string getText();
+    /**
+     * @brief getID
+     * @return the id of the FieldData type
+     */
+    const virtual int getID();
     // setters
     void setText(string newText);
     void setFieldType(FieldTypes type);
