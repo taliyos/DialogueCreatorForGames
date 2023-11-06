@@ -28,7 +28,7 @@ ListSettings::~ListSettings()
 void ListSettings::addOption()
 {
     SettingsOption* option = new SettingsOption(nullptr, listElements->size(), this);
-    ui->verticalLayoutWidget->layout()->addWidget(option);
+    ui->layout->addWidget(option);
     option->show();
     listElements->push_back(option);
     connect(option->getButton(), &QPushButton::clicked, option, &SettingsOption::erase);
