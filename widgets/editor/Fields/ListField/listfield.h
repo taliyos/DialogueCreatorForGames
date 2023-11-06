@@ -29,13 +29,10 @@ public:
 
     ListData* getData();
     void setData(ListData* data);
-    void onCharacterClicked();
-    void addCharacterWidget();
-    void removeCharacterWidget();
     void updateUI();
 
 signals:
-    void previewRequested(const QString& content,const QString& content2, ListData* textData);
+    void previewRequested(const QString& content, const QString& content2, ListData* textData);
     void removeField(ListField* field);
     void updateRequested();
 

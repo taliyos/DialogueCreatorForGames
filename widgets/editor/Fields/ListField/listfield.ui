@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>232</height>
+    <height>82</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>230</height>
+    <height>75</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>970</width>
-    <height>232</height>
+    <height>82</height>
    </size>
   </property>
   <property name="baseSize">
@@ -42,11 +42,24 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
+	background-color: white;
+}
+
+QPushButton:Hover {
+	background-color: #c3c3c3;
+}
+
+QPushButton:Pressed {
+	background-color: #a3a3a3;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="AboveFieldLayout"/>
-   </item>
-   <item row="1" column="1">
     <widget class="QWidget" name="InnerTextField" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -55,10 +68,11 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">QLineEdit {
+      <string notr="true">QComboBox {
 	border-radius: 5px;
 	background-color:white;
-}</string>
+}
+</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="horizontalSpacing">
@@ -67,8 +81,14 @@
       <property name="verticalSpacing">
        <number>0</number>
       </property>
-      <item row="3" column="2">
+      <item row="2" column="2">
        <widget class="QPushButton" name="preview">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>48</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -88,7 +108,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1" rowspan="2">
+      <item row="1" column="1" rowspan="2">
        <widget class="QComboBox" name="comboBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -113,6 +133,9 @@
           <pointsize>18</pointsize>
          </font>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="mouseTracking">
          <bool>true</bool>
         </property>
@@ -121,8 +144,20 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
+      <item row="2" column="0">
        <widget class="QPushButton" name="remove">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>1</height>
+         </size>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -142,47 +177,11 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="addCharacter">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="../../../../Resources.qrc">
-            <normaloff>:/rec/img/icons/character.png</normaloff>:/rec/img/icons/character.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="2">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../../../Resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
