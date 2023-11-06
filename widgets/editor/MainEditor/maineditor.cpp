@@ -73,8 +73,8 @@ MainEditor::MainEditor(QWidget *parent) :
 }
 
 
-void MainEditor::handlePreviewRequest(const QString& content, TextData* textData) {
-    QString fullHtml = TextField::generateHtml(content, textData);
+void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, TextData* textData) {
+    QString fullHtml = TextField::generateHtml(content, content2, textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();
@@ -231,37 +231,48 @@ void MainEditor::on_actionNew_triggered()
 void MainEditor::on_actionWobble_triggered()
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     currentField->addOrRemoveFieldEffect(1);
   }
 
 void MainEditor::on_actionEnlarge_triggered()
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     currentField->addOrRemoveFieldEffect(2);
 }
 
 void MainEditor::on_actionSpeedup_triggered()
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     currentField->addOrRemoveFieldEffect(3);
 }
 
 void MainEditor::on_actionBold_triggered()
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     currentField->addOrRemoveFieldEffect(4);
 }
 
 void MainEditor::on_actionTyped_triggered()
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     currentField->addOrRemoveFieldEffect(5);
 }
 
 void MainEditor::on_actionRemoveFieldEffect_triggered()
 {
     FieldData* currentField = getActiveField();
-
+    if (currentField == nullptr)
+        return;
     for (int i = 1; i <= 5; i++)
     {
         currentField->removeFieldEffect(i);
@@ -296,6 +307,8 @@ void MainEditor::on_actionTypedText_triggered()
 void MainEditor::applyTextEffect(int tag)
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
     if (!field->getTextField()->hasSelectedText())
         return;
@@ -315,6 +328,8 @@ void MainEditor::applyTextEffect(int tag)
 void MainEditor::on_actionRemoveEffect_triggered()
 {
     FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
     TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
     if (!field->getTextField()->hasSelectedText())
         return;
@@ -448,6 +463,7 @@ void MainEditor::removeField(TextField* field) {
 
 // Gets active text field
 // If no active text field, return most recent active text field
+// If no recent text field, returns nullptr
 FieldData* MainEditor::getActiveField()
 {
     if (data == nullptr)

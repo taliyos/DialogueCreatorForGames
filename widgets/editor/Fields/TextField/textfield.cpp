@@ -40,7 +40,7 @@ void TextField::addCharacterWidget() {
     characterField = new CharacterField(this);
     ui->AboveFieldLayout->addWidget(characterField);
 }
-QString TextField::generateHtml(const QString& content, TextData* textData) {
+QString TextField::generateHtml(const QString& content, const QString& content2, TextData* textData) {
 
     QString newContent = content;
     // 1 = wobble
@@ -87,7 +87,7 @@ QString TextField::generateHtml(const QString& content, TextData* textData) {
             newContent.insert(end + totalAddedChars,string2);
             totalAddedChars += string2.length();
         }
-        }
+    }
 
     QString base64Image;
     QString fullHtml;
@@ -217,23 +217,49 @@ QString TextField::generateHtml(const QString& content, TextData* textData) {
             overflow: hidden; // Hide any overflow content
         }
 
+        .dialogue-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: top;
+            align-items: left;
+        }
+
         .dialogue-box {
-            position: absolute;
-            top: 0;
-            left: 0;
             background: #ECEFF1;
-            border-radius: 100px;
+            border-radius: 15px;
             padding: 1rem;
             width: 390px;
             height: 160px;
             box-shadow: 10px 10px rgba(0,0,0,0.2);
             font-size: 24px;
+            margin-top: 10px;
         }
+
+        .character-box {
+            background: #ECEFF1;
+            border-radius: 15px;
+            padding: 1rem;
+            width: 300px; /* Adjust width as necessary */
+            height: 20px; /* Adjust height as necessary */
+            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+            z-index: 2;
+        }
+
+
     </style>
     )";
 
+    // ... (The rest of your styles remain the same)
+
     fullHtml += "</head><body>";
-    fullHtml += "<div class='dialogue-box'>" + newContent + "</div>";
+    fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
+    if (content2 != "") fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
+    fullHtml += R"(<div class='dialogue-box'>)" + newContent + R"(</div>)";
+    fullHtml += R"(</div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
 
     return fullHtml;
@@ -254,7 +280,11 @@ void TextField::applyCharacterEffect(int effectNumber) {
 
 void TextField::exportToBrowser() {
     QString content = ui->textField->text();
-    emit previewRequested(content, data);
+    QString content2;
+    if (characterField){
+        content2 = characterField->getText();
+    }
+    emit previewRequested(content, content2, data);
 }
 
 TextField::~TextField()
