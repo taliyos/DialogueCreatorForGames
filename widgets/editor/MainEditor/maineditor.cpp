@@ -674,7 +674,6 @@ void MainEditor::createListField() {
     if (!data) {
         ListField* listField = designer->createListField();
         data = new ListData(listField, nullptr, nullptr);
-        data->setFieldType(List);
 
         // Connect the removeField signal to the MainEditor's removeField function so that the
         // field is removed when the remove button is clicked within the UI.
@@ -696,7 +695,6 @@ void MainEditor::createListField() {
     // Create a new text field (UI)
     ListField* listField = designer->createListField();
     ListData* newList = new ListData(listField, nullptr, nullptr);
-    newList->setFieldType(List);
 
     // Create a connection
     ConnectionData* connection = new ConnectionData(fieldConnection, last, newList);

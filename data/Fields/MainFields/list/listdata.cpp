@@ -23,6 +23,7 @@ ListData::ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* 
 {
     ListField* field = reinterpret_cast <ListField*>(ui);
     field->setData(this);
+    setFieldType(List);
 }
 
 void ListData::setText(string txt)
