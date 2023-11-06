@@ -37,8 +37,8 @@ MainEditor::MainEditor(QWidget *parent) :
 }
 
 
-void MainEditor::handlePreviewRequest(const QString& content) {
-    QString fullHtml = TextField::generateHtml(content);
+void MainEditor::handlePreviewRequest(const QString& content, const QString& content2) {
+    QString fullHtml = TextField::generateHtml(content, content2);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();

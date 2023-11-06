@@ -393,7 +393,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
            </property>
            <property name="icon">
             <iconset>
-             <normalon>:/rec/img/icons/character.png</normalon>
+             <normalon>:/rec/img/icons/custom.png</normalon>
             </iconset>
            </property>
            <property name="iconSize">

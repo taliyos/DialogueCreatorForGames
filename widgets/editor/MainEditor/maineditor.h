@@ -39,7 +39,7 @@ private slots:
     /**
      * Creates a text field and adds it to the UI
     */
-    void handlePreviewRequest(const QString& content);
+    void handlePreviewRequest(const QString& content, const QString& content2);
     void createTextField();
 
     /**

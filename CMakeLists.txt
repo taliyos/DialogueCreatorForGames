@@ -50,6 +50,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/Designer/designer.h widgets/editor/Designer/designer.cpp widgets/editor/Designer/designer.ui
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
         widgets/editor/FieldConnection/fieldconnection.h widgets/editor/FieldConnection/fieldconnection.cpp widgets/editor/FieldConnection/fieldconnection.ui
+        widgets/editor/Fields/CharacterField/characterfield.h widgets/editor/Fields/CharacterField/characterfield.cpp widgets/editor/Fields/CharacterField/characterfield.ui
 
 
 
@@ -100,12 +101,6 @@ install(TARGETS TexT_Editor
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(TexT_Editor)
-endif()
-
-find_library(DUCKX_LIBRARY duckx)
-message("${DUCKX_LIBRARY}")
-if( ${DUCKX_LIBRARY} STREQUAL "DUCKX_LIBRARY-NOTFOUND")
-    message("Please set DUCKX variable to location of duckx")
 endif()
 
 set(DUCKX_LIBRARY "C:\\Users\\patchs2\\Documents\\build-DuckX-Desktop_Qt_6_6_0_MSVC2019_64bit-Debug\\duckx.lib")

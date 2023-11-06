@@ -3,6 +3,9 @@
 
 #include "fielddata.h"
 #include "../ConnectionData/connectionData.h"
+#include "widgets/editor/Fields/CharacterField/characterfield.h"
+#include "widgets/editor/Fields/TextField/textfield.h"
+
 
 /// <summary>A class that holds the raw data for text fields.</summary>
 FieldData::FieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection)
@@ -185,6 +188,11 @@ const nlohmann::json FieldData::toJson()
     j["text"] = this->text;
     j["fieldEffects"] = this->fieldEffects;
     j["textEffects"] = this->textToEffects;
+    TextField* field = reinterpret_cast <TextField*>(getUi());
+    CharacterField* characterField = field->getCharacterField();
+    j["character"] = "";
+    if (characterField)
+        j["character"] = characterField->getText().toStdString();
 
     return j;
 }
@@ -195,5 +203,15 @@ void FieldData::fromJson(nlohmann::json j)
     list<int> fieldEffects = j["fieldEffects"];
     this->fieldEffects = fieldEffects;
     this->textToEffects =  j["textEffects"];
-//    list<list<list<int>>> textEffects = j["textEffects"];
+    TextField* field = reinterpret_cast <TextField*>(getUi());
+    if (QString::fromStdString(j["character"]).isEmpty())
+        return;
+
+    CharacterField* characterField = field->getCharacterField();
+    if (!characterField)
+    {
+        field->addCharacterWidget();
+        characterField = field->getCharacterField();
+    }
+    characterField->setText(QString::fromStdString(j["character"]));
 }

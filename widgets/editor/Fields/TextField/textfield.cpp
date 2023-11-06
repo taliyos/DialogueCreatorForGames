@@ -2,6 +2,7 @@
 #include "ui_textfield.h"
 #include <QPushButton>
 #include <QWebEngineView>
+#include "widgets/editor/Fields/CharacterField//characterfield.h"
 
 TextField::TextField(QWidget *parent) :
     QWidget(parent),
@@ -9,13 +10,42 @@ TextField::TextField(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->remove, &QAbstractButton::clicked, this, &TextField::sendRemove);
+    connect(ui->addCharacter, &QAbstractButton::clicked, this, &TextField::onCharacterClicked);
     connect(ui->preview, &QPushButton::clicked, this, &TextField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
 }
 
-QString TextField::generateHtml(const QString& content) {
+void TextField::onCharacterClicked() {
+    if (characterFieldAdded) {
+        // If already added, remove the widget
+        removeCharacterWidget();
+    } else {
+        addCharacterWidget();
+    }
+
+    // Toggle the state
+    characterFieldAdded = !characterFieldAdded;
+}
+
+void TextField::removeCharacterWidget() {
+    if (characterField) {
+        ui->AboveFieldLayout->removeWidget(characterField);
+        delete characterField;
+        characterField = nullptr;
+    }
+}
+
+
+void TextField::addCharacterWidget() {
+    characterField = new CharacterField(this);
+    ui->AboveFieldLayout->addWidget(characterField);
+}
+
+
+QString TextField::generateHtml(const QString& content, const QString& content2) {
     QString base64Image;
     QString fullHtml;
+
     fullHtml += "<!DOCTYPE html>";
     fullHtml += "<html><head><title>Dialogue Preview</title>";
     fullHtml += R"(<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>)";
@@ -141,23 +171,49 @@ QString TextField::generateHtml(const QString& content) {
             overflow: hidden; // Hide any overflow content
         }
 
+        .dialogue-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: top;
+            align-items: left;
+        }
+
         .dialogue-box {
-            position: absolute;
-            top: 0;
-            left: 0;
             background: #ECEFF1;
-            border-radius: 100px;
+            border-radius: 15px;
             padding: 1rem;
             width: 390px;
             height: 160px;
             box-shadow: 10px 10px rgba(0,0,0,0.2);
             font-size: 24px;
+            margin-top: 10px;
         }
+
+        .character-box {
+            background: #ECEFF1;
+            border-radius: 15px;
+            padding: 1rem;
+            width: 300px; /* Adjust width as necessary */
+            height: 20px; /* Adjust height as necessary */
+            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+            z-index: 2;
+        }
+
+
     </style>
     )";
 
+    // ... (The rest of your styles remain the same)
+
     fullHtml += "</head><body>";
-    fullHtml += "<div class='dialogue-box'>" + content + "</div>";
+    fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
+    if (content2 != "") fullHtml += R"(<div class='character-box'>)" + content2 + R"(</div>)";
+    fullHtml += R"(<div class='dialogue-box'>)" + content + R"(</div>)";
+    fullHtml += R"(</div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
 
     return fullHtml;
@@ -178,7 +234,11 @@ void TextField::applyCharacterEffect(int effectNumber) {
 
 void TextField::exportToBrowser() {
     QString content = ui->textField->text();
-    emit previewRequested(content);
+    QString content2;
+    if (characterField){
+        content2 = characterField->getText();
+    }
+    emit previewRequested(content, content2);
 }
 
 TextField::~TextField()
@@ -188,6 +248,10 @@ TextField::~TextField()
 
 QLineEdit* TextField::getTextField() {
     return ui->textField;
+}
+
+CharacterField* TextField::getCharacterField() {
+    return characterField;
 }
 
 QPushButton* TextField::getPreview() {
