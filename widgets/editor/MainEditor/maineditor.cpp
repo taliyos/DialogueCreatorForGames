@@ -9,6 +9,7 @@
 #include "data/ConnectionData/connectiondata.h"
 #include <QWebEngineView>
 #include <QDebug>
+#include <qclipboard.h>
 
 #include "data/Fields/MainFields/text/textdata.h"
 
@@ -199,20 +200,51 @@ void MainEditor::on_actionExit_triggered()
 // Copy
 void MainEditor::on_actionCopy_triggered()
 {
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
 
+    TextField* field = reinterpret_cast<TextField*>(currentField->getUi());
+    QString selectedText = field->getTextField()->selectedText();
+
+    if (!selectedText.isEmpty()) {
+        QClipboard* clipboard = QApplication::clipboard();
+        clipboard->setText(selectedText);
+    }
 }
 
 // Paste
 void MainEditor::on_actionPaste_triggered()
 {
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
 
+    TextField* field = reinterpret_cast<TextField*>(currentField->getUi());
+    QClipboard* clipboard = QApplication::clipboard();
+    QString clipboardText = clipboard->text();
+
+    if (!clipboardText.isEmpty()) {
+        field->getTextField()->paste();
+    }
 }
 
 
 // Cut
 void MainEditor::on_actionCut_triggered()
 {
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
 
+    TextField* field = reinterpret_cast<TextField*>(currentField->getUi());
+    QString selectedText = field->getTextField()->selectedText();
+
+    if (!selectedText.isEmpty()) {
+        QClipboard* clipboard = QApplication::clipboard();
+        clipboard -> setText(selectedText);
+        field->getTextField()->cut();
+    }
 }
 
 // Undo
