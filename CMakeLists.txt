@@ -54,6 +54,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/Fields/TextField/textfield.h widgets/editor/Fields/TextField/textfield.cpp widgets/editor/Fields/TextField/textfield.ui
         widgets/editor/FieldConnection/fieldconnection.h widgets/editor/FieldConnection/fieldconnection.cpp widgets/editor/FieldConnection/fieldconnection.ui
         widgets/editor/Fields/CharacterField/characterfield.h widgets/editor/Fields/CharacterField/characterfield.cpp widgets/editor/Fields/CharacterField/characterfield.ui
+
         widgets/editor/EditorTools/Settings/listsettings.h widgets/editor/EditorTools/Settings/listsettings.cpp
         widgets/editor/EditorTools/Settings/effectsettings.h widgets/editor/EditorTools/Settings/effectsettings.cpp
         widgets/editor/EditorTools/Settings/presetsettings.h widgets/editor/EditorTools/Settings/presetsettings.cpp
@@ -61,7 +62,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/EditorTools/Settings/presetsettings.ui
         widgets/editor/EditorTools/Settings/listsettings.ui
         widgets/editor/EditorTools/Settings/settingsoption.h widgets/editor/EditorTools/Settings/settingsoption.cpp widgets/editor/EditorTools/Settings/settingsoption.ui
+
         widgets/editor/Fields/ListField/listfield.h widgets/editor/Fields/ListField/listfield.cpp widgets/editor/Fields/ListField/listfield.ui
+
         widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.cpp widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.ui
 
         data/Presets/preset.h data/Presets/preset.cpp

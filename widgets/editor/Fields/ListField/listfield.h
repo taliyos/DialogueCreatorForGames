@@ -19,7 +19,7 @@ class ListField : public QWidget
 public:
     explicit ListField(QWidget *parent = nullptr);
     ~ListField();
-    static QString generateHtml(const QString& content);
+    static QString generateHtml(const QString& content, const QString& content2, ListData* textData);
     void exportToBrowser();
     void applyCharacterEffect(int effectNumber);
     void setView(QWebEngineView* v);
@@ -35,7 +35,7 @@ public:
     void updateUI();
 
 signals:
-    void previewRequested(const QString& content);
+    void previewRequested(const QString& content,const QString& content2, ListData* textData);
     void removeField(ListField* field);
     void updateRequested();
 

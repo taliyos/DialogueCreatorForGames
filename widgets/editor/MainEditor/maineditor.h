@@ -1,14 +1,10 @@
 #ifndef MAINEDITOR_H
 #define MAINEDITOR_H
 
-#include "data/ConnectionData/connectiondata.h"
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
-#include "data/Fields/MainFields/list/listdata.h"
 #include "data/Fields/fielddata.h"
-#include "data/Fields/MainFields/text/textdata.h"
 #include <QMainWindow>
-#include <typeinfo>
 
 namespace Ui {
 class MainEditor;
@@ -21,7 +17,6 @@ class MainEditor : public QMainWindow
 public:
     explicit MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
-signals:
 
     void preset_createTextField();
     void preset_createTextFieldAndCharacter();
@@ -67,7 +62,7 @@ private slots:
     /**
      * Creates a text field and adds it to the UI
     */
-    void handlePreviewRequest(const QString& content, const QString& content2, TextData* textData);
+    void handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData);
     void createTextField();
     void createListField();
 

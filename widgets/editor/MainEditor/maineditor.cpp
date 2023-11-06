@@ -11,10 +11,7 @@
 #include <QDebug>
 #include <qclipboard.h>
 
-#include "data/Fields/MainFields/text/textdata.h"
 #include "widgets/editor/Fields/ListField/listfield.h"
-#include "data/Fields/MainFields/list/listdata.h"
-
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -83,8 +80,12 @@ MainEditor::MainEditor(QWidget *parent) :
 }
 
 
-void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, TextData* textData) {
-    QString fullHtml = TextField::generateHtml(content, content2, textData);
+void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData) {
+    QString fullHtml;
+    if (data->getID() == 1)
+        fullHtml = TextField::generateHtml(content, content2, (TextData*) textData);
+    else if (data->getID() == 2)
+        fullHtml = ListField::generateHtml(content, content2, (ListData*) textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();
@@ -616,6 +617,7 @@ void MainEditor::updateListFields(string txt)
         else
             currData = nullptr;
     }
+}
 
 // Gets active text field
 // If no active text field, return most recent active text field
@@ -639,6 +641,7 @@ FieldData* MainEditor::getActiveField()
     lastActive = currentField;
     return currentField;
 }
+
 
 void MainEditor::preset_createTextField() {
     createTextField();
@@ -670,5 +673,4 @@ void MainEditor::createPreset() {
 
 void MainEditor::applyPreset(Preset* preset) {
     preset->apply(data, this);
-
 }
