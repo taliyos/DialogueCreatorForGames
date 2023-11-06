@@ -153,6 +153,32 @@
     <property name="title">
      <string>Effects</string>
     </property>
+    <widget class="QMenu" name="menuField_Effects">
+     <property name="title">
+      <string>Field Effects</string>
+     </property>
+     <addaction name="actionWobble"/>
+     <addaction name="actionEnlarge"/>
+     <addaction name="actionSpeedup"/>
+     <addaction name="actionBold"/>
+     <addaction name="actionTyped"/>
+     <addaction name="separator"/>
+     <addaction name="actionRemoveFieldEffect"/>
+    </widget>
+    <widget class="QMenu" name="menuText_Effects">
+     <property name="title">
+      <string>Text Effects</string>
+     </property>
+     <addaction name="actionWobbleText"/>
+     <addaction name="actionEnlargeText"/>
+     <addaction name="actionSpeedupText"/>
+     <addaction name="actionBoldText"/>
+     <addaction name="actionTypedText"/>
+     <addaction name="separator"/>
+     <addaction name="actionRemoveEffect"/>
+    </widget>
+    <addaction name="menuField_Effects"/>
+    <addaction name="menuText_Effects"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -253,6 +279,78 @@
    </property>
    <property name="toolTip">
     <string>Creates a new dialogue file.</string>
+   </property>
+  </action>
+  <action name="actionWobble">
+   <property name="text">
+    <string>wobble</string>
+   </property>
+  </action>
+  <action name="actionEnlarge">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>enlarge</string>
+   </property>
+  </action>
+  <action name="actionSpeedup">
+   <property name="text">
+    <string>speedup</string>
+   </property>
+  </action>
+  <action name="actionBold">
+   <property name="text">
+    <string>bold</string>
+   </property>
+  </action>
+  <action name="actionTyped">
+   <property name="text">
+    <string>typed</string>
+   </property>
+  </action>
+  <action name="actionWobbleText">
+   <property name="text">
+    <string>wobble</string>
+   </property>
+  </action>
+  <action name="actionEnlargeText">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>enlarge</string>
+   </property>
+  </action>
+  <action name="actionSpeedupText">
+   <property name="text">
+    <string>speedup</string>
+   </property>
+  </action>
+  <action name="actionBoldText">
+   <property name="text">
+    <string>bold</string>
+   </property>
+  </action>
+  <action name="actionTypedText">
+   <property name="text">
+    <string>typed</string>
+   </property>
+  </action>
+  <action name="actionRemoveEffect">
+   <property name="text">
+    <string>Remove effect</string>
+   </property>
+  </action>
+  <action name="actionRemoveFieldEffect">
+   <property name="text">
+    <string>Remove effect</string>
    </property>
   </action>
   <action name="actionImportTxt">

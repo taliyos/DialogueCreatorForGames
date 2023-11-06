@@ -1,6 +1,7 @@
 #ifndef FIELDDATA_H
 #define FIELDDATA_H
 
+#include "data/Fields/FieldTypes.h"
 #include <utility>
 #include <string>
 #include <map>
@@ -25,6 +26,9 @@ public:
     const string getText();
     // setters
     void setText(string newText);
+    void setFieldType(FieldTypes type);
+    // getters
+    FieldTypes getFieldType() const;
     // Field effect functions
     const list<int> getFieldEffects();
     bool hasFieldEffect(int tag);
@@ -56,7 +60,15 @@ public:
      * @return the old from connection, which was removed.
     */
     const ConnectionData* replaceToConnection(ConnectionData* connection);
+
+    /**
+     * @return The connection ending in this field.
+     */
     ConnectionData* getFromConnection();
+
+    /**
+     * @return The connection starting from this field.
+     */
     ConnectionData* getToConnection();
 
     QWidget* getUi();
@@ -83,6 +95,8 @@ private:
     ConnectionData* toConnection = nullptr;
 
     QWidget* ui;
+
+    FieldTypes fieldType = Text;
 };
 
 #endif // FIELDDATA_H

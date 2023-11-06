@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
+#include "data/Presets/preset.h"
 #include "maineditor.h"
 #include "ui_maineditor.h"
 #include "widgets/editor/EditorTools/editortools.h"
@@ -7,12 +8,14 @@
 #include "widgets/editor/FieldConnection/fieldconnection.h"
 #include "data/ConnectionData/connectiondata.h"
 #include <QWebEngineView>
+#include <QDebug>
 
 #include "duckx.hpp"
 #include <json.hpp>
 #include <fstream>
 
 #include "data/Fields/MainFields/text/textdata.h"
+
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -32,13 +35,55 @@ MainEditor::MainEditor(QWidget *parent) :
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
+    typedef std::function<void ()> EffectFunc;
+    typedef std::pair<std::string, EffectFunc> EffectPair;
+    typedef std::vector<EffectPair> EffectsVector;
+    EffectsVector displayEffects;
+    EffectsVector characterEffects;
+    EffectsVector modifierEffects;
+
+    EffectPair wobbleField = EffectPair(std::string("Wobble"), std::bind(&MainEditor::on_actionWobble_triggered, this));
+    EffectPair speedupField = EffectPair(std::string("Speedup"), std::bind(&MainEditor::on_actionSpeedup_triggered, this));
+    EffectPair enlargeField = EffectPair(std::string("Enlarge"), std::bind(&MainEditor::on_actionEnlarge_triggered, this));
+    EffectPair boldField = EffectPair(std::string("Bold"), std::bind(&MainEditor::on_actionBold_triggered, this));
+    EffectPair typedField = EffectPair(std::string("Typed"), std::bind(&MainEditor::on_actionTyped_triggered, this));
+
+    EffectPair wobbleText = EffectPair(std::string("Wobble"), std::bind(&MainEditor::on_actionWobbleText_triggered, this));
+    EffectPair speedupText = EffectPair(std::string("Speedup"), std::bind(&MainEditor::on_actionSpeedupText_triggered, this));
+    EffectPair enlargeText = EffectPair(std::string("Enlarge"), std::bind(&MainEditor::on_actionEnlargeText_triggered, this));
+    EffectPair boldText = EffectPair(std::string("Bold"), std::bind(&MainEditor::on_actionBoldText_triggered, this));
+
+
+    displayEffects.push_back(wobbleField);
+    displayEffects.push_back(typedField);
+    displayEffects.push_back(speedupField);
+    displayEffects.push_back(enlargeField);
+    displayEffects.push_back(boldField);
+
+    characterEffects.push_back(enlargeText);
+    characterEffects.push_back(wobbleText);
+    characterEffects.push_back(boldText);
+    modifierEffects.push_back(speedupText);
+
+    editorTools->populateDisplayEffects(displayEffects);
+    editorTools->populateCharacterEffects(characterEffects);
+    editorTools->populateModifierEffects(modifierEffects);
+
+    connect(editorTools->getDisplayDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveFieldEffect_triggered);
+    connect(editorTools->getCharacterDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveEffect_triggered);
+    connect(editorTools->getModifierDropdown()->getRemove(), &QAbstractButton::clicked, this, &MainEditor::on_actionRemoveEffect_triggered);
+
+    // Connect presets
+    connect(editorTools->getAddPreset(), &QAbstractButton::clicked, this, &MainEditor::createPreset);
+    connect(editorTools, &EditorTools::applyPreset, this, &MainEditor::applyPreset);
+
     // Create first dialogue box
     createTextField();
 }
 
 
-void MainEditor::handlePreviewRequest(const QString& content, const QString& content2) {
-    QString fullHtml = TextField::generateHtml(content, content2);
+void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, TextData* textData) {
+    QString fullHtml = TextField::generateHtml(content, content2, textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     view->show();
@@ -429,6 +474,125 @@ void MainEditor::on_actionNew_triggered()
 
 }
 
+void MainEditor::on_actionWobble_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(1);
+  }
+
+void MainEditor::on_actionEnlarge_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(2);
+}
+
+void MainEditor::on_actionSpeedup_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(3);
+}
+
+void MainEditor::on_actionBold_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(4);
+}
+
+void MainEditor::on_actionTyped_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    currentField->addOrRemoveFieldEffect(5);
+}
+
+void MainEditor::on_actionRemoveFieldEffect_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    for (int i = 1; i <= 5; i++)
+    {
+        currentField->removeFieldEffect(i);
+    }
+}
+
+void MainEditor::on_actionWobbleText_triggered()
+{
+    applyTextEffect(1);
+}
+
+void MainEditor::on_actionEnlargeText_triggered()
+{
+    applyTextEffect(2);
+}
+
+void MainEditor::on_actionSpeedupText_triggered()
+{
+    applyTextEffect(3);
+}
+
+void MainEditor::on_actionBoldText_triggered()
+{
+    applyTextEffect(4);
+}
+
+void MainEditor::on_actionTypedText_triggered()
+{
+    applyTextEffect(5);
+}
+
+void MainEditor::applyTextEffect(int tag)
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    if (!field->getTextField()->hasSelectedText())
+        return;
+
+    int start = field->getTextField()->selectionStart();
+    int end = field->getTextField()->selectionEnd();
+
+    if (currentField->hasTextEffect(start, end, tag))
+    {
+        qDebug() << "already exists";
+        return;
+    }
+
+    currentField->addOrRemoveTextEffect(start, end, tag);
+}
+
+void MainEditor::on_actionRemoveEffect_triggered()
+{
+    FieldData* currentField = getActiveField();
+    if (currentField == nullptr)
+        return;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    if (!field->getTextField()->hasSelectedText())
+        return;
+
+    int start = field->getTextField()->selectionStart();
+    int end = field->getTextField()->selectionEnd();
+    for (int i = 1; i <= 5; i++)
+    {
+        if (currentField->hasTextEffect(start, end, i))
+        {
+            qDebug() << "test";
+            currentField->removeTextEffect(start,end,i);
+            return;
+        }
+    }
+}
+
 void MainEditor::createTextField() {
     // Create a new head pointer if the data is currently null.
     if (!data) {
@@ -439,6 +603,8 @@ void MainEditor::createTextField() {
         // field is removed when the remove button is clicked within the UI.
         connect(textField, &TextField::removeField, this, &MainEditor::removeField);
         connect(textField, &TextField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+        lastActive = data;
         return;
     }
 
@@ -539,4 +705,59 @@ void MainEditor::removeField(TextField* field) {
     designer->removeWidget(field);
     delete fieldData;
     
+}
+
+// Gets active text field
+// If no active text field, return most recent active text field
+// If no recent text field, returns nullptr
+FieldData* MainEditor::getActiveField()
+{
+    if (data == nullptr)
+        return nullptr;
+    FieldData* currentField = data;
+    TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+    while (!field->getTextField()->hasFocus())
+    {
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            return lastActive;
+
+        field = reinterpret_cast <TextField*>(currentField->getUi());
+    }
+
+    lastActive = currentField;
+    return currentField;
+}
+
+void MainEditor::preset_createTextField() {
+    createTextField();
+}
+void MainEditor::preset_createTextFieldAndCharacter() {
+    createTextField();
+    FieldData* curr = data;
+    while (curr->getToConnection()) {
+        curr = curr->getToConnection()->getNext();
+    }
+    TextField* field = reinterpret_cast<TextField*>(curr->getUi());
+    field->addCharacterWidget();
+}
+
+void MainEditor::preset_createListField() {
+    createTextField();
+}
+void MainEditor::preset_createUserPromptField() {
+    createTextField();
+}
+void MainEditor::preset_createUserListField() {
+    createTextField();
+}
+
+void MainEditor::createPreset() {
+    Preset* preset = new Preset(data);
+    editorTools->addPreset(preset);
+}
+
+void MainEditor::applyPreset(Preset* preset) {
+    preset->apply(data, this);
 }
