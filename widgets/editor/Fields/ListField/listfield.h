@@ -29,9 +29,6 @@ public:
 
     ListData* getData();
     void setData(ListData* data);
-    void onCharacterClicked();
-    void addCharacterWidget();
-    void removeCharacterWidget();
     void updateUI();
 
 signals:

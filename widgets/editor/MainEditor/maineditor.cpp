@@ -437,6 +437,8 @@ void MainEditor::createListField() {
         // field is removed when the remove button is clicked within the UI.
         connect(listField, &ListField::removeField, this, &MainEditor::removeListField);
         connect(listField, &ListField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+        lastActive = data;
         return;
     }
 

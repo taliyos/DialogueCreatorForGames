@@ -8,38 +8,10 @@ ListField::ListField(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->remove, &QAbstractButton::clicked, this, &ListField::sendRemove);
-    connect(ui->addCharacter, &QAbstractButton::clicked, this, &ListField::onCharacterClicked);
     connect(ui->preview, &QPushButton::clicked, this, &ListField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
     connect(this, &ListField::updateRequested, this, &ListField::updateUI);
 }
-
-void ListField::onCharacterClicked() {
-    if (characterFieldAdded) {
-        // If already added, remove the widget
-        removeCharacterWidget();
-    } else {
-        addCharacterWidget();
-    }
-
-    // Toggle the state
-    characterFieldAdded = !characterFieldAdded;
-}
-
-void ListField::removeCharacterWidget() {
-    if (characterField) {
-        ui->AboveFieldLayout->removeWidget(characterField);
-        delete characterField;
-        characterField = nullptr;
-    }
-}
-
-
-void ListField::addCharacterWidget() {
-    characterField = new CharacterField(this);
-    ui->AboveFieldLayout->addWidget(characterField);
-}
-
 
 QString ListField::generateHtml(const QString& content, const QString& content2, ListData* textData) {
 
