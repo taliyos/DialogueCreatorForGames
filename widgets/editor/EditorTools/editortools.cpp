@@ -9,6 +9,15 @@ EditorTools::EditorTools(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // set up the settings pages
+    effectSettings = new EffectSettings(this);
+    listSettings = new ListSettings(this);
+    presetSettings = new PresetSettings(this);
+    // connect the buttons to show the settings pages
+    connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
+    connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
+    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
+
     displayDropdown = new EffectsDropdown();
     characterDropdown = new EffectsDropdown();
     modifierDropdown = new EffectsDropdown();
@@ -38,6 +47,9 @@ EditorTools::~EditorTools()
     }
 
     delete ui;
+    delete effectSettings;
+    delete listSettings;
+    delete presetSettings;
 }
 
 // Clipboard
@@ -75,6 +87,18 @@ QPushButton* EditorTools::getPreset4() { return ui->preset4; }
 QPushButton* EditorTools::getAddPreset() { return ui->addPreset; }
 QPushButton* EditorTools::getMorePresets() { return ui->morePresets; }
 QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
+
+
+// Settings Pages
+EffectSettings* EditorTools::getEffectSettingsPage() { return effectSettings; }
+ListSettings* EditorTools::getListSettingsPage() { return listSettings; }
+PresetSettings* EditorTools::getPresetSettingsPage() { return presetSettings; }
+
+// Methods
+void EditorTools::openEffectSettings() { effectSettings->open(); }
+void EditorTools::openListSettings() { listSettings->open();
+    listSettings->loadOptions();}
+void EditorTools::openPresetSettings() { presetSettings->open(); }
 
 // Dropdowns
 EffectsDropdown* EditorTools::getDisplayDropdown() const { return displayDropdown; }
@@ -128,3 +152,4 @@ void EditorTools::addPreset(Preset* preset) {
         EditorTools::getPreset4()->setText(preset->getDescription());
     }
 }
+

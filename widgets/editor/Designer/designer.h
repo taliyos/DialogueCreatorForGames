@@ -7,6 +7,7 @@
 
 class FieldConnection;
 class TextField;
+class ListField;
 
 namespace Ui {
 class Designer;
@@ -22,6 +23,7 @@ public:
 
     FieldConnection* createFieldConnection();
     TextField* createTextField();
+    ListField* createListField();
 
     void removeWidget(QWidget* widget);
 

@@ -27,6 +27,7 @@ public:
     // setters
     void setDelimiter (string delim);
     void setText (string txt);
+    void setDelimiterAndText(string delim, string txt);
     // modifiers
     void push_back(string s);
     void push_front(string s);
@@ -38,6 +39,7 @@ public:
     list<string> toList();
     list<pair<int,int>> getIndecies();
     void print();
+    const int getID() override;
 private:
     string delimiter;
     // <startLocation, length>
