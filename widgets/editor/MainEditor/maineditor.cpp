@@ -790,7 +790,7 @@ void MainEditor::createPreset() {
     editorTools->addPreset(preset);
 }
 
-void MainEditor::on_actionImportPreset_triggered()
+void MainEditor::on_actionImportPreset_2_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
     QString fileName = QFileDialog::getOpenFileName(this, "Import preset file");
@@ -824,7 +824,28 @@ void MainEditor::on_actionImportPreset_triggered()
     editorTools->addPreset(preset);
 }
 
-void MainEditor::on_actionExportPreset_triggered()
+void MainEditor::on_actionExportPreset1_triggered()
+{
+    exportPreset(1);
+}
+
+void MainEditor::on_actionExportPreset2_triggered()
+{
+    exportPreset(2);
+}
+
+void MainEditor::on_actionExportPreset3_triggered()
+{
+    exportPreset(3);
+}
+
+void MainEditor::on_actionExportPreset4_triggered()
+{
+    exportPreset(4);
+}
+
+
+void MainEditor::exportPreset(int num)
 {
     // Get json filename from Windows Explorer popup and verify it is json
     QString fileName = QFileDialog::getSaveFileName(this, "Export preset file");
@@ -843,12 +864,28 @@ void MainEditor::on_actionExportPreset_triggered()
     nlohmann::json j;
 
     if (editorTools->getPresets().empty())
+    {
+        QMessageBox::warning(this, "Warning", "Preset does not exist");
         return;
-    Preset* preset = editorTools->getPresets().front();
-    if (preset == nullptr)
-        return;
+    }
 
-    int index = 0;
+    std::vector<Preset*> presets = editorTools->getPresets();
+    std::vector<Preset*>::const_iterator itr = presets.begin();
+    int i = 1;
+    while (itr != presets.end())
+    {
+        if (i < num)
+            itr++;
+        else
+            break;
+    }
+    if (i != num)
+    {
+        QMessageBox::warning(this, "Warning", "Preset does not exist");
+        return;
+    }
+    Preset* preset = *itr;
+
     std::vector<FieldTypes> storage = preset->getStorage();
     list<string> types = list<string>();
     for (std::vector<FieldTypes>::iterator itr = storage.begin(); itr != storage.end(); itr++) {
@@ -869,7 +906,6 @@ void MainEditor::on_actionExportPreset_triggered()
             types.push_back("UserList");
             break;
         }
-        index++;
     }
 
     j = types;

@@ -184,8 +184,17 @@
     <property name="title">
      <string>Presets</string>
     </property>
-    <addaction name="actionImportPreset"/>
-    <addaction name="actionExportPreset"/>
+    <widget class="QMenu" name="menuExport_preset">
+     <property name="title">
+      <string>Export preset</string>
+     </property>
+     <addaction name="actionExportPreset1"/>
+     <addaction name="actionExportPreset2"/>
+     <addaction name="actionExportPreset3"/>
+     <addaction name="actionExportPreset4"/>
+    </widget>
+    <addaction name="actionImportPreset_2"/>
+    <addaction name="menuExport_preset"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -381,14 +390,29 @@
     <string>json</string>
    </property>
   </action>
-  <action name="actionImportPreset">
+  <action name="actionImportPreset_2">
    <property name="text">
     <string>Import preset</string>
    </property>
   </action>
-  <action name="actionExportPreset">
+  <action name="actionExportPreset1">
    <property name="text">
-    <string>Export preset</string>
+    <string>Preset 1</string>
+   </property>
+  </action>
+  <action name="actionExportPreset2">
+   <property name="text">
+    <string>Preset 2</string>
+   </property>
+  </action>
+  <action name="actionExportPreset3">
+   <property name="text">
+    <string>Preset 3</string>
+   </property>
+  </action>
+  <action name="actionExportPreset4">
+   <property name="text">
+    <string>Preset 4</string>
    </property>
   </action>
  </widget>
