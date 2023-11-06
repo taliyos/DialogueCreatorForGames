@@ -871,6 +871,13 @@ FieldData* MainEditor::getActiveField()
     if (data == nullptr)
         return nullptr;
     FieldData* currentField = data;
+    if (currentField->getFieldType() == List)
+    {
+        if (currentField->getToConnection() != nullptr)
+            currentField = currentField->getToConnection()->getNext();
+        else
+            return lastActive;
+    }
     TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
     while (!field->getTextField()->hasFocus())
     {
@@ -879,6 +886,13 @@ FieldData* MainEditor::getActiveField()
         else
             return lastActive;
 
+        if (currentField->getFieldType() == List)
+        {
+            if (currentField->getToConnection() != nullptr)
+                currentField = currentField->getToConnection()->getNext();
+            else
+                return lastActive;
+        }
         field = reinterpret_cast <TextField*>(currentField->getUi());
     }
 
