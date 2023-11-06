@@ -7,3 +7,9 @@ InputData::InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData
 {
 
 }
+
+
+const int InputData::getID()
+{
+    return 3;
+}

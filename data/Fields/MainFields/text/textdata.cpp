@@ -11,3 +11,8 @@ TextData::TextData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* 
     field->setData(this);
 
 }
+
+const int TextData::getID()
+{
+    return 1;
+}

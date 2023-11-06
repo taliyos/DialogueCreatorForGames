@@ -60,6 +60,11 @@ QPushButton* EditorTools::getAddPreset() { return ui->addPreset; }
 QPushButton* EditorTools::getMorePresets() { return ui->morePresets; }
 QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
 
+// Settings Pages
+EffectSettings* EditorTools::getEffectSettingsPage() { return effectSettings; }
+ListSettings* EditorTools::getListSettingsPage() { return listSettings; }
+PresetSettings* EditorTools::getPresetSettingsPage() { return presetSettings; }
+
 // Methods
 void EditorTools::openEffectSettings() { effectSettings->open(); }
 void EditorTools::openListSettings() { listSettings->open();

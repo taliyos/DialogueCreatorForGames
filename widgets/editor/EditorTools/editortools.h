@@ -55,6 +55,11 @@ public:
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
 
+    // Settings Pages
+    EffectSettings* getEffectSettingsPage();
+    ListSettings* getListSettingsPage();
+    PresetSettings* getPresetSettingsPage();
+
     // Methods
     void openEffectSettings();
     void openListSettings();
@@ -62,6 +67,7 @@ public:
 
 signals:
     void characterEffectRequested(int effectNumber);
+    void listFieldUpdateRequested(string txt);
 
 
 private slots:

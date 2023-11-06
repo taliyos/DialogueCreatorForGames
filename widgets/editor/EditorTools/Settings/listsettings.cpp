@@ -2,6 +2,8 @@
 #include <QLineEdit>
 #include "ui_listsettings.h"
 #include <QDialogButtonBox>
+#include <data/Fields/MainFields/list/listdata.h>
+#include <widgets/editor/MainEditor/maineditor.h>
 
 ListSettings::ListSettings(QWidget *parent) :
     QDialog(parent),
@@ -55,14 +57,16 @@ void ListSettings::eraseOption(int index)
 
 void ListSettings::loadOptions()
 {
-    // add missing ui elements if there are any
-    int difference = data->size()-listElements->size();
-    if (difference > 0)
+    // remove the options
+    for (SettingsOption* option : *(listElements))
     {
-        for (int i = 0; i < difference; i++)
-        {
-            addOption();
-        }
+        option->deleteLater();
+    }
+    listElements->clear();
+    // re-add the options
+    for (int i = 0; i <  data->size(); i++)
+    {
+        addOption();
     }
     list<string>::iterator itr = data->begin();
     list<SettingsOption*>::iterator itr2 = listElements->begin();
@@ -70,16 +74,25 @@ void ListSettings::loadOptions()
     for(int i = 0; i < data->size(); i++)
     {
         (*itr2)->getLineEdit()->setText(QString::fromStdString(*itr));
-        itr++;
         itr2++;
+        itr++;
     }
 }
 
 void ListSettings::saveOptions()
 {
+    qDebug() << "ListSettings: Saving Options";
     data->clear();
     for(SettingsOption* element : (*listElements))
     {
         data->push_back(element->getLineEdit()->text().toStdString());
     }
+    // pack the options
+    string txt = "";
+    for(string s : *(data))
+    {
+        txt += baseDelimiter + s;
+    }
+    // send the options off
+    emit optionsSaved(txt);
 }

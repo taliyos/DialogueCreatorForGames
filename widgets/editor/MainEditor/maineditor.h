@@ -1,10 +1,12 @@
 #ifndef MAINEDITOR_H
 #define MAINEDITOR_H
 
+#include "data/ConnectionData/connectiondata.h"
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
-#include "data/Fields/fielddata.h"
+#include "data/Fields/MainFields/list/listdata.h"
 #include <QMainWindow>
+#include <typeinfo>
 
 namespace Ui {
 class MainEditor;
@@ -17,6 +19,7 @@ class MainEditor : public QMainWindow
 public:
     explicit MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
+signals:
 
 private slots:
     void on_actionOpen_triggered();
@@ -37,6 +40,7 @@ private slots:
     */
     void handlePreviewRequest(const QString& content);
     void createTextField();
+    void createListField();
 
     /**
      * Removes the head of the data (field container)
@@ -49,6 +53,13 @@ private slots:
      * @param field - The ui field to remove
     */
     void removeField(TextField* field);
+    void removeListField(ListField* field);
+
+    /**
+     * @brief updateListFields
+     * @param options
+     */
+    void updateListFields(string txt);
 
 private:
     Ui::MainEditor *ui = nullptr;

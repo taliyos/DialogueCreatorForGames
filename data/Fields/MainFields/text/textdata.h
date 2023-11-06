@@ -16,6 +16,7 @@ public:
     TextData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
     // deconstructor
     ~TextData();
+    const int getID() override;
 
 };
 #endif // TEXTDATA_H

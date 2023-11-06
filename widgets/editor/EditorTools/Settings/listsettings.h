@@ -31,6 +31,7 @@ public:
 
 signals:
     void optionErased (int index);
+    void optionsSaved (string txt);
 
 private:
     Ui::ListSettings *ui;

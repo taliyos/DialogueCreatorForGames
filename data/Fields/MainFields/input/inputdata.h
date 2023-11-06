@@ -18,6 +18,7 @@ class InputData : protected MainFieldData
 {
 public:
     InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
+    const int getID() override;
 };
 
 #endif // INPUTDATA_H
