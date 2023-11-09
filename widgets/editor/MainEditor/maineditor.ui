@@ -90,6 +90,24 @@
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <widget class="QPushButton" name="exporttohtml">
+       <property name="geometry">
+        <rect>
+         <x>1530</x>
+         <y>410</y>
+         <width>201</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Export to HTML</string>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
