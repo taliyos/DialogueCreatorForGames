@@ -8,6 +8,8 @@
 class FieldConnection;
 class TextField;
 class ListField;
+class InputOpenField;
+class InputListField;
 
 namespace Ui {
 class Designer;
@@ -24,6 +26,8 @@ public:
     FieldConnection* createFieldConnection();
     TextField* createTextField();
     ListField* createListField();
+    InputOpenField* createInputOpenField();
+    InputListField* createInputListField();
 
     void removeWidget(QWidget* widget);
 

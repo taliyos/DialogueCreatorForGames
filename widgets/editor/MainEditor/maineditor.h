@@ -59,12 +59,23 @@ private slots:
     void createPreset();
     void applyPreset(Preset* preset);
 
+    void handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData);
     /**
      * Creates a text field and adds it to the UI
     */
-    void handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData);
     void createTextField();
+    /**
+     * Creates a list field and adds it to the UI
+     */
     void createListField();
+    /**
+     * Creates a list field and adds it to the UI
+     */
+    void createInputListField();
+    /**
+     * Creates a list field and adds it to the UI
+     */
+    void createInputOpenField();
 
     /**
      * Removes the head of the data (field container)
@@ -78,6 +89,8 @@ private slots:
     */
     void removeField(TextField* field);
     void removeListField(ListField* field);
+    void removeInputOpenField(InputOpenField* field);
+    void removeInputListField(InputListField* field);
 
     /**
      * @brief updateListFields

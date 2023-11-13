@@ -71,6 +71,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         data/Fields/FieldTypes.h
         widgets/editor/Fields/InputOpenField/inputopenfield.h widgets/editor/Fields/InputOpenField/inputopenfield.cpp widgets/editor/Fields/InputOpenField/inputopenfield.ui
         widgets/editor/Fields/InputListField/inputlistfield.h widgets/editor/Fields/InputListField/inputlistfield.cpp widgets/editor/Fields/InputListField/inputlistfield.ui
+        data/Fields/MainFields/input/inputlistdata.h data/Fields/MainFields/input/inputlistdata.cpp
 
 
 

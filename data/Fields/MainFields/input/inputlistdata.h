@@ -1,5 +1,5 @@
-#ifndef INPUTDATA_H
-#define INPUTDATA_H
+#ifndef INPUTLISTDATA_H
+#define INPUTLISTDATA_H
 
 #include <QWidget>
 #include <utility>
@@ -14,10 +14,10 @@ using namespace std;
 /// </summary>
 
 // This class is currently a stub, not sure what else it needs over the base class.
-class InputData : public MainFieldData
+class InputListData : public MainFieldData
 {
 public:
-    InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
+    InputListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
 };
 
-#endif // INPUTDATA_H
+#endif // INPUTLISTDATA_H

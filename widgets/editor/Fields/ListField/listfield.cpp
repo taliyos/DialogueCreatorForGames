@@ -1,6 +1,5 @@
 #include "listfield.h"
 #include "ui_listfield.h"
-#include "widgets/editor/Fields/CharacterField//characterfield.h"
 
 ListField::ListField(QWidget *parent) :
     QWidget(parent),

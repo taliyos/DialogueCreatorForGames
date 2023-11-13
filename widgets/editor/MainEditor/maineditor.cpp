@@ -12,6 +12,8 @@
 #include <qclipboard.h>
 
 #include "widgets/editor/Fields/ListField/listfield.h"
+#include "widgets/editor/Fields/InputListField/inputlistfield.h"
+#include "widgets/editor/Fields/InputOpenField/inputopenfield.h"
 
 MainEditor::MainEditor(QWidget *parent) :
     QMainWindow(parent),
@@ -28,6 +30,8 @@ MainEditor::MainEditor(QWidget *parent) :
 
     connect(editorTools->getTextField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
     connect(editorTools->getCustomField1(), &QAbstractButton::clicked, this, &MainEditor::createListField);
+    connect(editorTools->getCustomField2(), &QAbstractButton::clicked, this, &MainEditor::createInputOpenField);
+    connect(editorTools->getCustomField3(), &QAbstractButton::clicked, this, &MainEditor::createInputListField);
 
     connect(editorTools->getListSettingsPage(), &ListSettings::optionsSaved, this, &MainEditor::updateListFields);
 
@@ -468,6 +472,88 @@ void MainEditor::createListField() {
     editorTools->getListSettingsPage()->saveOptions();
 }
 
+void MainEditor::createInputOpenField() {
+    // Create a new head pointer if the data is currently null.
+    if (!data) {
+        InputOpenField* inputOpenField = designer->createInputOpenField();
+        data = new InputData(inputOpenField, nullptr, nullptr);
+
+        // Connect the removeField signal to the MainEditor's removeField function so that the
+        // field is removed when the remove button is clicked within the UI.
+        connect(inputOpenField, &InputOpenField::removeField, this, &MainEditor::removeInputOpenField);
+        connect(inputOpenField, &InputOpenField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+        lastActive = data;
+        return;
+    }
+
+    // Add a new text field with a connection if a head pointer (data) exists
+    FieldData* last = data;
+    while(last->getToConnection() != nullptr && last->getToConnection()->getNext() != nullptr) {
+        last = last->getToConnection()->getNext();
+    }
+
+    // Create a new field connection (UI)
+    FieldConnection* fieldConnection = designer->createFieldConnection();
+    // Create a new text field (UI)
+    InputOpenField* inputOpenField = designer->createInputOpenField();
+    InputData* newInput = new InputData(inputOpenField, nullptr, nullptr);
+
+    // Create a connection
+    ConnectionData* connection = new ConnectionData(fieldConnection, last, newInput);
+    last->replaceToConnection(connection);
+    newInput->replaceFromConnection(connection);
+
+    // Connect the removeField signal to the MainEditor's removeField function so that the
+    // field is removed when the remove button is clicked within the UI.
+    connect(inputOpenField, &InputOpenField::removeField, this, &MainEditor::removeInputOpenField);
+    connect(inputOpenField, &InputOpenField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+    // update the list settings
+    editorTools->getListSettingsPage()->saveOptions();
+}
+
+void MainEditor::createInputListField() {
+    // Create a new head pointer if the data is currently null.
+    if (!data) {
+        InputListField* inputListField = designer->createInputListField();
+        data = new InputListData(inputListField, nullptr, nullptr);
+
+        // Connect the removeField signal to the MainEditor's removeField function so that the
+        // field is removed when the remove button is clicked within the UI.
+        connect(inputListField, &InputListField::removeField, this, &MainEditor::removeInputListField);
+        connect(inputListField, &InputListField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+        lastActive = data;
+        return;
+    }
+
+    // Add a new text field with a connection if a head pointer (data) exists
+    FieldData* last = data;
+    while(last->getToConnection() != nullptr && last->getToConnection()->getNext() != nullptr) {
+        last = last->getToConnection()->getNext();
+    }
+
+    // Create a new field connection (UI)
+    FieldConnection* fieldConnection = designer->createFieldConnection();
+    // Create a new text field (UI)
+    InputListField* inputListField = designer->createInputListField();
+    InputListData* newInput = new InputListData(inputListField, nullptr, nullptr);
+
+    // Create a connection
+    ConnectionData* connection = new ConnectionData(fieldConnection, last, newInput);
+    last->replaceToConnection(connection);
+    newInput->replaceFromConnection(connection);
+
+    // Connect the removeField signal to the MainEditor's removeField function so that the
+    // field is removed when the remove button is clicked within the UI.
+    connect(inputListField, &InputListField::removeField, this, &MainEditor::removeInputListField);
+    connect(inputListField, &InputListField::previewRequested, this, &MainEditor::handlePreviewRequest);
+
+    // update the list settings
+    editorTools->getListSettingsPage()->saveOptions();
+}
+
 void MainEditor::removeHead() {
     if (data == nullptr) return;
 
@@ -555,6 +641,104 @@ void MainEditor::removeField(TextField* field) {
 // WE SHOULD MAKE ALL FIELDS INHERIT FROM A BASE FIELD
 // THEN WE ONLY NEED ONE removeFieldFunction ***
 void MainEditor::removeListField(ListField* field) {
+    FieldData* fieldData = field->getData();
+    ConnectionData* fromConnection = fieldData->getFromConnection();
+    ConnectionData* toConnection = fieldData->getToConnection();
+
+    // STEP 1) Reconfigure connections to remove references to fieldData
+
+    // Modify the head if the field is the current head of the data field container
+    // The fromConnection is maintained while the toConnection is removed.
+    if (!fromConnection) {
+        if (fieldData != data) {
+            qWarning("This field is part of a detatched head.");
+            return;
+        }
+
+        // Assign a new head
+        if (toConnection) {
+            data = toConnection->getNext();
+            data->replaceFromConnection(nullptr);
+        }
+        else data = nullptr;
+    }
+
+    // Re-assign the fromConnection
+    else if (fromConnection) {
+        if (toConnection) {
+            fromConnection->replaceNext(toConnection->getNext());
+            toConnection->getNext()->replaceFromConnection(fromConnection);
+        }
+        else {
+            // REMOVE FROM CONNECTION
+            fromConnection->getPrevious()->replaceToConnection(nullptr);
+
+            designer->removeWidget(fromConnection->getUi());
+            delete fromConnection;
+        }
+    }
+
+    // Remove the toConnection
+    if (toConnection) {
+        designer->removeWidget(toConnection->getUi());
+        delete toConnection;
+    }
+
+    // STEP 2) Cleanup and free memory
+    designer->removeWidget(field);
+    delete fieldData;
+}
+
+void MainEditor::removeInputOpenField(InputOpenField* field) {
+    FieldData* fieldData = field->getData();
+    ConnectionData* fromConnection = fieldData->getFromConnection();
+    ConnectionData* toConnection = fieldData->getToConnection();
+
+    // STEP 1) Reconfigure connections to remove references to fieldData
+
+    // Modify the head if the field is the current head of the data field container
+    // The fromConnection is maintained while the toConnection is removed.
+    if (!fromConnection) {
+        if (fieldData != data) {
+            qWarning("This field is part of a detatched head.");
+            return;
+        }
+
+        // Assign a new head
+        if (toConnection) {
+            data = toConnection->getNext();
+            data->replaceFromConnection(nullptr);
+        }
+        else data = nullptr;
+    }
+
+    // Re-assign the fromConnection
+    else if (fromConnection) {
+        if (toConnection) {
+            fromConnection->replaceNext(toConnection->getNext());
+            toConnection->getNext()->replaceFromConnection(fromConnection);
+        }
+        else {
+            // REMOVE FROM CONNECTION
+            fromConnection->getPrevious()->replaceToConnection(nullptr);
+
+            designer->removeWidget(fromConnection->getUi());
+            delete fromConnection;
+        }
+    }
+
+    // Remove the toConnection
+    if (toConnection) {
+        designer->removeWidget(toConnection->getUi());
+        delete toConnection;
+    }
+
+    // STEP 2) Cleanup and free memory
+    designer->removeWidget(field);
+    delete fieldData;
+}
+
+void MainEditor::removeInputListField(InputListField* field) {
     FieldData* fieldData = field->getData();
     ConnectionData* fromConnection = fieldData->getFromConnection();
     ConnectionData* toConnection = fieldData->getToConnection();

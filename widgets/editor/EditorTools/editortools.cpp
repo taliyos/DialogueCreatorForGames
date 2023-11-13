@@ -17,7 +17,7 @@ EditorTools::EditorTools(QWidget *parent) :
     connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
     connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
     connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
-
+    // set up the effect dropdowns
     displayDropdown = new EffectsDropdown();
     characterDropdown = new EffectsDropdown();
     modifierDropdown = new EffectsDropdown();
