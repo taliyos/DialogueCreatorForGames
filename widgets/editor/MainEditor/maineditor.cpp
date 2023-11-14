@@ -917,7 +917,7 @@ void MainEditor::preset_createTextFieldAndCharacter() {
         curr = curr->getToConnection()->getNext();
     }
     TextField* field = reinterpret_cast<TextField*>(curr->getUi());
-    field->addCharacterWidget();
+    field->onCharacterClicked();
 }
 
 void MainEditor::preset_createListField() {
