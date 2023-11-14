@@ -1,18 +1,18 @@
 #ifndef NEWTAB_H
 #define NEWTAB_H
 
-#include <QWidget>
+#include <QToolButton>
 
 namespace Ui {
 class NewTab;
 }
 
-class NewTab : public QWidget
+class NewTab : public QToolButton
 {
     Q_OBJECT
 
 public:
-    explicit NewTab(QWidget *parent = nullptr);
+    explicit NewTab(QToolButton *parent = nullptr);
     ~NewTab();
 
 private:

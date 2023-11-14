@@ -69,8 +69,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         data/Presets/preset.h data/Presets/preset.cpp
         data/Fields/FieldTypes.h
-        widgets/tabs/TabWindow/tabwindow.h widgets/tabs/TabWindow/tabwindow.cpp widgets/tabs/TabWindow/tabwindow.ui
+
         widgets/tabs/NewTab/newtab.h widgets/tabs/NewTab/newtab.cpp widgets/tabs/NewTab/newtab.ui
+        widgets/tabs/TabWindow/tabwindow.h widgets/tabs/TabWindow/tabwindow.cpp widgets/tabs/TabWindow/tabwindow.ui
 
 
 
