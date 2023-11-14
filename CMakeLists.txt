@@ -72,6 +72,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         widgets/tabs/NewTab/newtab.h widgets/tabs/NewTab/newtab.cpp widgets/tabs/NewTab/newtab.ui
         widgets/tabs/TabWindow/tabwindow.h widgets/tabs/TabWindow/tabwindow.cpp widgets/tabs/TabWindow/tabwindow.ui
+        widgets/tabs/EditorTabBar/editortabbar.h widgets/tabs/EditorTabBar/editortabbar.cpp widgets/tabs/EditorTabBar/editortabbar.ui
+
 
 
 

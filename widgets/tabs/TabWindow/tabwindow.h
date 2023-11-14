@@ -2,6 +2,7 @@
 #define TABWINDOW_H
 
 #include "widgets/editor/MainEditor/maineditor.h"
+#include "widgets/tabs/EditorTabBar/editortabbar.h"
 #include <QTabWidget>
 
 namespace Ui {
@@ -13,7 +14,7 @@ class TabWindow : public QTabWidget
     Q_OBJECT
 
 public:
-    explicit TabWindow(QTabWidget *parent = nullptr);
+    explicit TabWindow(QWidget *parent = nullptr);
     ~TabWindow();
 
 private:
@@ -46,6 +47,7 @@ private:
 
 
     Ui::TabWindow *ui;
+    EditorTabBar* editorTabBar;
     static QString newTabIconPath;
 };
 

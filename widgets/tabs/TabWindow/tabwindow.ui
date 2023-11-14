@@ -16,15 +16,30 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QTabWidget::pane {
+  	background: rgb(245, 245, 245);
+} 
+
+QTabBar::tab {
+  	background: #D9D9D9; 
+  	height: 38px;
+	width: 140px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	font-size: 12px;
+} 
+
+QTabBar::tab:selected { 
+  	background: #A3A3A3; 
+}
+
+#addTab {
+	width: 16px;
+	background: white;
+}</string>
+  </property>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MainEditor</class>
-   <extends>QWidget</extends>
-   <header>widgets/editor/MainEditor/maineditor.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
