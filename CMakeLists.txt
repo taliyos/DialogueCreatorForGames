@@ -70,9 +70,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         data/Presets/preset.h data/Presets/preset.cpp
         data/Fields/FieldTypes.h
 
-        widgets/tabs/NewTab/newtab.h widgets/tabs/NewTab/newtab.cpp widgets/tabs/NewTab/newtab.ui
         widgets/tabs/TabWindow/tabwindow.h widgets/tabs/TabWindow/tabwindow.cpp widgets/tabs/TabWindow/tabwindow.ui
-        widgets/tabs/EditorTabBar/editortabbar.h widgets/tabs/EditorTabBar/editortabbar.cpp widgets/tabs/EditorTabBar/editortabbar.ui
+        widgets/tabs/ClosableTab/closabletab.h widgets/tabs/ClosableTab/closabletab.cpp widgets/tabs/ClosableTab/closabletab.ui
 
 
 

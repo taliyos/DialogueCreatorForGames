@@ -1,35 +1,30 @@
 #include "widgets/tabs/TabWindow/tabwindow.h"
+#include "widgets/tabs/ClosableTab/closabletab.h"
 #include "ui_tabwindow.h"
-
-#include "widgets/tabs/NewTab/newTab.h"
 
 QString TabWindow::newTabIconPath = ":/rec/img/icons/new.png";
 
 TabWindow::TabWindow(QWidget *parent) :
-    QTabWidget(parent),
+    QWidget(parent),
     ui(new Ui::TabWindow)
 {
     ui->setupUi(this);
 
-    this->editorTabBar = new EditorTabBar();
-    this->setTabBar(editorTabBar);
+    //this->editorTabBar = new EditorTabBar();
+    // this->setTabBar(editorTabBar);
 
     this->createEditorTab();
-    this->addNewTabButton();
 
-    connect(this, &TabWindow::tabBarClicked, this, &TabWindow::switchTab);
+    // NewTab* newTab = new NewTab();
+    //this->setCornerWidget(newTab, Qt::TopLeftCorner);
+
+    connect(ui->newTab, &QAbstractButton::clicked, this, &TabWindow::createEditorTab);
+    // connect(this, &TabWindow::tabBarClicked, this, &TabWindow::switchTab);
 }
 
 TabWindow::~TabWindow()
 {
     delete ui;
-}
-
-void TabWindow::addNewTabButton() {
-    QWidget* widget = new QWidget();
-    QIcon newTabIcon(TabWindow::newTabIconPath);
-    this->addTab(widget, newTabIcon, "");
-
 }
 
 void TabWindow::createEditorTab() {
@@ -42,17 +37,13 @@ void TabWindow::closeTab() {
 }
 
 void TabWindow::createTabFromExisting(QWidget* widget, const QString& tabName) {
-    int index = this->count() - 2;
-    if (index < 0) index = 0;
-
     this->setUpdatesEnabled(false);
-    this->insertTab(index, widget, tabName);
+    ClosableTab* tab = new ClosableTab();
+    tab->setText(tabName);
+    ui->tabs->addWidget(tab);
+    qInfo("widget added");
     this->setUpdatesEnabled(true);
 }
 
 void TabWindow::switchTab(int index) {
-    if (index == this->count() - 1) {
-        createEditorTab();
-        this->setCurrentIndex(this->count() - 2);
-    }
 }

@@ -2,14 +2,14 @@
 #define TABWINDOW_H
 
 #include "widgets/editor/MainEditor/maineditor.h"
-#include "widgets/tabs/EditorTabBar/editortabbar.h"
+#include <QWidget>
 #include <QTabWidget>
 
 namespace Ui {
 class TabWindow;
 }
 
-class TabWindow : public QTabWidget
+class TabWindow : public QWidget
 {
     Q_OBJECT
 
@@ -18,10 +18,6 @@ public:
     ~TabWindow();
 
 private:
-    /**
-     * Adds the new tab button to the end of the tab list
-    */
-    void addNewTabButton();
 
     /**
      * Creates a new MainEditor tab, adding it to the tabs list
@@ -47,7 +43,6 @@ private:
 
 
     Ui::TabWindow *ui;
-    EditorTabBar* editorTabBar;
     static QString newTabIconPath;
 };
 
