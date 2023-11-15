@@ -34,7 +34,7 @@ void TextField::onCharacterClicked() {
 
 void TextField::removeCharacterWidget() {
     if (characterField) {
-        ui->AboveFieldLayout->removeWidget(characterField);
+        ui->above->removeWidget(characterField);
         data->setFieldType(Text);
         delete characterField;
         characterField = nullptr;
@@ -45,7 +45,7 @@ void TextField::removeCharacterWidget() {
 void TextField::addCharacterWidget() {
     characterField = new CharacterField(this);
     data->setFieldType(TextCharacter);
-    ui->AboveFieldLayout->addWidget(characterField);
+    ui->above->addWidget(characterField);
 }
 QString TextField::generateHtml(const QString& content, const QString& content2, TextData* textData) {
 
@@ -321,7 +321,11 @@ void TextField::sendRemove() {
     emit removeField(this);
 }
 
+// Plays the current sound file
+// If no sound file, displays a message box to the user
 void TextField::playSound() {
+    player->stop();
+    player->setPosition(0);
     if (soundFile.isEmpty())
     {
         QMessageBox::warning(this, "Warning", "Please set a sound");
@@ -333,8 +337,9 @@ void TextField::playSound() {
     player->play();
 }
 
+// Sets the sound file to a selected mp3 file
 void TextField::setSound() {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+    QString fileName = QFileDialog::getOpenFileName(this, "Select an mp3 file");
 
     if (fileName.isEmpty()) return;
 
@@ -351,8 +356,11 @@ void TextField::setSound() {
     }
 
     soundFile = fileName;
+    QString playToolTip = "Play sound: " + soundFile;
+    ui->playSound->setToolTip(playToolTip);
 }
 
+// Returns the sound file
 QString TextField::getSoundFile() {
     return soundFile;
 }
