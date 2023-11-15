@@ -95,49 +95,23 @@ QPushButton:Pressed {
       <property name="verticalSpacing">
        <number>0</number>
       </property>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="preview">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
+      <item row="3" column="6">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="text">
-         <string/>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
         </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/rec/img/icons/preview.png</normalon>
-         </iconset>
-        </property>
-        <property name="iconSize">
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>32</width>
-          <height>32</height>
+          <width>20</width>
+          <height>40</height>
          </size>
         </property>
-       </widget>
+       </spacer>
       </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="remove">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/rec/img/icons/remove.png</normalon>
-         </iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" rowspan="2">
+      <item row="3" column="1" rowspan="7">
        <widget class="QLineEdit" name="textField">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -167,20 +141,34 @@ QPushButton:Pressed {
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="3" column="4">
+       <widget class="QPushButton" name="playSound">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
-        <property name="sizeHint" stdset="0">
+        <property name="toolTip">
+         <string extracomment="test"/>
+        </property>
+        <property name="toolTipDuration">
+         <number>-1</number>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>../../../../img/icons/modifier-effect.png</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
          <size>
-          <width>20</width>
-          <height>40</height>
+          <width>24</width>
+          <height>24</height>
          </size>
         </property>
-       </spacer>
+       </widget>
       </item>
-      <item row="0" column="0">
+      <item row="3" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QPushButton" name="addCharacter">
@@ -200,6 +188,75 @@ QPushButton:Pressed {
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="9" column="4">
+       <widget class="QPushButton" name="preview">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/rec/img/icons/preview.png</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QPushButton" name="remove">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/rec/img/icons/remove.png</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QPushButton" name="setSound">
+        <property name="baseSize">
+         <size>
+          <width>5</width>
+          <height>5</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>../../../../img/icons/settings.png</normalon>
+         </iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

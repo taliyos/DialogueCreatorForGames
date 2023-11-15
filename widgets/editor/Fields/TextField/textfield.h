@@ -6,6 +6,9 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QWebEngineView>
+#include <QMediaPlayer>
+#include <QAudioOutput>
+
 class CharacterField;
 namespace Ui {
 class TextField;
@@ -31,6 +34,9 @@ public:
     void onCharacterClicked();
     void addCharacterWidget();
     void removeCharacterWidget();
+    void playSound();
+    void setSound();
+    QString getSoundFile();
 
 signals:
     void previewRequested(const QString& content,const QString& content2, TextData* textData);
@@ -43,6 +49,9 @@ private:
     bool characterFieldAdded = false;
     CharacterField* characterField = nullptr;
     void sendRemove();
+    QString soundFile = "";
+    QMediaPlayer* player = new QMediaPlayer();
+    QAudioOutput* audio = new QAudioOutput();
 };
 
 #endif // TEXTFIELD_H

@@ -3,6 +3,8 @@
 #include <QPushButton>
 #include <QWebEngineView>
 #include "widgets/editor/Fields/CharacterField//characterfield.h"
+#include <QFileDialog>
+#include <QMessageBox>
 
 TextField::TextField(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +14,9 @@ TextField::TextField(QWidget *parent) :
     connect(ui->remove, &QAbstractButton::clicked, this, &TextField::sendRemove);
     connect(ui->addCharacter, &QAbstractButton::clicked, this, &TextField::onCharacterClicked);
     connect(ui->preview, &QPushButton::clicked, this, &TextField::exportToBrowser);
+    connect(ui->playSound, &QPushButton::clicked, this, &TextField::playSound);
+    connect(ui->setSound, &QPushButton::clicked, this, &TextField::setSound);
+    player->setAudioOutput(audio);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
 }
 
@@ -292,6 +297,8 @@ void TextField::exportToBrowser() {
 TextField::~TextField()
 {
     delete ui;
+    delete audio;
+    delete player;
 }
 
 QLineEdit* TextField::getTextField() {
@@ -312,4 +319,40 @@ void TextField::setData(TextData* data) {
 
 void TextField::sendRemove() {
     emit removeField(this);
+}
+
+void TextField::playSound() {
+    if (soundFile.isEmpty())
+    {
+        QMessageBox::warning(this, "Warning", "Please set a sound");
+        return;
+    }
+    audio->setVolume(25);
+    player->setSource(QUrl::fromLocalFile(soundFile));
+    player->setLoops(1);
+    player->play();
+}
+
+void TextField::setSound() {
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+
+    if (fileName.isEmpty()) return;
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+
+    if (fileName.split(".").last() != "mp3")
+    {
+        QMessageBox::warning(this, "Warning", "Please select an mp3 file");
+        return;
+    }
+
+    soundFile = fileName;
+}
+
+QString TextField::getSoundFile() {
+    return soundFile;
 }
