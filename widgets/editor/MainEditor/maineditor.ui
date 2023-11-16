@@ -93,19 +93,43 @@
       <widget class="QPushButton" name="exporttohtml">
        <property name="geometry">
         <rect>
-         <x>1530</x>
-         <y>410</y>
-         <width>201</width>
-         <height>71</height>
+         <x>1370</x>
+         <y>340</y>
+         <width>480</width>
+         <height>65</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <pointsize>24</pointsize>
+         <bold>false</bold>
+         <kerning>true</kerning>
         </font>
        </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 12;
+color: white;
+background-color: 	#64B5FF</string>
+       </property>
        <property name="text">
-        <string>Export to HTML</string>
+        <string>Quick Export as HTML</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <activeon>:/rec/img/icons/save.png</activeon>
+        </iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </widget>

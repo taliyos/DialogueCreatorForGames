@@ -78,6 +78,15 @@ MainEditor::MainEditor(QWidget *parent) :
 
     // Create first dialogue box
     createTextField();
+    updateExportButtonVisibility();
+}
+
+void MainEditor::updateExportButtonVisibility() {
+    if (currentHTML.isEmpty()) {
+        ui->exporttohtml->hide();
+    } else {
+        ui->exporttohtml->show();
+    }
 }
 
 
@@ -91,6 +100,7 @@ void MainEditor::handlePreviewRequest(const QString& content, const QString& con
     view->setHtml(fullHtml);
     currentHTML = fullHtml;
     view->show();
+    updateExportButtonVisibility();
 }
 
 void MainEditor::ExportToHTML() {
@@ -107,6 +117,7 @@ void MainEditor::ExportToHTML() {
     QTextStream out(&file);
     out << currentHTML;
     file.close();
+    updateExportButtonVisibility();
 }
 
 

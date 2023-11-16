@@ -59,6 +59,7 @@ private slots:
     void createPreset();
     void applyPreset(Preset* preset);
     void ExportToHTML();
+    void updateExportButtonVisibility();
 
     /**
      * Creates a text field and adds it to the UI
