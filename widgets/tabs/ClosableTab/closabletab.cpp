@@ -40,6 +40,10 @@ void ClosableTab::close() {
     emit onClose();
 }
 
+void ClosableTab::setCloseTabEnabled(bool enabled) {
+    ui->close->setVisible(enabled);
+}
+
 bool ClosableTab::hasFocus() const {
     return focus;
 }

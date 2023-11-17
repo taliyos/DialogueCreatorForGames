@@ -31,6 +31,12 @@ public:
     void close();
 
     /**
+     * Sets the visibility of the close tab ui button.
+     * @param enabled - Whether or not the close tab ui button should be visible
+     */
+    void setCloseTabEnabled(bool enabled);
+
+    /**
      * Returns the current focus value.
      */
     bool hasFocus() const;

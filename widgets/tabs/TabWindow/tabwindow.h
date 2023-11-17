@@ -27,7 +27,7 @@ public:
 private:
 
     /**
-     * Creates a new MainEditor tab, adding it to the tabs list
+     * Creates a new MainEditor tab, adding it to the tabs map
     */
     void createEditorTab();
 
@@ -37,16 +37,23 @@ private:
     void createTabFromExisting(QWidget* widget, const QString& tabName);
 
     /**
-     * Closes the specified tab, removing it from the tabs list
-    */
-    void closeTab();
-
-    /**
      * Handles extra details when switching tabs, like when the "New Tab" tab
      * is clicked.
      * @param newTabId - The id of the tab to switch to.
      */
-    void switchTab(QUuid newTabId);
+    void switchTab(const QUuid newTabId);
+
+    /**
+     * Closes the specified tab, removing it from the tabs map
+    */
+    void closeTab(const QUuid tabId);
+
+    /**
+     * Updates the attached tabs, enabling/disabling the close tab button
+     * depending on the total number of tabs.
+     */
+    void updateTabs();
+
 
 
     Ui::TabWindow *ui;

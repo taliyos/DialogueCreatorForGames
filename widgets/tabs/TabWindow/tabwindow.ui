@@ -58,11 +58,7 @@ ClosableTab[isFocus=false] {
 }
 
 ClosableTab[isFocus=true] {
-	background: red;
-}
-
-QTabBar::tab:selected { 
-  	background: #A3A3A3; 
+	background: #a3a3a3;
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
