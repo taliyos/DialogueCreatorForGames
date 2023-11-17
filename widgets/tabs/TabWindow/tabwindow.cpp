@@ -1,5 +1,4 @@
 #include "widgets/tabs/TabWindow/tabwindow.h"
-#include "widgets/tabs/ClosableTab/closabletab.h"
 #include "ui_tabwindow.h"
 
 QString TabWindow::newTabIconPath = ":/rec/img/icons/new.png";
@@ -38,12 +37,23 @@ void TabWindow::closeTab() {
 
 void TabWindow::createTabFromExisting(QWidget* widget, const QString& tabName) {
     this->setUpdatesEnabled(false);
+
     ClosableTab* tab = new ClosableTab();
+    tabs.insert(std::pair<QUuid, ClosableTab*>(tab->getId(), tab));
+
     tab->setText(tabName);
     ui->tabs->addWidget(tab);
-    qInfo("widget added");
     this->setUpdatesEnabled(true);
+
+
+    connect(tab, &ClosableTab::onFocused, this, [this, tab](){ switchTab(tab->getId()); });
+    switchTab(tab->getId());
 }
 
-void TabWindow::switchTab(int index) {
+void TabWindow::switchTab(QUuid newTabId) {
+    if (tabs.size() > 1) tabs[currentTab]->setFocus(false);
+    currentTab = newTabId;
+
+    // Switch frame
+
 }

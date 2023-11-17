@@ -2,8 +2,15 @@
 #define TABWINDOW_H
 
 #include "widgets/editor/MainEditor/maineditor.h"
+#include "widgets/tabs/ClosableTab/closabletab.h"
 #include <QWidget>
 #include <QTabWidget>
+
+template<> struct hash<QUuid> {
+    std::size_t operator()(const QUuid& id) const noexcept {
+        return (size_t) qHash(id);
+    }
+};
 
 namespace Ui {
 class TabWindow;
@@ -37,12 +44,15 @@ private:
     /**
      * Handles extra details when switching tabs, like when the "New Tab" tab
      * is clicked.
-     * @param index - The index of the clicked tab.
+     * @param newTabId - The id of the tab to switch to.
      */
-    void switchTab(int index);
+    void switchTab(QUuid newTabId);
 
 
     Ui::TabWindow *ui;
+    std::unordered_map<QUuid, ClosableTab*> tabs = std::unordered_map<QUuid, ClosableTab*>();
+    QUuid currentTab;
+
     static QString newTabIconPath;
 };
 
