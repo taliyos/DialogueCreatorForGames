@@ -74,7 +74,7 @@ MainEditor::MainEditor(QWidget *parent) :
     // Connect presets
     connect(editorTools->getAddPreset(), &QAbstractButton::clicked, this, &MainEditor::createPreset);
     connect(editorTools, &EditorTools::applyPreset, this, &MainEditor::applyPreset);
-    connect(ui->exporttohtml, &QAbstractButton::clicked, this, &MainEditor::ExportToHTML);
+    connect(designer->getExport(), &QAbstractButton::clicked, this, &MainEditor::ExportToHTML);
 
     // Create first dialogue box
     createTextField();
@@ -83,9 +83,9 @@ MainEditor::MainEditor(QWidget *parent) :
 
 void MainEditor::updateExportButtonVisibility() {
     if (currentHTML.isEmpty()) {
-        ui->exporttohtml->hide();
+        designer->getExport()->hide();
     } else {
-        ui->exporttohtml->show();
+        designer->getExport()->show();
     }
 }
 

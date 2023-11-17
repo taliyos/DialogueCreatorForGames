@@ -70,6 +70,11 @@
         <height>398</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#scrollAreaWidgetContents {
+	background-color: #d9d9d9;
+}</string>
+      </property>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="2" column="1">
         <widget class="QPushButton" name="createField">
@@ -95,6 +100,24 @@
           <font>
            <pointsize>20</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border-radius: 5px;
+	background-color: white;
+	color: black;
+}
+
+QPushButton:Hover {
+	background-color: #c9c9c9;
+}
+
+QPushButton:Pressed {
+	background-color: #a3a3a3;
+}</string>
          </property>
          <property name="text">
           <string>Create New Field</string>
@@ -206,7 +229,151 @@
        <number>0</number>
       </property>
       <item row="0" column="0">
-       <widget class="QWebEngineView" name="preview" native="true"/>
+       <widget class="QWidget" name="verticalWidget" native="true">
+        <property name="styleSheet">
+         <string notr="true">#verticalWidget {
+	border: 3px dashed #747474;
+}</string>
+        </property>
+        <layout class="QVBoxLayout" name="previewLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>12</number>
+         </property>
+         <property name="topMargin">
+          <number>12</number>
+         </property>
+         <property name="rightMargin">
+          <number>12</number>
+         </property>
+         <property name="bottomMargin">
+          <number>12</number>
+         </property>
+         <item>
+          <widget class="QWebEngineView" name="preview" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>1</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>250</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout"/>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="quickExport">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>20</pointsize>
+              </font>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+	border-radius: 12px;
+	color: white;
+	background-color: 	#64B5FF;
+	height: 60px;
+	width: 120px;
+
+}
+
+QPushButton:Hover {
+	background-color: #63E5FF;
+}
+
+QPushButton:Pressed {
+	background-color: #6383FF;
+}</string>
+             </property>
+             <property name="text">
+              <string>Quick Export to HTML</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../../Resources.qrc">
+               <normaloff>:/rec/img/icons/export.png</normaloff>:/rec/img/icons/export.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+E</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -221,6 +388,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
