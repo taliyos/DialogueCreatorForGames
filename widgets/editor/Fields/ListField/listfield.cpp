@@ -285,6 +285,7 @@ void ListField::updateUI()
     ui->comboBox->clear();
     // add the options
     list<string> dataOptions = data->toList();
+    qDebug() << "ListField: Updating UI with: " << dataOptions;
     for(string s : dataOptions)
     {
         ui->comboBox->addItem(QString::fromStdString(s));

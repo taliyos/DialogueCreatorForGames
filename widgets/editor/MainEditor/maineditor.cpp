@@ -33,7 +33,8 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools->getCustomField2(), &QAbstractButton::clicked, this, &MainEditor::createInputOpenField);
     connect(editorTools->getCustomField3(), &QAbstractButton::clicked, this, &MainEditor::createInputListField);
 
-    connect(editorTools->getListSettingsPage(), &ListSettings::optionsSaved, this, &MainEditor::updateListFields);
+    // TODO: Look at these later
+    connect(editorTools->getFieldSettingsPage()->getListSettingsPage(), &ListSettings::optionsSaved, this, &MainEditor::updateListFields);
 
     connect(designer->getCreateField(), &QAbstractButton::clicked, this, &MainEditor::createTextField);
 
@@ -468,8 +469,8 @@ void MainEditor::createListField() {
     connect(listField, &ListField::removeField, this, &MainEditor::removeListField);
     connect(listField, &ListField::previewRequested, this, &MainEditor::handlePreviewRequest);
 
-    // update the list settings
-    editorTools->getListSettingsPage()->saveOptions();
+    // update the field UI
+    editorTools->getFieldSettingsPage()->getListSettingsPage()->saveOptions();
 }
 
 void MainEditor::createInputOpenField() {
@@ -508,20 +509,17 @@ void MainEditor::createInputOpenField() {
     // field is removed when the remove button is clicked within the UI.
     connect(inputOpenField, &InputOpenField::removeField, this, &MainEditor::removeInputOpenField);
     connect(inputOpenField, &InputOpenField::previewRequested, this, &MainEditor::handlePreviewRequest);
-
-    // update the list settings
-    editorTools->getListSettingsPage()->saveOptions();
 }
 
 void MainEditor::createInputListField() {
     // Create a new head pointer if the data is currently null.
     if (!data) {
         InputListField* inputListField = designer->createInputListField();
-        data = new InputListData(inputListField, nullptr, nullptr);
+        data = new InputListData(inputListField, nullptr, nullptr, editorTools->getFieldSettingsPage()->getInputListSettingsPage());
 
         // Connect the removeField signal to the MainEditor's removeField function so that the
         // field is removed when the remove button is clicked within the UI.
-        connect(inputListField, &InputListField::removeField, this, &MainEditor::removeInputListField);
+        connect(inputListField, &InputListField::removeRequested, this, &MainEditor::removeInputListField);
         connect(inputListField, &InputListField::previewRequested, this, &MainEditor::handlePreviewRequest);
 
         lastActive = data;
@@ -538,7 +536,7 @@ void MainEditor::createInputListField() {
     FieldConnection* fieldConnection = designer->createFieldConnection();
     // Create a new text field (UI)
     InputListField* inputListField = designer->createInputListField();
-    InputListData* newInput = new InputListData(inputListField, nullptr, nullptr);
+    InputListData* newInput = new InputListData(inputListField, nullptr, nullptr, editorTools->getFieldSettingsPage()->getInputListSettingsPage());
 
     // Create a connection
     ConnectionData* connection = new ConnectionData(fieldConnection, last, newInput);
@@ -547,11 +545,8 @@ void MainEditor::createInputListField() {
 
     // Connect the removeField signal to the MainEditor's removeField function so that the
     // field is removed when the remove button is clicked within the UI.
-    connect(inputListField, &InputListField::removeField, this, &MainEditor::removeInputListField);
+    connect(inputListField, &InputListField::removeRequested, this, &MainEditor::removeInputListField);
     connect(inputListField, &InputListField::previewRequested, this, &MainEditor::handlePreviewRequest);
-
-    // update the list settings
-    editorTools->getListSettingsPage()->saveOptions();
 }
 
 void MainEditor::removeHead() {
@@ -787,9 +782,10 @@ void MainEditor::removeInputListField(InputListField* field) {
     delete fieldData;
 }
 
-void MainEditor::updateListFields(string txt)
+// Updates each list field with
+void MainEditor::updateListFields(list<string> options)
 {
-    qDebug() << "Main Editor: Updating List Fields with : " << txt;
+    qDebug() << "Main Editor: Updating List Fields with : " << options;
     // Update fields from head onward
     FieldData* currData = data;
     while (currData != nullptr)
@@ -798,9 +794,9 @@ void MainEditor::updateListFields(string txt)
         // check to see if this is a list field
         if (currData->getFieldType() == List)
         {
-            qDebug() << "Main Editor: Updating a field";
-            ((ListData*)currData)->setDelimiterAndText(baseDelimiter, txt);
-            emit ((ListField*)((ListData*)currData)->getUi())->updateRequested();
+            qDebug() << "Main Editor: Updating a list field";
+            ((ListData*)currData)->setTextFromList(options);
+            ((ListField*)((ListData*)currData)->getUi())->updateUI();
         }
         // Look for more fields
         ConnectionData* toData = currData->getToConnection();

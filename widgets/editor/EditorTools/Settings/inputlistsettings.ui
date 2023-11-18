@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>420</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="palette">
@@ -477,38 +477,34 @@ QPushButton {
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="5" column="0">
-    <widget class="QPushButton" name="Add">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
      <property name="minimumSize">
       <size>
-       <width>64</width>
-       <height>32</height>
+       <width>600</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>600</width>
+       <height>30</height>
       </size>
      </property>
      <property name="text">
-      <string>Add</string>
+      <string>List Input Settings</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
+   <item row="1" column="0" colspan="4">
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="spacing">
       <number>0</number>
      </property>
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="layout_2">
+     <item row="1" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <spacer name="verticalSpacer_2">
+        <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -524,10 +520,32 @@ QPushButton {
      </item>
     </layout>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
+   <item row="2" column="1">
+    <widget class="QPushButton" name="Add">
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>32</height>
+      </size>
+     </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>Add</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="baseSize">
+      <size>
+       <width>312</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -535,22 +553,6 @@ QPushButton {
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>InputListSettings</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
@@ -563,6 +565,22 @@ QPushButton {
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>InputListSettings</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
      <y>274</y>
     </hint>
    </hints>

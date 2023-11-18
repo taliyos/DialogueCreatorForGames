@@ -3,6 +3,7 @@
 
 #include <QPushButton>
 #include <QDialog>
+#include "data/Fields/fielddata.h"
 #include "widgets/editor/EditorTools/Settings/settingsoption.h"
 
 using namespace std;
@@ -24,19 +25,32 @@ public:
     QPushButton* getCancel();
 
     // List methods
+    /**
+     * @brief addOption
+     */
     void addOption();
+    /**
+     * @brief eraseOption
+     * @param index
+     */
     void eraseOption(int index);
+    /**
+     * @brief loadOptions
+     */
     void loadOptions();
+    /**
+     * @brief saveOptions
+     */
     void saveOptions();
 
 signals:
     void optionErased (int index);
-    void optionsSaved (string txt);
+    void optionsSaved (list<string> options);
 
 private:
-    Ui::ListSettings *ui;
-    list<string> *data;
-    list<SettingsOption*> *listElements;
+    Ui::ListSettings *ui = nullptr;
+    list<string> *data = nullptr;
+    list<SettingsOption*> *listElements = nullptr;
 
 };
 

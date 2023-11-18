@@ -6,9 +6,12 @@ InputListField::InputListField(QWidget *parent) :
     ui(new Ui::InputListField)
 {
     ui->setupUi(this);
-    connect(ui->remove, &QAbstractButton::clicked, this, &InputListField::sendRemove);
+    connect(ui->remove, &QAbstractButton::clicked, this, &InputListField::sendRemoveRequest);
     connect(ui->preview, &QPushButton::clicked, this, &InputListField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
+
+    // on index selection, request an update
+    connect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
 }
 
 // TODO: THIS NEEDS TO BE CHANGED. NOT SURE WHAT WE WANT IN THE HTML
@@ -261,9 +264,67 @@ InputListData* InputListField::getData() {
 
 void InputListField::setData(InputListData* data) {
     this->data = data;
+    qDebug() << "InputListField: Called setData(), settings? " << (data->getSettings() != nullptr);
+    // listen to listsettings for updates
+    connect(data->getSettings(), &InputListSettings::updateField, this, &InputListField::updateDataAndUI);
+    // have listsettings listen for requests
+    connect(this, &InputListField::updateRequested, data->getSettings(), &InputListSettings::sendUpdateField);
+    // call to update
+    sendUpdateRequest();
 }
 
-void InputListField::sendRemove() {
-    emit removeField(this);
+void InputListField::setIndex(int index)
+{
+    qDebug() << "InputListField: Calling Set Index, old: " << this->getData()->getIndex() << ", new: " << index;
+    this->data->setIndex(index);
+    // call to update
+    sendUpdateRequest();
 }
 
+void InputListField::sendRemoveRequest() {
+    emit removeRequested(this);
+}
+
+void InputListField::sendUpdateRequest() {
+    emit updateRequested(data->getIndex());
+}
+
+void InputListField::updateDataAndUI(int index, list<int> indices, list<string> options)
+{
+    qDebug() << "InputListField: trying to update. index:" << data->getIndex()<<  ", target index: " << index;
+    if (data->getIndex() == index)
+    {
+        qDebug() << "InputListField: Index matched, updating with " << options;
+
+        // temporarily disconnect
+        disconnect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
+
+        // clear the index options
+        ui->index->clear();
+
+        // add the index options
+        for(int i : indices)
+        {
+            ui->index->addItem(QString::fromStdString(std::to_string(i)));
+        }
+
+        // select the right index
+        ui->index->setCurrentIndex(index);
+
+        // update the data
+        data->setTextFromList(options);
+
+        // clear the options
+        ui->comboBox->clear();
+
+        // add the options
+        list<string> dataOptions = data->toList();
+        qDebug() << "ListField: Updating UI with: " << dataOptions;
+        for(string s : dataOptions)
+        {
+            ui->comboBox->addItem(QString::fromStdString(s));
+        }
+        // reconnect
+        connect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
+    }
+}

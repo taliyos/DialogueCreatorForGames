@@ -11,12 +11,12 @@ EditorTools::EditorTools(QWidget *parent) :
 
     // set up the settings pages
     effectSettings = new EffectSettings(this);
-    listSettings = new ListSettings(this);
+    fieldSettings = new FieldSettings(this);
     presetSettings = new PresetSettings(this);
     // connect the buttons to show the settings pages
     connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
     connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
-    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
+    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openFieldSettings);
     // set up the effect dropdowns
     displayDropdown = new EffectsDropdown();
     characterDropdown = new EffectsDropdown();
@@ -48,7 +48,7 @@ EditorTools::~EditorTools()
 
     delete ui;
     delete effectSettings;
-    delete listSettings;
+    delete fieldSettings;
     delete presetSettings;
 }
 
@@ -91,13 +91,12 @@ QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
 
 // Settings Pages
 EffectSettings* EditorTools::getEffectSettingsPage() { return effectSettings; }
-ListSettings* EditorTools::getListSettingsPage() { return listSettings; }
+FieldSettings* EditorTools::getFieldSettingsPage() { return fieldSettings; }
 PresetSettings* EditorTools::getPresetSettingsPage() { return presetSettings; }
 
 // Methods
 void EditorTools::openEffectSettings() { effectSettings->open(); }
-void EditorTools::openListSettings() { listSettings->open();
-    listSettings->loadOptions();}
+void EditorTools::openFieldSettings() { fieldSettings->setHead(nullptr); fieldSettings->open(); }
 void EditorTools::openPresetSettings() { presetSettings->open(); }
 
 // Dropdowns

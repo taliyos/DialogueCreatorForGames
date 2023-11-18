@@ -96,7 +96,7 @@ private slots:
      * @brief updateListFields
      * @param options
      */
-    void updateListFields(string txt);
+    void updateListFields(list<string> options);
 
     FieldData* getActiveField();
 

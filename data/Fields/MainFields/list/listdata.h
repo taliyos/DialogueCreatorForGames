@@ -5,6 +5,7 @@
 #include <utility>
 #include <string>
 #include <list>
+#include <widgets/editor/EditorTools/Settings/listsettings.h>
 #include "../mainfielddata.h"
 
 using namespace std;
@@ -15,36 +16,61 @@ using namespace std;
 /// It also has a list of indecies, pairs of the starting location and length of the index
 /// </summary>
 
-// the base delimeter if one isn't set
-static const string baseDelimiter = "*";
-
+/**
+ * ListData extends MainFieldData, abstracting the text as a list of indecies seperated by delimiters.
+ */
 class ListData : public MainFieldData
 {
 public:
     // constructors
-    ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection, string txt, string delim);
+    ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection, list<string> options);
+    /**
+     * @brief ListData
+     * @param ui
+     * @param fromConnection
+     * @param toConnection
+     * @param txt
+     * @param delim
+     */
+    ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection, string txt, list<int> indecies);
+    /**
+     * @brief ListData
+     * @param ui
+     * @param fromConnection
+     * @param toConnection
+     */
     ListData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
-    // setters
-    void setDelimiter (string delim);
-    void setText (string txt);
-    void setDelimiterAndText(string delim, string txt);
+    void setIndex(int value);
+    int getIndex();
     // modifiers
+    //
     void push_back(string s);
+    //
     void push_front(string s);
+    //
     void pop_back();
+    //
     void pop_front();
+    //
     void insert (int i, string s);
+    //
     void erase(int i);
+    //
     void replace(int i, string s);
+    //
+    void setTextFromList(list<string> options);
+    //
     list<string> toList();
-    list<pair<int,int>> getIndicies();
+    //
+    list<int> getIndecies();
+    //
     void print();
 private:
-    string delimiter;
-    // <startLocation, length>
-    list<pair<int, int>> indicies;
-    // parses the indecies
-    void generateIndicies();
+    // the index of this field
+    int index = 0;
+    // <startLocation>
+    list<int> indecies = list<int>();
+    ListSettings* settings;
 };
 
 #endif // LISTDATA_H

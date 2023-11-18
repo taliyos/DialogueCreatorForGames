@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>82</height>
+    <height>84</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -154,6 +154,12 @@
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
          <bool>false</bool>
         </property>
        </widget>

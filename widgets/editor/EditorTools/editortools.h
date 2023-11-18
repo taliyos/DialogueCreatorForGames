@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include "Settings/effectsettings.h"
-#include "Settings/listsettings.h"
+#include "Settings/fieldsettings.h"
 #include "Settings/presetsettings.h"
 
 #include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
@@ -62,12 +62,12 @@ public:
 
     // Settings Pages
     EffectSettings* getEffectSettingsPage();
-    ListSettings* getListSettingsPage();
+    FieldSettings* getFieldSettingsPage();
     PresetSettings* getPresetSettingsPage();
 
     // Methods
     void openEffectSettings();
-    void openListSettings();
+    void openFieldSettings();
     void openPresetSettings();
 
     // Dropdowns
@@ -88,7 +88,6 @@ public:
 signals:
     void characterEffectRequested(int effectNumber);
     void applyPreset(Preset* preset);
-    void listFieldUpdateRequested(string txt);
 
 private slots:
     void sendPresetSignal(int index);
@@ -97,7 +96,7 @@ private:
     Ui::EditorTools *ui;
 
     EffectSettings *effectSettings;
-    ListSettings *listSettings;
+    FieldSettings *fieldSettings;
     PresetSettings *presetSettings;
 
     EffectsDropdown* displayDropdown;

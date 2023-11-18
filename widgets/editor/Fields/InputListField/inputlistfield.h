@@ -11,6 +11,9 @@ namespace Ui {
 class InputListField;
 }
 
+/**
+ * This class...
+ */
 class InputListField : public QWidget
 {
     Q_OBJECT
@@ -28,15 +31,19 @@ public:
 
     InputListData* getData();
     void setData(InputListData* data);
+    void setIndex(int index);
+    void updateDataAndUI(int index, list<int> indices, list<string> options);
 
 signals:
     void previewRequested(const QString& content, const QString& content2, InputListData* textData);
-    void removeField(InputListField* field);
+    void removeRequested(InputListField* field);
+    void updateRequested(int index);
 
 private:
-    Ui::InputListField *ui;
+    Ui::InputListField *ui = nullptr;
     InputListData* data = nullptr;
-    void sendRemove();
+    void sendRemoveRequest();
+    void sendUpdateRequest();
 };
 
 #endif // INPUTLISTFIELD_H

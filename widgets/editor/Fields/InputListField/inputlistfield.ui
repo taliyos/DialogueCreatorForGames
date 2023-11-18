@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>82</height>
+    <height>116</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,7 @@
   <property name="maximumSize">
    <size>
     <width>970</width>
-    <height>82</height>
+    <height>116</height>
    </size>
   </property>
   <property name="baseSize">
@@ -156,6 +156,16 @@
         <property name="iconSize">
          <size>
           <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QComboBox" name="index">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
           <height>32</height>
          </size>
         </property>
