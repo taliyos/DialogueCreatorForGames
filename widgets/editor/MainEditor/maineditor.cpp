@@ -106,6 +106,7 @@ MainEditor::~MainEditor()
 // Toolbar
 
 // File -> Open
+// Opens a project file into the application (.json)
 void MainEditor::on_actionOpen_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
@@ -250,6 +251,8 @@ void MainEditor::on_actionSaveAs_triggered()
     file.close();
 }
 
+// File -> Import -> .txt
+// Imports a .txt file, creating new text fields for each paragraph
 void MainEditor::on_actionImportTxt_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Import txt file");
@@ -301,6 +304,8 @@ void MainEditor::on_actionImportTxt_triggered()
     file.close();
 }
 
+// File -> Import -> .docx
+// Imports a .docx file, creating new text fields for each paragraph
 void MainEditor::on_actionImportDocx_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Import docx file");
@@ -348,6 +353,9 @@ void MainEditor::on_actionImportDocx_triggered()
     }
 }
 
+// File -> Import -> .json
+// Imports a .json file, creating new text fields for each paragraph
+// Also create FieldData objects, populated with text, field effects, and text effects
 void MainEditor::on_actionImportJson_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
@@ -394,6 +402,8 @@ void MainEditor::on_actionImportJson_triggered()
     }
 }
 
+// File -> Export -> .json
+// Converts data (list of FieldData objects) into a json file
 void MainEditor::on_actionExportJson_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
