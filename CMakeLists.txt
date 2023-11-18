@@ -118,7 +118,7 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(TexT_Editor)
 endif()
 
-set(DUCKX_LIBRARY "C:\\Users\\patchs2\\Documents\\build-DuckX-Desktop_Qt_6_6_0_MSVC2019_64bit-Debug\\duckx.lib")
-
+cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH PARENT_DIR)
+set(DUCKX_LIBRARY "${PARENT_DIR}/build-DuckX-Desktop_Qt_${QT_VERSION_MAJOR}_${QT_VERSION_MINOR}_${QT_VERSION_PATCH}_MSVC2019_64bit-Debug/duckx.lib")
 target_link_libraries(TexT_Editor PRIVATE ${DUCKX_LIBRARY})
-target_include_directories(TexT_Editor PUBLIC "C:\\Users\\patchs2\\Documents\\DuckX\\include")
+target_include_directories(TexT_Editor PUBLIC "${PARENT_DIR}/DuckX/include")
