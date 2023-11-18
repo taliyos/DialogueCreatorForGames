@@ -216,7 +216,7 @@ ClosableTab[isFocus=true] {
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="frame" native="true"/>
+    <widget class="QWidget" name="window" native="true"/>
    </item>
   </layout>
  </widget>

@@ -73,14 +73,13 @@ private slots:
 
     /**
      * Removes the specified field from the data and UI
-     * 
      * @param field - The ui field to remove
     */
     void removeField(TextField* field);
     void removeListField(ListField* field);
 
     /**
-     * @brief updateListFields
+     * Updates the entries available in the list fields
      * @param options
      */
     void updateListFields(string txt);

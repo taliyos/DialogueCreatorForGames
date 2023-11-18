@@ -58,7 +58,9 @@ private:
 
     Ui::TabWindow *ui;
     std::unordered_map<QUuid, ClosableTab*> tabs = std::unordered_map<QUuid, ClosableTab*>();
+    std::unordered_map<QUuid, QWidget*> tabContents = std::unordered_map<QUuid, QWidget*>();
     QUuid currentTab;
+    QWidget* currentWidget = nullptr;
 
     static QString newTabIconPath;
 };
