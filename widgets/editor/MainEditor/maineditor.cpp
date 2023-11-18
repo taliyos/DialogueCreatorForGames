@@ -945,6 +945,8 @@ void MainEditor::createPreset() {
     editorTools->addPreset(preset);
 }
 
+// Presets -> Import preset
+// Imports a preset file (.preset) into the first empty preset slot
 void MainEditor::on_actionImportPreset_2_triggered()
 {
     // Get json filename from Windows Explorer popup and verify it is json
@@ -964,6 +966,7 @@ void MainEditor::on_actionImportPreset_2_triggered()
     nlohmann::json j = nlohmann::json::parse(f);
     nlohmann::detail::iter_impl itr = j.begin();
 
+    // Read in JSON file to get list of field types to create preset
     std::vector<FieldTypes> fieldTypes = std::vector<FieldTypes>();
     while(itr != j.end())
     {
@@ -985,27 +988,31 @@ void MainEditor::on_actionImportPreset_2_triggered()
     editorTools->addPreset(preset);
 }
 
+// Presets -> Export preset -> Preset 1
 void MainEditor::on_actionExportPreset1_triggered()
 {
     exportPreset(1);
 }
 
+// Presets -> Export preset -> Preset 2
 void MainEditor::on_actionExportPreset2_triggered()
 {
     exportPreset(2);
 }
 
+// Presets -> Export preset -> Preset 3
 void MainEditor::on_actionExportPreset3_triggered()
 {
     exportPreset(3);
 }
 
+// Presets -> Export preset -> Preset 4
 void MainEditor::on_actionExportPreset4_triggered()
 {
     exportPreset(4);
 }
 
-
+// Saves a selected preset as a .preset file
 void MainEditor::exportPreset(int num)
 {
     // Get json filename from Windows Explorer popup and verify it is json
@@ -1030,6 +1037,7 @@ void MainEditor::exportPreset(int num)
         return;
     }
 
+    // Get specified preset
     std::vector<Preset*> presets = editorTools->getPresets();
     std::vector<Preset*>::const_iterator itr = presets.begin();
     int i = 1;
@@ -1047,6 +1055,7 @@ void MainEditor::exportPreset(int num)
     }
     Preset* preset = *itr;
 
+    // Create list of field types to store in JSON format
     std::vector<FieldTypes> storage = preset->getStorage();
     list<string> types = list<string>();
     for (std::vector<FieldTypes>::iterator itr = storage.begin(); itr != storage.end(); itr++) {
