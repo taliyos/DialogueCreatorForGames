@@ -33,6 +33,7 @@ public:
 
     // Getters
     QPushButton* getCreateField();
+    QPushButton* getExport();
     QWebEngineView* getPreview();
 
 private:

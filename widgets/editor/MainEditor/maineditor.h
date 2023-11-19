@@ -58,6 +58,8 @@ private slots:
 
     void createPreset();
     void applyPreset(Preset* preset);
+    void ExportToHTML();
+    void updateExportButtonVisibility();
 
     void handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData);
     /**
@@ -102,6 +104,7 @@ private slots:
 
 private:
     Ui::MainEditor *ui = nullptr;
+    QString currentHTML;
 
     EditorTools* editorTools = nullptr;
     Designer* designer = nullptr;
