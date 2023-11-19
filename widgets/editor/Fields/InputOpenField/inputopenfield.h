@@ -11,6 +11,9 @@ namespace Ui {
 class InputOpenField;
 }
 
+/**
+ * Extends QDialog to represent an open line that accepts player input.
+ */
 class InputOpenField : public QWidget
 {
     Q_OBJECT

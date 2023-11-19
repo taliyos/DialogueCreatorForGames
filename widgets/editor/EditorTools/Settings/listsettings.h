@@ -12,6 +12,11 @@ namespace Ui {
 class ListSettings;
 }
 
+/**
+ * A Dialog representing settings for list fields.
+ * Has a list of SettingsOptions that are the UI elements.
+ * Has a list of strings that are the data loaded into and saved from the UI.
+ */
 class ListSettings : public QDialog
 {
     Q_OBJECT
@@ -26,20 +31,20 @@ public:
 
     // List methods
     /**
-     * @brief addOption
+     * Adds an option to the UI and list elements.
      */
     void addOption();
     /**
-     * @brief eraseOption
-     * @param index
+     * Erases the option at the given index.
+     * @param index: the index to erase at.
      */
     void eraseOption(int index);
     /**
-     * @brief loadOptions
+     * Loads the options from the data into the UI (listElements).
      */
     void loadOptions();
     /**
-     * @brief saveOptions
+     * Saves the options from the UI(listElements) into the data.
      */
     void saveOptions();
 

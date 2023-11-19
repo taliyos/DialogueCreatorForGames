@@ -12,6 +12,9 @@ namespace Ui {
 class FieldSettings;
 }
 
+/**
+ * Extends QDialog to represent a menu that navigates between the settings pages for fields.
+ */
 class FieldSettings : public QDialog
 {
     Q_OBJECT
@@ -19,8 +22,6 @@ class FieldSettings : public QDialog
 public:
     explicit FieldSettings(QWidget *parent = nullptr);
     ~FieldSettings();
-
-    void setHead(FieldData *head);
 
     ListSettings* getListSettingsPage();
     InputListSettings* getInputListSettingsPage();
@@ -30,12 +31,8 @@ public:
     void openInputListSettings();
     void openListSettings();
 
-signals:
-    void listFieldUpdateRequested(string txt);
-
 private:
     Ui::FieldSettings *ui = nullptr;
-    FieldData *head = nullptr;
     ListSettings* listSettingsPage = nullptr;
     InputListSettings* inputListSettingsPage = nullptr;
 };

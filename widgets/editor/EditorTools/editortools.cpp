@@ -96,7 +96,7 @@ PresetSettings* EditorTools::getPresetSettingsPage() { return presetSettings; }
 
 // Methods
 void EditorTools::openEffectSettings() { effectSettings->open(); }
-void EditorTools::openFieldSettings() { fieldSettings->setHead(nullptr); fieldSettings->open(); }
+void EditorTools::openFieldSettings() { fieldSettings->open(); }
 void EditorTools::openPresetSettings() { presetSettings->open(); }
 
 // Dropdowns

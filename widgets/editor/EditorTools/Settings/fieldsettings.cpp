@@ -21,11 +21,6 @@ FieldSettings::~FieldSettings()
     delete inputListSettingsPage;
 }
 
-void FieldSettings::setHead(FieldData* head)
-{
-    this->head = head;
-}
-
 ListSettings* FieldSettings::getListSettingsPage() { return listSettingsPage; }
 InputListSettings* FieldSettings::getInputListSettingsPage() { return inputListSettingsPage; }
 QPushButton* FieldSettings::getInputListSettingsButton() { return ui->OpenInputListSettings; }

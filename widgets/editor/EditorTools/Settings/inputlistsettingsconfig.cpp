@@ -109,9 +109,6 @@ const list<string> InputListSettingsConfig::getOptionText()
     return toReturn;
 }
 
-/**
- * Sends the erased(index) signal.
- */
 void InputListSettingsConfig::erase()
 {
     emit erased(index);
