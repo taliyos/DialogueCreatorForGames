@@ -110,6 +110,8 @@ private slots:
      * @param num: the preset to be exported
      */
     void exportPreset(int num);
+    void ExportToHTML();
+    void updateExportButtonVisibility();
 
     /**
      * Creates a text field and adds it to the UI
@@ -141,6 +143,7 @@ private slots:
 
 private:
     Ui::MainEditor *ui = nullptr;
+    QString currentHTML;
 
     EditorTools* editorTools = nullptr;
     Designer* designer = nullptr;

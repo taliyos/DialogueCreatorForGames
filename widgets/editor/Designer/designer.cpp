@@ -10,6 +10,8 @@ Designer::Designer(QWidget *parent) :
     ui(new Ui::Designer)
 {
     ui->setupUi(this);
+
+    ui->preview->page()->setBackgroundColor(Qt::transparent);
 }
 
 Designer::~Designer()
@@ -44,6 +46,10 @@ void Designer::removeWidget(QWidget* widget) {
 
 QPushButton* Designer::getCreateField() {
     return ui->createField;
+}
+
+QPushButton* Designer::getExport() {
+    return ui->quickExport;
 }
 
 QWebEngineView* Designer::getPreview() {

@@ -17,6 +17,11 @@
    <iconset resource="../../../Resources.qrc">
     <normaloff>:/rec/img/icons/dialoggers.png</normaloff>:/rec/img/icons/dialoggers.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#MainEditor {
+	background-color: #d9d9d9;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>

@@ -215,8 +215,8 @@ QString TextField::generateHtml(const QString& content, const QString& content2,
             background-position: center center;
             font-family: Arial, sans-serif;
             height: 100vh;
-            margin: 0;  // Ensure no default margins
             overflow: hidden; // Hide any overflow content
+            margin: 12px;
         }
 
         .dialogue-container {
@@ -230,23 +230,24 @@ QString TextField::generateHtml(const QString& content, const QString& content2,
         }
 
         .dialogue-box {
-            background: #ECEFF1;
+            background: white;
             border-radius: 15px;
             padding: 1rem;
-            width: 390px;
+            width: 450px;
             height: 160px;
-            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            box-shadow: 5px 5px rgba(0,0,0,0.2);
             font-size: 24px;
+            margin: 0 auto;
             margin-top: 10px;
         }
 
         .character-box {
-            background: #ECEFF1;
+            background: white;
             border-radius: 15px;
             padding: 1rem;
             width: 300px; /* Adjust width as necessary */
             height: 20px; /* Adjust height as necessary */
-            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            box-shadow: 5px 5px rgba(0,0,0,0.2);
             font-size: 24px;
             z-index: 2;
         }
