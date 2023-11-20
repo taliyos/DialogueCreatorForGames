@@ -75,6 +75,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/Fields/InputOpenField/inputopenfield.h widgets/editor/Fields/InputOpenField/inputopenfield.cpp widgets/editor/Fields/InputOpenField/inputopenfield.ui
         widgets/editor/Fields/InputListField/inputlistfield.h widgets/editor/Fields/InputListField/inputlistfield.cpp widgets/editor/Fields/InputListField/inputlistfield.ui
         data/Fields/MainFields/input/inputlistdata.h data/Fields/MainFields/input/inputlistdata.cpp
+        widgets/editor/EditorTools/Settings/fieldsettings.h widgets/editor/EditorTools/Settings/fieldsettings.cpp widgets/editor/EditorTools/Settings/fieldsettings.ui
         widgets/editor/EditorTools/Settings/inputlistsettings.h widgets/editor/EditorTools/Settings/inputlistsettings.cpp widgets/editor/EditorTools/Settings/inputlistsettings.ui
         widgets/editor/EditorTools/Settings/inputlistsettingsconfig.h widgets/editor/EditorTools/Settings/inputlistsettingsconfig.cpp widgets/editor/EditorTools/Settings/inputlistsettingsconfig.ui
 

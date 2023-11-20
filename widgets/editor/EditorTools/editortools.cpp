@@ -16,7 +16,7 @@ EditorTools::EditorTools(QWidget *parent) :
 
     // Connect the buttons to show the settings pages
     connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
-    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
+    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openFieldSettings);
     connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
 
     displayDropdown = new EffectsDropdown();
