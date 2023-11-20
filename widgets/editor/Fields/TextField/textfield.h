@@ -31,17 +31,36 @@ public:
 
     TextData* getData();
     void setData(TextData* data);
-    // Toggles the character field when the button is clicked
+
+    /**
+     * Toggles the character field when the button is clicked
+     */
     void onCharacterClicked();
-    // Adds a character text field above the TextField
+
+    /**
+     * Adds a character text field above the TextField
+     */
     void addCharacterWidget();
-    // Removes the character text field
+
+    /**
+     * Removes the character text field
+     */
     void removeCharacterWidget();
-    // Plays plays the sound file located at soundFile
+
+    /**
+     * Plays the sound file located at soundFile
+     */
     void playSound();
-    // Sets soundFile to the path to an mp3 file
+
+    /**
+     * Opens a file dialog where the user can select a sound clip to
+     * attach to this text field. Only .mp3 files are supported.
+     */
     void setSound();
-    // Returns soundFile
+
+    /**
+     * @return The file path to the sound file.
+     */
     QString getSoundFile();
 
 signals:
