@@ -40,6 +40,8 @@
         <file>img/icons/more.png</file>
         <file>img/icons/export.png</file>
         <file>img/icons/speaker.png</file>
+        <file>img/icons/input-list.png</file>
+        <file>img/icons/input-open.png</file>
     </qresource>
     <qresource prefix="/">
         <file>img/icons/auto/auto-off.png</file>
