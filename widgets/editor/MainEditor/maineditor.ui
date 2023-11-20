@@ -14,13 +14,11 @@
    <string>Dialoggers | Dialogue Creator for Games</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../../Resources.qrc">
     <normaloff>:/rec/img/icons/dialoggers.png</normaloff>:/rec/img/icons/dialoggers.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget {
-	background-color: #a3a3a3;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
@@ -133,7 +131,7 @@
   </layout>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../../Resources.qrc">
      <normaloff>:/rec/img/icons/open.png</normaloff>
      <normalon>../../../img/icons/open.png</normalon>:/rec/img/icons/open.png</iconset>
    </property>
@@ -146,7 +144,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../../Resources.qrc">
      <normaloff>:/rec/img/icons/save.png</normaloff>:/rec/img/icons/save.png</iconset>
    </property>
    <property name="text">
@@ -158,7 +156,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../../Resources.qrc">
      <normaloff>:/rec/img/icons/save-as.png</normaloff>:/rec/img/icons/save-as.png</iconset>
    </property>
    <property name="text">
@@ -218,7 +216,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../../Resources.qrc">
      <normaloff>:/rec/img/icons/new.png</normaloff>:/rec/img/icons/new.png</iconset>
    </property>
    <property name="text">
@@ -325,6 +323,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
