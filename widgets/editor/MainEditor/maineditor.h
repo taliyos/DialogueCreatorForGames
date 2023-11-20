@@ -24,11 +24,10 @@ public:
     void preset_createUserPromptField();
     void preset_createUserListField();
 
-private slots:
-    void on_actionOpen_triggered();
+
+    // Menu Bar
     void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
-    void on_actionExit_triggered();
 
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
@@ -36,9 +35,9 @@ private slots:
 
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
+    
 
-    void on_actionNew_triggered();
-
+private slots:
     // Field Effects
     void on_actionWobble_triggered();
     void on_actionEnlarge_triggered();

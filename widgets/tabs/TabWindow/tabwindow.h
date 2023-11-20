@@ -24,12 +24,49 @@ public:
     explicit TabWindow(QWidget *parent = nullptr);
     ~TabWindow();
 
+private slots:
+    // Menu Bar
+
+    /**
+     * Open a new tab with the specified file (through a file select dialog)
+     */
+    void on_actionOpen_triggered();
+
+    /**
+     * Save the active tab to a file.
+     */
+    void on_actionSave_triggered();
+
+    /**
+     * Open a file dialog to save the active tab to a file.
+     */
+    void on_actionSaveAs_triggered();
+
+    /**
+     * Exit the application.
+     */
+    void on_actionExit_triggered();
+
+    void on_actionCopy_triggered();
+    void on_actionPaste_triggered();
+    void on_actionCut_triggered();
+
+    void on_actionUndo_triggered();
+    void on_actionRedo_triggered();
+
+    /**
+     * Create a new, blank tab.
+     */
+    void on_actionNew_triggered();
+
 private:
 
     /**
      * Creates a new MainEditor tab, adding it to the tabs map
+     * @param tabName - The name of the tab to show.
     */
-    void createEditorTab();
+    const MainEditor* createEditorTab();
+    const MainEditor* createEditorTab(const QString tabName);
 
     /**
      * Creates a tab from an existing QWidget instance.

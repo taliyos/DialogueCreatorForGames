@@ -100,35 +100,6 @@ MainEditor::~MainEditor()
 
 // Toolbar
 
-// File -> Open
-void MainEditor::on_actionOpen_triggered()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
-
-    if (fileName.isEmpty()) return;
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
-        return;
-    }
-
-    currentFile = fileName;
-    setWindowTitle(fileName);
-    QTextStream in(&file);
-    QString text = in.readAll();
-
-    /*QTextEdit* editor = this->currentText();
-    if(editor) {
-        editor->setText(text);
-    } else {
-        // If no editor is focused, use the main one
-        //ui->textEdit->setText(text);
-    }*/
-
-    file.close();
-}
-
 // File -> Save
 void MainEditor::on_actionSave_triggered()
 {
@@ -195,13 +166,6 @@ void MainEditor::on_actionSaveAs_triggered()
     file.close();
 }
 
-
-// File -> Exit
-void MainEditor::on_actionExit_triggered()
-{
-    QCoreApplication::quit();
-}
-
 // Copy
 void MainEditor::on_actionCopy_triggered()
 {
@@ -260,12 +224,6 @@ void MainEditor::on_actionUndo_triggered()
 
 // Redo
 void MainEditor::on_actionRedo_triggered()
-{
-
-}
-
-// New file
-void MainEditor::on_actionNew_triggered()
 {
 
 }
