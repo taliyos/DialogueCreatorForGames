@@ -71,9 +71,6 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout"/>
-    </item>
-    <item>
      <widget class="Designer" name="designerWidget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">

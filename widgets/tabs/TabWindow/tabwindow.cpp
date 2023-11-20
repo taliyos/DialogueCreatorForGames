@@ -1,6 +1,8 @@
 #include "widgets/tabs/TabWindow/tabwindow.h"
 #include "ui_tabwindow.h"
 
+#include "widgets/editor/EditorWindow/editorwindow.h"
+
 QString TabWindow::newTabIconPath = ":/rec/img/icons/new.png";
 
 TabWindow::TabWindow(QWidget *parent) :
@@ -21,7 +23,7 @@ TabWindow::~TabWindow()
 }
 
 void TabWindow::createEditorTab() {
-    MainEditor* editor = new MainEditor();
+   EditorWindow* editor = new EditorWindow();
     this->createTabFromExisting(editor, "New File");
 }
 
@@ -87,6 +89,7 @@ void TabWindow::closeTab(const QUuid tabId) {
 
     // Cleanup removed tab
     delete tab;
+    delete tabContent;
 
     updateTabs();
 
