@@ -321,11 +321,11 @@ void TextField::sendRemove() {
     emit removeField(this);
 }
 
-// Plays the current sound file
-// If no sound file, displays a message box to the user
 void TextField::playSound() {
     player->stop();
     player->setPosition(0);
+
+    // If soundFile has not been set, display a message box
     if (soundFile.isEmpty())
     {
         QMessageBox::warning(this, "Warning", "Please set a sound");
@@ -337,8 +337,8 @@ void TextField::playSound() {
     player->play();
 }
 
-// Sets the sound file to a selected mp3 file
 void TextField::setSound() {
+    // Select an mp3 file using the file explorer
     QString fileName = QFileDialog::getOpenFileName(this, "Select an mp3 file");
 
     if (fileName.isEmpty()) return;
@@ -349,6 +349,7 @@ void TextField::setSound() {
         return;
     }
 
+    // Make sure the selected file is mp3
     if (fileName.split(".").last() != "mp3")
     {
         QMessageBox::warning(this, "Warning", "Please select an mp3 file");
@@ -360,7 +361,6 @@ void TextField::setSound() {
     ui->playSound->setToolTip(playToolTip);
 }
 
-// Returns the sound file
 QString TextField::getSoundFile() {
     return soundFile;
 }
