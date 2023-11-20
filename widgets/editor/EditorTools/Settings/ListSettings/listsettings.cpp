@@ -10,12 +10,14 @@ ListSettings::ListSettings(QWidget *parent) :
     ui(new Ui::ListSettings)
 {
     ui->setupUi(this);
+
+    setWindowTitle("List Settings");
+
     data = new std::list<std::string>();
     listElements = new std::list<SettingsOption*>();
 
     connect(ui->Add, &QAbstractButton::clicked, this, &ListSettings::addOption);
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &ListSettings::saveOptions);
-    connect(this, &ListSettings::optionErased, this, &ListSettings::eraseOption);
 }
 
 ListSettings::~ListSettings()
@@ -27,11 +29,12 @@ ListSettings::~ListSettings()
 
 void ListSettings::addOption()
 {
-    SettingsOption* option = new SettingsOption(nullptr, listElements->size(), this);
+    SettingsOption* option = new SettingsOption(nullptr, listElements->size());
     ui->layout->addWidget(option);
     option->show();
     listElements->push_back(option);
-    connect(option->getButton(), &QPushButton::clicked, option, &SettingsOption::erase);
+    // connect erased signal to erase option
+    connect(option, &SettingsOption::erased, this, &ListSettings::eraseOption);
 }
 
 void ListSettings::eraseOption(int index)
@@ -91,14 +94,6 @@ void ListSettings::saveOptions()
     {
         data->push_back(element->getLineEdit()->text().toStdString());
     }
-
-    // Pack the options
-    std::string txt = "";
-    for(std::string s : *(data))
-    {
-        txt += baseDelimiter + s;
-    }
-
-    // Send the options off
-    emit optionsSaved(txt);
+    // send the options off
+    emit optionsSaved((*data));
 }

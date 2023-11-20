@@ -11,12 +11,12 @@ EditorTools::EditorTools(QWidget *parent) :
 
     // Set up the settings pages (These are QObjects, so garbage collection is handled by QT)
     effectSettings = new EffectSettings(this);
-    listSettings = new ListSettings(this);
+    fieldSettings = new FieldSettings(this);
     presetSettings = new PresetSettings(this);
 
     // Connect the buttons to show the settings pages
     connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
-    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
+    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openFieldSettings);
     connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
 
     displayDropdown = new EffectsDropdown();
@@ -48,6 +48,9 @@ EditorTools::~EditorTools()
     }
 
     delete ui;
+    delete effectSettings;
+    delete fieldSettings;
+    delete presetSettings;
 }
 
 // Clipboard
@@ -89,13 +92,12 @@ QPushButton* EditorTools::getPresetSettings() { return ui->presetSettings; }
 
 // Settings Pages
 EffectSettings* EditorTools::getEffectSettingsPage() { return effectSettings; }
-ListSettings* EditorTools::getListSettingsPage() { return listSettings; }
+FieldSettings* EditorTools::getFieldSettingsPage() { return fieldSettings; }
 PresetSettings* EditorTools::getPresetSettingsPage() { return presetSettings; }
 
 // Methods
 void EditorTools::openEffectSettings() { effectSettings->open(); }
-void EditorTools::openListSettings() { listSettings->open();
-    listSettings->loadOptions();}
+void EditorTools::openFieldSettings() { fieldSettings->open(); }
 void EditorTools::openPresetSettings() { presetSettings->open(); }
 
 // Dropdowns

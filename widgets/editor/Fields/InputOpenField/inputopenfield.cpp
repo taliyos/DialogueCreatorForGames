@@ -1,20 +1,20 @@
-#include "listfield.h"
-#include "ui_listfield.h"
+#include "inputopenfield.h"
+#include "ui_inputopenfield.h"
 
-ListField::ListField(QWidget *parent) :
+InputOpenField::InputOpenField(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ListField)
+    ui(new Ui::InputOpenField)
 {
     ui->setupUi(this);
-    connect(ui->remove, &QAbstractButton::clicked, this, &ListField::sendRemove);
-    connect(ui->preview, &QPushButton::clicked, this, &ListField::exportToBrowser);
+    connect(ui->remove, &QAbstractButton::clicked, this, &InputOpenField::sendRemove);
+    connect(ui->preview, &QPushButton::clicked, this, &InputOpenField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
-    connect(this, &ListField::updateRequested, this, &ListField::updateUI);
 }
 
-QString ListField::generateHtml(const QString& content, const QString& content2, ListData* textData) {
+// TODO: THIS NEEDS TO BE CHANGED. NOT SURE WHAT WE WANT IN THE HTML
+QString InputOpenField::generateHtml(const QString& content, const QString& content2, InputData* textData) {
 
-    QString newContent = content;
+    QString newContent = QString::fromStdString("");
     // 1 = wobble
     if (textData->hasFieldEffect(1))
         newContent = "<effect type=\"wobble\">" + content + "</effect>";
@@ -236,58 +236,33 @@ QString ListField::generateHtml(const QString& content, const QString& content2,
     return fullHtml;
 }
 
-void ListField::applyCharacterEffect(int effectNumber) {
-    //    if(effectNumber == 1) {
-    //        view->page()->runJavaScript("enlargeCharacter();");
-    //    }
-    //    else if(effectNumber == 2) {
-    //        view->page()->runJavaScript("wobbleCharacter();");
-    //    }
-    //    else if(effectNumber == 3) {
-    //        view->page()->runJavaScript("speedUpText();");
-    //    }
-}
 
-
-void ListField::exportToBrowser() {
-    QString content = ui->comboBox->currentText();
+void InputOpenField::exportToBrowser() {
+    QString content = getLabel()->text();
     emit previewRequested(content, nullptr, data);
 }
 
-ListField::~ListField()
+InputOpenField::~InputOpenField()
 {
     delete ui;
 }
 
-QComboBox* ListField::getComboBox() {
-    return ui->comboBox;
+QLabel* InputOpenField::getLabel() {
+    return ui->label;
 }
 
-QPushButton* ListField::getPreview() {
+QPushButton* InputOpenField::getPreview() {
     return ui->preview;
 }
 
-ListData* ListField::getData() {
+InputData* InputOpenField::getData() {
     return data;
 }
 
-void ListField::setData(ListData* data) {
+void InputOpenField::setData(InputData* data) {
     this->data = data;
 }
 
-void ListField::sendRemove() {
+void InputOpenField::sendRemove() {
     emit removeField(this);
-}
-
-void ListField::updateUI()
-{
-    // clear the options
-    ui->comboBox->clear();
-    // add the options
-    list<string> dataOptions = data->toList();
-    qDebug() << "ListField: Updating UI with: " << dataOptions;
-    for(string s : dataOptions)
-    {
-        ui->comboBox->addItem(QString::fromStdString(s));
-    }
 }

@@ -434,9 +434,8 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <string/>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/rec/img/icons/custom.png</normalon>
-            </iconset>
+            <iconset resource="../../../Resources.qrc">
+             <normaloff>:/rec/img/icons/input-open.png</normaloff>:/rec/img/icons/input-open.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -470,9 +469,8 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <string/>
            </property>
            <property name="icon">
-            <iconset>
-             <normalon>:/rec/img/icons/custom.png</normalon>
-            </iconset>
+            <iconset resource="../../../Resources.qrc">
+             <normaloff>:/rec/img/icons/input-list.png</normaloff>:/rec/img/icons/input-list.png</iconset>
            </property>
            <property name="iconSize">
             <size>

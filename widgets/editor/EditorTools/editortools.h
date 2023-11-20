@@ -3,9 +3,9 @@
 
 #include <QPushButton>
 #include <QWidget>
-#include "Settings/effectsettings.h"
-#include "Settings/listsettings.h"
-#include "Settings/presetsettings.h"
+#include "Settings/EffectSettings/effectsettings.h"
+#include "Settings/FieldSettings/fieldsettings.h"
+#include "Settings/PresetSettings/presetsettings.h"
 
 #include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
 
@@ -63,12 +63,12 @@ public:
 
     // Settings Pages
     EffectSettings* getEffectSettingsPage();
-    ListSettings* getListSettingsPage();
+    FieldSettings* getFieldSettingsPage();
     PresetSettings* getPresetSettingsPage();
 
     // Methods
     void openEffectSettings();
-    void openListSettings();
+    void openFieldSettings();
     void openPresetSettings();
 
     // Dropdowns
@@ -98,7 +98,7 @@ private:
     Ui::EditorTools *ui;
 
     EffectSettings *effectSettings;
-    ListSettings *listSettings;
+    FieldSettings *fieldSettings;
     PresetSettings *presetSettings;
 
     EffectsDropdown* displayDropdown;

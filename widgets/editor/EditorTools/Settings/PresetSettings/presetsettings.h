@@ -8,6 +8,9 @@ namespace Ui {
 class PresetSettings;
 }
 
+/**
+ * Extends QDialog to represent a menu that edits settings for presets.
+ */
 class PresetSettings : public QDialog
 {
     Q_OBJECT

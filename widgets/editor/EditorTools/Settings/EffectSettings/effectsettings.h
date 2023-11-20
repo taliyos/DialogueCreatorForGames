@@ -7,7 +7,9 @@
 namespace Ui {
 class EffectSettings;
 }
-
+/**
+ * A class for a dialog that mainpulates the effect settings.
+ */
 class EffectSettings : public QDialog
 {
     Q_OBJECT

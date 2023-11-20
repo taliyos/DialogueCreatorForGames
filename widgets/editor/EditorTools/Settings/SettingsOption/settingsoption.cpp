@@ -1,15 +1,14 @@
 #include "settingsoption.h"
 #include "ui_settingsoption.h"
 
-#include "widgets/editor/EditorTools/Settings/listsettings.h"
-
-SettingsOption::SettingsOption(QWidget *parent, int index, ListSettings* listParent) :
+SettingsOption::SettingsOption(QWidget *parent, int index) :
     QWidget(parent),
     ui(new Ui::SettingsOption)
 {
+    qDebug() << "Settings Option: Calling constructor";
     ui->setupUi(this);
     this->index = index;
-    this->listParent = listParent;
+    connect(getButton(), &QPushButton::clicked, this, &SettingsOption::erase);
 }
 
 SettingsOption::~SettingsOption()
@@ -30,8 +29,7 @@ void SettingsOption::setIndex(int value)
 
 void SettingsOption::erase()
 {
-    if (listParent != nullptr)
-        emit listParent->optionErased(index);
+    emit erased(index);
 }
 
 QPushButton* SettingsOption:: getButton(){

@@ -4,6 +4,8 @@
 #include "../Fields/TextField/textfield.h"
 #include "../FieldConnection/fieldConnection.h"
 #include "../Fields/ListField/listfield.h"
+#include "../Fields/InputOpenField/inputopenfield.h"
+#include "../Fields/InputListField/inputlistfield.h"
 
 Designer::Designer(QWidget *parent) :
     QWidget(parent),
@@ -38,6 +40,20 @@ ListField* Designer::createListField() {
 
     ui->fieldContainer->addWidget(listField);
     return listField;
+}
+
+InputOpenField* Designer::createInputOpenField() {
+    InputOpenField* iOpenField = new InputOpenField();
+
+    ui->fieldContainer->addWidget(iOpenField);
+    return iOpenField;
+}
+
+InputListField* Designer::createInputListField() {
+    InputListField* iListField = new InputListField();
+
+    ui->fieldContainer->addWidget(iListField);
+    return iListField;
 }
 
 void Designer::removeWidget(QWidget* widget) {
