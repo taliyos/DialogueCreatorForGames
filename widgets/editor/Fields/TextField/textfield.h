@@ -6,6 +6,9 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QWebEngineView>
+#include <QMediaPlayer>
+#include <QAudioOutput>
+
 class CharacterField;
 namespace Ui {
 class TextField;
@@ -29,9 +32,37 @@ public:
 
     TextData* getData();
     void setData(TextData* data);
+
+    /**
+     * Toggles the character field when the button is clicked
+     */
     void onCharacterClicked();
+
+    /**
+     * Adds a character text field above the TextField
+     */
     void addCharacterWidget();
+
+    /**
+     * Removes the character text field
+     */
     void removeCharacterWidget();
+
+    /**
+     * Plays the sound file located at soundFile
+     */
+    void playSound();
+
+    /**
+     * Opens a file dialog where the user can select a sound clip to
+     * attach to this text field. Only .mp3 files are supported.
+     */
+    void setSound();
+
+    /**
+     * @return The file path to the sound file.
+     */
+    QString getSoundFile();
 
 signals:
     void previewRequested(const QString& content,const QString& content2, TextData* textData);
@@ -44,6 +75,9 @@ private:
     bool characterFieldAdded = false;
     CharacterField* characterField = nullptr;
     void sendRemove();
+    QString soundFile = "";
+    QMediaPlayer* player = new QMediaPlayer();
+    QAudioOutput* audio = new QAudioOutput();
 };
 
 #endif // TEXTFIELD_H
