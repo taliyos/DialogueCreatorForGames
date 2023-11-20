@@ -3,7 +3,7 @@
 
 #include "widgets/editor/MainEditor/maineditor.h"
 #include "widgets/tabs/ClosableTab/closabletab.h"
-#include <QWidget>
+#include <QMainWindow>
 #include <QTabWidget>
 
 template<> struct hash<QUuid> {
@@ -16,7 +16,7 @@ namespace Ui {
 class TabWindow;
 }
 
-class TabWindow : public QWidget
+class TabWindow : public QMainWindow
 {
     Q_OBJECT
 

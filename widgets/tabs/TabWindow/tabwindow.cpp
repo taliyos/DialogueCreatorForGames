@@ -1,12 +1,10 @@
 #include "widgets/tabs/TabWindow/tabwindow.h"
 #include "ui_tabwindow.h"
 
-#include "widgets/editor/EditorWindow/editorwindow.h"
-
 QString TabWindow::newTabIconPath = ":/rec/img/icons/new.png";
 
 TabWindow::TabWindow(QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::TabWindow)
 {
     ui->setupUi(this);
@@ -23,7 +21,7 @@ TabWindow::~TabWindow()
 }
 
 void TabWindow::createEditorTab() {
-   EditorWindow* editor = new EditorWindow();
+    MainEditor* editor = new MainEditor();
     this->createTabFromExisting(editor, "New File");
 }
 
@@ -34,15 +32,11 @@ void TabWindow::createTabFromExisting(QWidget* widget, const QString& tabName) {
     tabs.insert(std::pair<QUuid, ClosableTab*>(tab->getId(), tab));
     tabContents.insert(std::pair<QUuid, QWidget*>(tab->getId(), widget));
 
-    for (std::unordered_map<QUuid, QWidget*>::iterator itr = tabContents.begin(); itr != tabContents.end(); itr++) {
-        QString id = itr->first.toString();
-        qInfo(id.toStdString().c_str());
-    }
-
     tab->setText(tabName);
     ui->tabs->addWidget(tab);
     this->setUpdatesEnabled(true);
 
+    // Connect Focus and Close signals
     connect(tab, &ClosableTab::onFocused, this, [this, tab](){ switchTab(tab->getId()); });
     connect(tab, &ClosableTab::onClose, this, [this, tab](){ closeTab(tab->getId()); });
     switchTab(tab->getId());
@@ -53,19 +47,13 @@ void TabWindow::createTabFromExisting(QWidget* widget, const QString& tabName) {
 void TabWindow::switchTab(const QUuid newTabId) {
     if (tabs.size() > 1) tabs[currentTab]->setFocus(false);
 
-    qInfo("Switching tab!");
-    QString curr = currentTab.toString();
-    QString next = newTabId.toString();
-    qInfo() << curr << " -> " << next;
-
     // Switch active window
     if (currentWidget) {
-        qInfo("replacing current widget");
         ui->verticalLayout->replaceWidget(currentWidget, tabContents[newTabId]);
         currentWidget->hide();
         tabContents[newTabId]->show();
     }
-    else ui->verticalLayout->replaceWidget(ui->window, tabContents[newTabId]);//layout()->replaceWidget(ui->window, tabContents[newTabId]);
+    else ui->verticalLayout->replaceWidget(ui->window, tabContents[newTabId]);
 
     currentTab = newTabId;
     currentWidget = tabContents[newTabId];
