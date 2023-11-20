@@ -175,10 +175,12 @@ void ListData::setTextFromList(list<string> options)
 {
     qDebug() << "ListData: Setting text with options: " << options;
     text = "";
+    indecies.clear();
     for(string s : options)
     {
         push_back(s);
     }
+    qDebug() << "ListData: Text and indices set to: " << text << "; " << indecies;
 }
 
 list<string> ListData::toList()
@@ -189,9 +191,9 @@ list<string> ListData::toList()
     for (itr = indecies.crbegin(); itr != indecies.crend(); itr++)
     {
         if (itrLast != indecies.crend())
-            toReturn.push_back(text.substr(*itr, *itrLast));
+            toReturn.push_front(text.substr(*itr, *itrLast - *itr));
         else
-            toReturn.push_back(text.substr(*itr));
+            toReturn.push_front(text.substr(*itr));
         itrLast = itr;
     }
     return toReturn;
