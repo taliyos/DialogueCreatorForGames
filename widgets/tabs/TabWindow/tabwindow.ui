@@ -57,7 +57,6 @@
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         font-size: 12px;
-        left: 40px;
         }
 
         ClosableTab[isFocus=false] {
@@ -69,6 +68,12 @@
         }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -158,24 +163,14 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QPushButton" name="home">
-          <property name="maximumSize">
-           <size>
-            <width>40</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="tabs">
           <property name="spacing">
+           <number>1</number>
+          </property>
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="topMargin">
            <number>0</number>
           </property>
          </layout>
@@ -224,7 +219,31 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="window" native="true"/>
+     <widget class="QWidget" name="window" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -249,39 +268,7 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuEffects">
-    <property name="title">
-     <string>Effects</string>
-    </property>
-    <widget class="QMenu" name="menuField_Effects">
-     <property name="title">
-      <string>Field Effects</string>
-     </property>
-     <addaction name="actionWobble"/>
-     <addaction name="actionEnlarge"/>
-     <addaction name="actionSpeedup"/>
-     <addaction name="actionBold"/>
-     <addaction name="actionTyped"/>
-     <addaction name="separator"/>
-     <addaction name="actionRemoveFieldEffect"/>
-    </widget>
-    <widget class="QMenu" name="menuText_Effects">
-     <property name="title">
-      <string>Text Effects</string>
-     </property>
-     <addaction name="actionWobbleText"/>
-     <addaction name="actionEnlargeText"/>
-     <addaction name="actionSpeedupText"/>
-     <addaction name="actionBoldText"/>
-     <addaction name="actionTypedText"/>
-     <addaction name="separator"/>
-     <addaction name="actionRemoveEffect"/>
-    </widget>
-    <addaction name="menuField_Effects"/>
-    <addaction name="menuText_Effects"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEffects"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">

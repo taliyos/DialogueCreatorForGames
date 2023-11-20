@@ -3,6 +3,7 @@
 
 #include "widgets/editor/MainEditor/maineditor.h"
 #include "widgets/tabs/ClosableTab/closabletab.h"
+#include "widgets/tabs/TabableWidget/tabablewidget.h"
 #include <QMainWindow>
 #include <QTabWidget>
 
@@ -47,17 +48,11 @@ private slots:
      */
     void on_actionExit_triggered();
 
-    void on_actionCopy_triggered();
-    void on_actionPaste_triggered();
-    void on_actionCut_triggered();
-
-    void on_actionUndo_triggered();
-    void on_actionRedo_triggered();
-
     /**
      * Create a new, blank tab.
      */
     void on_actionNew_triggered();
+
 
 private:
 
@@ -71,7 +66,7 @@ private:
     /**
      * Creates a tab from an existing QWidget instance.
     */
-    void createTabFromExisting(QWidget* widget, const QString& tabName);
+    void createTabFromExisting(TabableWidget* widget, const QString& tabName);
 
     /**
      * Handles extra details when switching tabs, like when the "New Tab" tab
@@ -95,7 +90,7 @@ private:
 
     Ui::TabWindow *ui;
     std::unordered_map<QUuid, ClosableTab*> tabs = std::unordered_map<QUuid, ClosableTab*>();
-    std::unordered_map<QUuid, QWidget*> tabContents = std::unordered_map<QUuid, QWidget*>();
+    std::unordered_map<QUuid, TabableWidget*> tabContents = std::unordered_map<QUuid, TabableWidget*>();
     QUuid currentTab;
     QWidget* currentWidget = nullptr;
 

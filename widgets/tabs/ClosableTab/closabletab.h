@@ -17,6 +17,7 @@ public:
     explicit ClosableTab(QWidget *parent = nullptr);
     ~ClosableTab();
 
+
     /**
      * Sets the focus value for this tab.
      * @param focus - Whether or not the tab is focused

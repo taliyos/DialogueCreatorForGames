@@ -86,6 +86,10 @@ QPushButton:Pressed {
       <string notr="true">QLineEdit {
 	border-radius: 5px;
 	background-color:white;
+}
+
+QLineEdit:focus {
+	border: 2px solid #64B5FF;
 }</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">

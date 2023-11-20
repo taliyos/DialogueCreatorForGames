@@ -24,26 +24,28 @@ TabWindow::~TabWindow()
     delete ui;
 }
 
-const MainEditor *TabWindow::createEditorTab()
+const MainEditor* TabWindow::createEditorTab()
 {
     return this->createEditorTab("New File");
 }
 
-const MainEditor *TabWindow::createEditorTab(const QString tabName)
+const MainEditor* TabWindow::createEditorTab(const QString tabName)
 {
-    MainEditor *editor = new MainEditor();
+    MainEditor* editor = new MainEditor();
+
+
     this->createTabFromExisting(editor, tabName);
 
     return editor;
 }
 
-void TabWindow::createTabFromExisting(QWidget *widget, const QString &tabName)
+void TabWindow::createTabFromExisting(TabableWidget* widget, const QString &tabName)
 {
     this->setUpdatesEnabled(false);
 
     ClosableTab *tab = new ClosableTab();
-    tabs.insert(std::pair<QUuid, ClosableTab *>(tab->getId(), tab));
-    tabContents.insert(std::pair<QUuid, QWidget *>(tab->getId(), widget));
+    tabs.insert(std::pair<QUuid, ClosableTab*>(tab->getId(), tab));
+    tabContents.insert(std::pair<QUuid, TabableWidget*>(tab->getId(), widget));
 
     tab->setText(tabName);
     ui->tabs->addWidget(tab);
@@ -143,37 +145,32 @@ void TabWindow::on_actionOpen_triggered()
     QFileInfo fileInfo(file.fileName());
 
     this->createEditorTab(fileInfo.fileName());
-    // this->loadFile(fileName);
 
     file.close();
 }
 void TabWindow::on_actionSave_triggered()
 {
+    bool result = tabContents[currentTab]->save();
+    if (!result) return;
+
+    // Update the tab's name
+    tabs[currentTab]->setText(tabContents[currentTab]->getFileName());
+
 }
 void TabWindow::on_actionSaveAs_triggered()
 {
+    bool result = tabContents[currentTab]->saveAs();
+    if (!result) return;
+
+    // Update the tab's name
+    tabs[currentTab]->setText(tabContents[currentTab]->getFileName());
 }
 void TabWindow::on_actionExit_triggered()
 {
-}
-
-void TabWindow::on_actionCopy_triggered()
-{
-}
-void TabWindow::on_actionPaste_triggered()
-{
-}
-void TabWindow::on_actionCut_triggered()
-{
-}
-
-void TabWindow::on_actionUndo_triggered()
-{
-}
-void TabWindow::on_actionRedo_triggered()
-{
+    QApplication::quit();
 }
 
 void TabWindow::on_actionNew_triggered()
 {
+    createEditorTab();
 }

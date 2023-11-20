@@ -113,6 +113,7 @@ void EditorTools::populateEffects(EffectsDropdown* dropdown, EffectsVector effec
     // Adds each effect to the specified dropdown
     for (EffectsVector::iterator itr = effects.begin(); itr != effects.end(); itr++) {
         QPushButton* button = dropdown->createButton(QString::fromStdString(itr->first));
+        button->setFocusPolicy(Qt::NoFocus);
         QObject::connect(button, &QAbstractButton::clicked, itr->second);
     }
 }

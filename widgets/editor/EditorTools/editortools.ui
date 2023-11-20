@@ -1131,7 +1131,7 @@ QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLa
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="focusPolicy">
-            <enum>Qt::StrongFocus</enum>
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="text">
             <string/>

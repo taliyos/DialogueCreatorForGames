@@ -72,6 +72,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         widgets/tabs/TabWindow/tabwindow.h widgets/tabs/TabWindow/tabwindow.cpp widgets/tabs/TabWindow/tabwindow.ui
         widgets/tabs/ClosableTab/closabletab.h widgets/tabs/ClosableTab/closabletab.cpp widgets/tabs/ClosableTab/closabletab.ui
+        widgets/tabs/TabableWidget/tabablewidget.h widgets/tabs/TabableWidget/tabablewidget.cpp widgets/tabs/TabableWidget/tabablewidget.ui
 
 
 
