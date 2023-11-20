@@ -222,7 +222,9 @@ QPushButton:Pressed {
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">#gridWidget {
+	background: #d9d9d9;
+}</string>
      </property>
      <layout class="QGridLayout" name="previewArea">
       <property name="spacing">

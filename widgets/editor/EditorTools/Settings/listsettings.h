@@ -5,7 +5,6 @@
 #include <QDialog>
 #include "widgets/editor/EditorTools/Settings/settingsoption.h"
 
-using namespace std;
 
 namespace Ui {
 class ListSettings;
@@ -31,12 +30,12 @@ public:
 
 signals:
     void optionErased (int index);
-    void optionsSaved (string txt);
+    void optionsSaved (std::string txt);
 
 private:
-    Ui::ListSettings *ui;
-    list<string> *data;
-    list<SettingsOption*> *listElements;
+    Ui::ListSettings* ui;
+    std::list<std::string>* data;
+    std::list<SettingsOption*>* listElements;
 
 };
 

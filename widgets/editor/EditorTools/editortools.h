@@ -89,7 +89,7 @@ public:
 signals:
     void characterEffectRequested(int effectNumber);
     void applyPreset(Preset* preset);
-    void listFieldUpdateRequested(string txt);
+    void listFieldUpdateRequested(std::string txt);
 
 private slots:
     void sendPresetSignal(int index);
