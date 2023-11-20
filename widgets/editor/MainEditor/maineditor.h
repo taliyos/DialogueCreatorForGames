@@ -4,13 +4,14 @@
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "data/Fields/fielddata.h"
+#include "widgets/tabs/TabableWidget/tabablewidget.h"
 #include <QMainWindow>
 
 namespace Ui {
 class MainEditor;
 }
 
-class MainEditor : public QMainWindow
+class MainEditor : public TabableWidget
 {
     Q_OBJECT
 
@@ -18,56 +19,24 @@ public:
     explicit MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
 
+    void applyTextEffect(int tag);
+
     void preset_createTextField();
     void preset_createTextFieldAndCharacter();
     void preset_createListField();
     void preset_createUserPromptField();
     void preset_createUserListField();
 
-private slots:
-    /**
-     * File -> Open: Opens a project file into the application (.json)
-     */
-    void on_actionOpen_triggered();
-    /**
-     * File -> Save: Identical to exportJson, except it uses the currentFile (current filename)
-     */
-    void on_actionSave_triggered();
-    /**
-     * File -> Save As: Identical to exportJson except it sets currentFile
-     */
-    void on_actionSaveAs_triggered();
-    /**
-     * File -> Import -> .txt: Imports a .txt file, creating new text fields for each paragraph
-     */
-    void on_actionImportTxt_triggered();
-    /**
-     * File -> Import -> .docx: Imports a .docx file, creating new text fields for each paragraph
-     */
-    void on_actionImportDocx_triggered();
-    /**
-     * File -> Import -> .json: Imports a .json file, creating new text fields for each paragraph.
-     * Also create FieldData objects, populated with text, field effects, and text effects
-     */
-    void on_actionImportJson_triggered();
-    /**
-     * File -> Export -> .json: Converts data (list of FieldData objects) into a json file
-     */
-    void on_actionExportJson_triggered();
-    /**
-     * File -> Exit: Closes the program
-     */
-    void on_actionExit_triggered();
+private:
 
-    void on_actionCopy_triggered();
-    void on_actionPaste_triggered();
-    void on_actionCut_triggered();
+    // Overrides
 
-    void on_actionUndo_triggered();
-    void on_actionRedo_triggered();
+    bool MainEditor::save() override;
+    bool MainEditor::saveAs() override;
 
-    void on_actionNew_triggered();
+    
 
+public slots:
     // Field Effects
 
     /**
@@ -127,6 +96,50 @@ private slots:
      */
     void on_actionRemoveEffect_triggered();
 
+private slots:
+
+    /**
+     * File -> Open: Opens a project file into the application (.json)
+     */
+    void on_actionOpen_triggered();
+    /**
+     * File -> Save: Identical to exportJson, except it uses the currentFile (current filename)
+     */
+    void on_actionSave_triggered();
+    /**
+     * File -> Save As: Identical to exportJson except it sets currentFile
+     */
+    void on_actionSaveAs_triggered();
+    /**
+     * File -> Import -> .txt: Imports a .txt file, creating new text fields for each paragraph
+     */
+    void on_actionImportTxt_triggered();
+    /**
+     * File -> Import -> .docx: Imports a .docx file, creating new text fields for each paragraph
+     */
+    void on_actionImportDocx_triggered();
+    /**
+     * File -> Import -> .json: Imports a .json file, creating new text fields for each paragraph.
+     * Also create FieldData objects, populated with text, field effects, and text effects
+     */
+    void on_actionImportJson_triggered();
+    /**
+     * File -> Export -> .json: Converts data (list of FieldData objects) into a json file
+     */
+    void on_actionExportJson_triggered();
+    /**
+     * File -> Exit: Closes the program
+     */
+    void on_actionExit_triggered();
+
+    void on_actionCopy_triggered();
+    void on_actionPaste_triggered();
+    void on_actionCut_triggered();
+
+    void on_actionUndo_triggered();
+    void on_actionRedo_triggered();
+    
+
     void createPreset();
     void applyPreset(Preset* preset);
     /**
@@ -171,14 +184,13 @@ private slots:
 
     /**
      * Removes the specified field from the data and UI
-     * 
      * @param field - The ui field to remove
     */
     void removeField(TextField* field);
     void removeListField(ListField* field);
 
     /**
-     * @brief updateListFields
+     * Updates the entries available in the list fields
      * @param options
      */
     void updateListFields(string txt);
@@ -194,8 +206,6 @@ private:
 
     FieldData* data = nullptr;
     FieldData* lastActive = nullptr;
-
-    QString currentFile;
 };
 
 #endif // MAINEDITOR_H
