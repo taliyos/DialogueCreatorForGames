@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "widgets/editor/EditorTools/Settings/settingsoption.h"
+#include "widgets/editor/EditorTools/Settings/SettingsOption/settingsoption.h"
 
 using namespace std;
 

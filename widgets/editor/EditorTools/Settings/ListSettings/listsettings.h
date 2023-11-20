@@ -3,8 +3,7 @@
 
 #include <QPushButton>
 #include <QDialog>
-#include "data/Fields/fielddata.h"
-#include "widgets/editor/EditorTools/Settings/settingsoption.h"
+#include "widgets/editor/EditorTools/Settings/SettingsOption/settingsoption.h"
 
 
 namespace Ui {
@@ -49,7 +48,7 @@ public:
 
 signals:
     void optionErased (int index);
-    void optionsSaved (list<string> options);
+    void optionsSaved (std::list<std::string> options);
 
 private:
     Ui::ListSettings* ui;

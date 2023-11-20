@@ -1,7 +1,7 @@
 #ifndef INPUTLISTDATA_H
 #define INPUTLISTDATA_H
 
-#include "widgets/editor/EditorTools/Settings/inputlistsettings.h"
+#include "widgets/editor/EditorTools/Settings/InputListSettings/inputlistsettings.h"
 #include <QWidget>
 
 #include <data/Fields/MainFields/list/listdata.h>

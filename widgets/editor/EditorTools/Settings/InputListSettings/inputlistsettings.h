@@ -2,7 +2,7 @@
 #define INPUTLISTSETTINGS_H
 
 #include "data/Fields/fielddata.h"
-#include "inputlistsettingsconfig.h"
+#include "widgets/editor/EditorTools/Settings/InputListSettingsConfig/inputlistsettingsconfig.h"
 #include "data/ConnectionData/connectiondata.h"
 #include <QDialog>
 

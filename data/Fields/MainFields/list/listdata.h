@@ -5,7 +5,7 @@
 #include <utility>
 #include <string>
 #include <list>
-#include <widgets/editor/EditorTools/Settings/listsettings.h>
+#include "widgets/editor/EditorTools/Settings/ListSettings/listsettings.h"
 #include "../mainfielddata.h"
 
 using namespace std;

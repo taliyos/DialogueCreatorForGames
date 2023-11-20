@@ -3,9 +3,9 @@
 
 #include <QPushButton>
 #include <QWidget>
-#include "Settings/effectsettings.h"
-#include "Settings/fieldsettings.h"
-#include "Settings/presetsettings.h"
+#include "Settings/EffectSettings/effectsettings.h"
+#include "Settings/FieldSettings/fieldsettings.h"
+#include "Settings/PresetSettings/presetsettings.h"
 
 #include "widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h"
 

@@ -3,8 +3,8 @@
 
 #include <QDialog>
 
-#include "widgets/editor/EditorTools/Settings/listsettings.h"
-#include "widgets/editor/EditorTools/Settings/inputlistsettings.h"
+#include "widgets/editor/EditorTools/Settings/ListSettings/listsettings.h"
+#include "widgets/editor/EditorTools/Settings/InputListSettings/inputlistsettings.h"
 
 using namespace std;
 
