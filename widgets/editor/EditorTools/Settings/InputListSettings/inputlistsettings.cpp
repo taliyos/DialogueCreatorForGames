@@ -18,9 +18,7 @@ InputListSettings::InputListSettings(QWidget *parent) :
 InputListSettings::~InputListSettings()
 {
     delete ui;
-    delete[] data;
-    // don't delete listElements because they are parented to EditorTools
-    //delete[] listElements;
+    delete data;
 }
 
 /**
