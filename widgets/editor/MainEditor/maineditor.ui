@@ -14,77 +14,14 @@
    <string>Dialoggers | Dialogue Creator for Games</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../Resources.qrc">
+   <iconset>
     <normaloff>:/rec/img/icons/dialoggers.png</normaloff>:/rec/img/icons/dialoggers.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">#MainEditor {
-	background-color: #d9d9d9;
-}</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
-    <item>
-     <widget class="EditorTools" name="toolsWidget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
-        <horstretch>1</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>133</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>133</height>
-       </size>
-      </property>
-      <property name="baseSize">
-       <size>
-        <width>1920</width>
-        <height>133</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QWidget {
+   <string notr="true">QWidget {
 	background-color: #a3a3a3;
 }</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QGridLayout" name="gridLayout"/>
-    </item>
-    <item>
-     <widget class="Designer" name="designerWidget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>1</horstretch>
-        <verstretch>1</verstretch>
-       </sizepolicy>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
     <number>0</number>
@@ -111,6 +48,18 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -184,7 +133,7 @@
   </layout>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../../../Resources.qrc">
+    <iconset>
      <normaloff>:/rec/img/icons/open.png</normaloff>
      <normalon>../../../img/icons/open.png</normalon>:/rec/img/icons/open.png</iconset>
    </property>
@@ -197,7 +146,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="../../../Resources.qrc">
+    <iconset>
      <normaloff>:/rec/img/icons/save.png</normaloff>:/rec/img/icons/save.png</iconset>
    </property>
    <property name="text">
@@ -209,7 +158,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset resource="../../../Resources.qrc">
+    <iconset>
      <normaloff>:/rec/img/icons/save-as.png</normaloff>:/rec/img/icons/save-as.png</iconset>
    </property>
    <property name="text">
@@ -269,7 +218,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="../../../Resources.qrc">
+    <iconset>
      <normaloff>:/rec/img/icons/new.png</normaloff>:/rec/img/icons/new.png</iconset>
    </property>
    <property name="text">
@@ -376,8 +325,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../../Resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
