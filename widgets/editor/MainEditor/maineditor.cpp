@@ -74,9 +74,19 @@ MainEditor::MainEditor(QWidget *parent) :
     // Connect presets
     connect(editorTools->getAddPreset(), &QAbstractButton::clicked, this, &MainEditor::createPreset);
     connect(editorTools, &EditorTools::applyPreset, this, &MainEditor::applyPreset);
+    connect(designer->getExport(), &QAbstractButton::clicked, this, &MainEditor::ExportToHTML);
 
     // Create first dialogue box
     createTextField();
+    updateExportButtonVisibility();
+}
+
+void MainEditor::updateExportButtonVisibility() {
+    if (currentHTML.isEmpty()) {
+        designer->getExport()->hide();
+    } else {
+        designer->getExport()->show();
+    }
 }
 
 
@@ -88,8 +98,28 @@ void MainEditor::handlePreviewRequest(const QString& content, const QString& con
         fullHtml = ListField::generateHtml(content, content2, (ListData*) textData);
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
+    currentHTML = fullHtml;
     view->show();
+    updateExportButtonVisibility();
 }
+
+void MainEditor::ExportToHTML() {
+    QString fileName = QFileDialog::getSaveFileName(this, "Save As", QString(), "*.html");
+    if (fileName.isEmpty())
+        return;
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+    out << currentHTML;
+    file.close();
+    updateExportButtonVisibility();
+}
+
 
 
 MainEditor::~MainEditor()

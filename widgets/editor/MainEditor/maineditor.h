@@ -62,6 +62,8 @@ private slots:
 
     void createPreset();
     void applyPreset(Preset* preset);
+    void ExportToHTML();
+    void updateExportButtonVisibility();
 
     /**
      * Creates a text field and adds it to the UI
@@ -92,6 +94,7 @@ private slots:
 
 private:
     Ui::MainEditor *ui = nullptr;
+    QString currentHTML;
 
     EditorTools* editorTools = nullptr;
     Designer* designer = nullptr;

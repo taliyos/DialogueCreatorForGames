@@ -38,6 +38,8 @@
         <file>img/icons/display-effect.png</file>
         <file>img/icons/modifier-effect.png</file>
         <file>img/icons/more.png</file>
+        <file>img/icons/export.png</file>
+        <file>img/icons/speaker.png</file>
         <file>img/icons/close.png</file>
     </qresource>
     <qresource prefix="/">
