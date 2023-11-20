@@ -238,7 +238,7 @@ QString InputOpenField::generateHtml(const QString& content, const QString& cont
 
 
 void InputOpenField::exportToBrowser() {
-    QString content = ui->lineEdit->text();
+    QString content = getLabel()->text();
     emit previewRequested(content, nullptr, data);
 }
 
@@ -247,8 +247,8 @@ InputOpenField::~InputOpenField()
     delete ui;
 }
 
-QLineEdit* InputOpenField::getComboBox() {
-    return ui->lineEdit;
+QLabel* InputOpenField::getLabel() {
+    return ui->label;
 }
 
 QPushButton* InputOpenField::getPreview() {

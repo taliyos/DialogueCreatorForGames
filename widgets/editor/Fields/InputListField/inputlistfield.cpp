@@ -12,6 +12,9 @@ InputListField::InputListField(QWidget *parent) :
 
     // on index selection, request an update
     connect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
+
+    // make the options non-selectable
+    getListWidget()->setEnabled(false);
 }
 
 // TODO: THIS NEEDS TO BE CHANGED. NOT SURE WHAT WE WANT IN THE HTML
@@ -241,7 +244,12 @@ QString InputListField::generateHtml(const QString& content, const QString& cont
 
 
 void InputListField::exportToBrowser() {
-    QString content = ui->comboBox->currentText();
+    QString content = "";
+    list<string> dataOptions = data->toList();
+    for(string s : dataOptions)
+    {
+        content += (QString::fromStdString(s));
+    }
     emit previewRequested(content, nullptr, data);
 }
 
@@ -250,8 +258,8 @@ InputListField::~InputListField()
     delete ui;
 }
 
-QComboBox* InputListField::getComboBox() {
-    return ui->comboBox;
+QListWidget* InputListField::getListWidget() {
+    return ui->listWidget;
 }
 
 QPushButton* InputListField::getPreview() {
@@ -315,14 +323,14 @@ void InputListField::updateDataAndUI(int index, list<int> indices, list<string> 
         data->setTextFromList(options);
 
         // clear the options
-        ui->comboBox->clear();
+        getListWidget()->clear();
 
         // add the options
         list<string> dataOptions = data->toList();
         qDebug() << "ListField: Updating UI with: " << dataOptions;
         for(string s : dataOptions)
         {
-            ui->comboBox->addItem(QString::fromStdString(s));
+            getListWidget()->addItem(QString::fromStdString(s));
         }
         // reconnect
         connect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);

@@ -2,7 +2,7 @@
 #define INPUTLISTFIELD_H
 
 #include "data/Fields/MainFields/input/inputlistdata.h"
-#include <QComboBox>
+#include <QListWidget>
 #include <QPushButton>
 #include <QWebEngineView>
 #include <QWidget>
@@ -26,7 +26,7 @@ public:
     void exportToBrowser();
     void setView(QWebEngineView* v);
 
-    QComboBox* getComboBox();
+    QListWidget* getListWidget();
     QPushButton* getPreview();
 
     InputListData* getData();

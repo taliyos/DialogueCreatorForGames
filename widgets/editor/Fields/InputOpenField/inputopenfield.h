@@ -2,7 +2,7 @@
 #define INPUTOPENFIELD_H
 
 #include "data/Fields/MainFields/input/inputdata.h"
-#include <QLineEdit>
+#include <QLabel>
 #include <QPushButton>
 #include <QWebEngineView>
 #include <QWidget>
@@ -26,7 +26,7 @@ public:
     void exportToBrowser();
     void setView(QWebEngineView* v);
 
-    QLineEdit* getComboBox();
+    QLabel* getLabel();
     QPushButton* getPreview();
 
     InputData* getData();
