@@ -366,6 +366,25 @@ void TextField::setSound() {
     ui->playSound->setToolTip(playToolTip);
 }
 
+void TextField::setSoundFile(QString fileName) {
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Sound file not valid: " + file.errorString());
+        return;
+    }
+
+    // Make sure the selected file is mp3
+    if (fileName.split(".").last() != "mp3")
+    {
+        QMessageBox::warning(this, "Warning", "Incorrect sound file, please select an mp3 file");
+        return;
+    }
+
+    soundFile = fileName;
+    QString playToolTip = "Play sound: " + soundFile;
+    ui->playSound->setToolTip(playToolTip);
+}
+
 QString TextField::getSoundFile() {
     return soundFile;
 }

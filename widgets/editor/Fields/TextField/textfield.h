@@ -60,6 +60,12 @@ public:
     void setSound();
 
     /**
+     * sets the sound file
+     * @param fileName: mp3 sound file
+     */
+    void setSoundFile(QString fileName);
+
+    /**
      * @return The file path to the sound file.
      */
     QString getSoundFile();

@@ -408,6 +408,7 @@ void MainEditor::on_actionImportJson_triggered()
         currentField->fromJson(j[itr.key()]);
         TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
         field->getTextField()->setText(QString::fromStdString(currentField->getText()));
+        field->setSoundFile(QString::fromStdString((j[itr.key()]["soundFile"])));
         itr++;
         if (currentField->getToConnection() != nullptr)
             currentField = currentField->getToConnection()->getNext();

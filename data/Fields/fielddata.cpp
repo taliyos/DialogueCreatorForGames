@@ -206,6 +206,7 @@ const nlohmann::json FieldData::toJson()
     j["fieldEffects"] = this->fieldEffects;
     j["textEffects"] = this->textToEffects;
     TextField* field = reinterpret_cast <TextField*>(getUi());
+    j["soundFile"] = field->getSoundFile().toStdString();
     CharacterField* characterField = field->getCharacterField();
     j["character"] = "";
     if (characterField)
