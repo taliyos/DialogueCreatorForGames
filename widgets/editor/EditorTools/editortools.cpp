@@ -152,3 +152,7 @@ void EditorTools::addPreset(Preset* preset) {
     }
 }
 
+const std::vector<Preset*> EditorTools::getPresets()
+{
+    return presets;
+}

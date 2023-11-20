@@ -18,9 +18,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(PROJECT_SOURCES
         main.cpp
-
-
-
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -78,10 +75,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
 
 
-
-
-
-
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET TexT_Editor APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -129,3 +122,8 @@ install(TARGETS TexT_Editor
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(TexT_Editor)
 endif()
+
+cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH PARENT_DIR)
+set(DUCKX_LIBRARY "${PARENT_DIR}/build-DuckX-Desktop_Qt_${QT_VERSION_MAJOR}_${QT_VERSION_MINOR}_${QT_VERSION_PATCH}_MSVC2019_64bit-Debug/duckx.lib")
+target_link_libraries(TexT_Editor PRIVATE ${DUCKX_LIBRARY})
+target_include_directories(TexT_Editor PUBLIC "${PARENT_DIR}/DuckX/include")

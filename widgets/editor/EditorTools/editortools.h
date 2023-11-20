@@ -58,6 +58,7 @@ public:
     QPushButton* getAddPreset();
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
+    const std::vector<Preset*> getPresets();
 
 
     // Settings Pages

@@ -5,7 +5,6 @@
 #include "widgets/editor/EditorTools/editortools.h"
 #include "data/Fields/fielddata.h"
 #include "widgets/tabs/TabableWidget/tabablewidget.h"
-#include <QMainWindow>
 
 namespace Ui {
 class MainEditor;
@@ -19,13 +18,88 @@ public:
     explicit MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
 
-    void applyTextEffect(int tag);
-
     void preset_createTextField();
     void preset_createTextFieldAndCharacter();
     void preset_createListField();
     void preset_createUserPromptField();
     void preset_createUserListField();
+
+    void loadFile(const QString& filePath);
+
+    // Overrides
+
+    bool MainEditor::save() override;
+    bool MainEditor::saveAs() override;
+    bool MainEditor::importJSON() override;
+    bool MainEditor::importText() override;
+    bool MainEditor::importDocx() override;
+
+    bool MainEditor::exportFile() override;
+
+    bool MainEditor::importPreset() override;
+    bool MainEditor::exportPreset(int num) override;
+
+public slots:
+    // Field Effects
+
+    /**
+     * Applies wobble effect to a selected text field
+     */
+    void on_actionWobble_triggered();
+    /**
+     * Applies enlarge effect to a selected text field
+     */
+    void on_actionEnlarge_triggered();
+    /**
+     * Applies speedup effect to a selected text field
+     */
+    void on_actionSpeedup_triggered();
+    /**
+     * Applies bold effect to a selected text field
+     */
+    void on_actionBold_triggered();
+    /**
+     * Applies typed effect to a selected text field
+     */
+    void on_actionTyped_triggered();
+    /**
+     * Removes effects from a selected text field
+     */
+    void on_actionRemoveFieldEffect_triggered();
+
+    // Text Effects
+
+    /**
+     * Applies wobble effect to selected text
+     */
+    void on_actionWobbleText_triggered();
+    /**
+     * Applies enlarge effect to selected text
+     */
+    void on_actionEnlargeText_triggered();
+    /**
+     * Applies speedup effect to selected text
+     */
+    void on_actionSpeedupText_triggered();
+    /**
+     * Applies bold effect to selected text
+     */
+    void on_actionBoldText_triggered();
+    /**
+     * Applies typed effect to selected text
+     */
+    void on_actionTypedText_triggered();
+    /**
+     * Applies a given text effect to a selection of text
+     * @param tag: the integer representing the effect
+     */
+    void applyTextEffect(int tag);
+    /**
+     * Removes any text effects from a selection of text
+     */
+    void on_actionRemoveEffect_triggered();
+
+private slots:
 
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
@@ -33,35 +107,11 @@ public:
 
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
-
-    // Overrides
-
-    bool MainEditor::save() override;
-    bool MainEditor::saveAs() override;
-
     
-
-public slots:
-    // Field Effects
-    void on_actionWobble_triggered();
-    void on_actionEnlarge_triggered();
-    void on_actionSpeedup_triggered();
-    void on_actionBold_triggered();
-    void on_actionTyped_triggered();
-    void on_actionRemoveFieldEffect_triggered();
-
-    // Text Effects
-    void on_actionWobbleText_triggered();
-    void on_actionEnlargeText_triggered();
-    void on_actionSpeedupText_triggered();
-    void on_actionBoldText_triggered();
-    void on_actionTypedText_triggered();
-    void on_actionRemoveEffect_triggered();
-
-private slots:
 
     void createPreset();
     void applyPreset(Preset* preset);
+
     void ExportToHTML();
     void updateExportButtonVisibility();
 

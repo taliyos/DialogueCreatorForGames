@@ -24,12 +24,12 @@ TabWindow::~TabWindow()
     delete ui;
 }
 
-const MainEditor* TabWindow::createEditorTab()
+MainEditor* TabWindow::createEditorTab()
 {
     return this->createEditorTab("New File");
 }
 
-const MainEditor* TabWindow::createEditorTab(const QString tabName)
+MainEditor* TabWindow::createEditorTab(const QString tabName)
 {
     MainEditor* editor = new MainEditor();
 
@@ -63,7 +63,7 @@ void TabWindow::createTabFromExisting(TabableWidget* widget, const QString &tabN
 
 void TabWindow::switchTab(const QUuid newTabId)
 {
-    if (tabs.size() > 1)
+    if (tabs.size() > 1 && newTabId != currentTab)
         tabs[currentTab]->setFocus(false);
 
     // Switch active window
@@ -98,7 +98,7 @@ void TabWindow::closeTab(const QUuid tabId)
         currentTab = tabs.begin()->first;
         tabs[currentTab]->setFocus(true, false);
 
-        switchTab(currentTab);
+        switchTab(tabs.begin()->first);
     }
 
     // Cleanup removed tab
@@ -129,25 +129,30 @@ void TabWindow::updateTabs()
 
 void TabWindow::on_actionOpen_triggered()
 {
-    // Open the file dialog
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Dialogue File"), "", tr("Dialogue Data (*.json *.docx *.txt)"));
-    if (fileName.isEmpty())
-        return;
+    MainEditor* widget = this->createEditorTab();
+    bool result = widget->importJSON();
 
-    // Read the file
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
-        return;
+    if (result) {
+        tabs[currentTab]->setText(widget->getFileName());
     }
-
-    QFileInfo fileInfo(file.fileName());
-
-    this->createEditorTab(fileInfo.fileName());
-
-    file.close();
+    else {
+        closeTab(currentTab);
+    }
 }
+
+void TabWindow::on_action_docx_triggered()
+{
+    bool result = tabContents[currentTab]->importDocx();
+    if (result) tabs[currentTab]->setText(tabContents[currentTab]->getFileName());
+}
+
+
+void TabWindow::on_action_txt_triggered()
+{
+    bool result = tabContents[currentTab]->importText();
+    if (result) tabs[currentTab]->setText(tabContents[currentTab]->getFileName());
+}
+
 void TabWindow::on_actionSave_triggered()
 {
     bool result = tabContents[currentTab]->save();
@@ -174,3 +179,28 @@ void TabWindow::on_actionNew_triggered()
 {
     createEditorTab();
 }
+
+void TabWindow::on_actionImport_Preset_triggered()
+{
+    tabContents[currentTab]->importPreset();
+}
+
+
+void TabWindow::on_actionExport_Preset_1_triggered()
+{
+    tabContents[currentTab]->exportPreset(1);
+}
+void TabWindow::on_actionExport_Preset_2_triggered()
+{
+    tabContents[currentTab]->exportPreset(2);
+}
+void TabWindow::on_actionExport_Preset_3_triggered()
+{
+    tabContents[currentTab]->exportPreset(3);
+}
+void TabWindow::on_actionExport_Preset_4_triggered()
+{
+    tabContents[currentTab]->exportPreset(4);
+}
+
+
