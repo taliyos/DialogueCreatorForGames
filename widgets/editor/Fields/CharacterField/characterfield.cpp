@@ -17,3 +17,8 @@ QString CharacterField::getText() const
 {
     return ui->lineEdit->text();
 }
+
+void CharacterField::setText(QString text)
+{
+    ui->lineEdit->setText(text);
+}

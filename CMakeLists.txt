@@ -18,9 +18,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(PROJECT_SOURCES
         main.cpp
-
-
-
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -64,22 +61,22 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/EditorTools/Settings/listsettings.ui
         widgets/editor/EditorTools/Settings/settingsoption.h widgets/editor/EditorTools/Settings/settingsoption.cpp widgets/editor/EditorTools/Settings/settingsoption.ui
 
-        widgets/editor/EditorTools/Settings/fieldsettings.h widgets/editor/EditorTools/Settings/fieldsettings.cpp widgets/editor/EditorTools/Settings/fieldsettings.ui
-
         widgets/editor/Fields/ListField/listfield.h widgets/editor/Fields/ListField/listfield.cpp widgets/editor/Fields/ListField/listfield.ui
 
         widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.h widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.cpp widgets/editor/EditorTools/EffectsDropdown/effectsdropdown.ui
 
         data/Presets/preset.h data/Presets/preset.cpp
         data/Fields/FieldTypes.h
+
+        widgets/tabs/TabWindow/tabwindow.h widgets/tabs/TabWindow/tabwindow.cpp widgets/tabs/TabWindow/tabwindow.ui
+        widgets/tabs/ClosableTab/closabletab.h widgets/tabs/ClosableTab/closabletab.cpp widgets/tabs/ClosableTab/closabletab.ui
+        widgets/tabs/TabableWidget/tabablewidget.h widgets/tabs/TabableWidget/tabablewidget.cpp widgets/tabs/TabableWidget/tabablewidget.ui
+
         widgets/editor/Fields/InputOpenField/inputopenfield.h widgets/editor/Fields/InputOpenField/inputopenfield.cpp widgets/editor/Fields/InputOpenField/inputopenfield.ui
         widgets/editor/Fields/InputListField/inputlistfield.h widgets/editor/Fields/InputListField/inputlistfield.cpp widgets/editor/Fields/InputListField/inputlistfield.ui
         data/Fields/MainFields/input/inputlistdata.h data/Fields/MainFields/input/inputlistdata.cpp
         widgets/editor/EditorTools/Settings/inputlistsettings.h widgets/editor/EditorTools/Settings/inputlistsettings.cpp widgets/editor/EditorTools/Settings/inputlistsettings.ui
         widgets/editor/EditorTools/Settings/inputlistsettingsconfig.h widgets/editor/EditorTools/Settings/inputlistsettingsconfig.cpp widgets/editor/EditorTools/Settings/inputlistsettingsconfig.ui
-
-
-
 
 
 
@@ -130,3 +127,8 @@ install(TARGETS TexT_Editor
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(TexT_Editor)
 endif()
+
+cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH PARENT_DIR)
+set(DUCKX_LIBRARY "${PARENT_DIR}/build-DuckX-Desktop_Qt_${QT_VERSION_MAJOR}_${QT_VERSION_MINOR}_${QT_VERSION_PATCH}_MSVC2019_64bit-Debug/duckx.lib")
+target_link_libraries(TexT_Editor PRIVATE ${DUCKX_LIBRARY})
+target_include_directories(TexT_Editor PUBLIC "${PARENT_DIR}/DuckX/include")

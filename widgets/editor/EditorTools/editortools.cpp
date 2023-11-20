@@ -9,15 +9,16 @@ EditorTools::EditorTools(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // set up the settings pages
+    // Set up the settings pages (These are QObjects, so garbage collection is handled by QT)
     effectSettings = new EffectSettings(this);
     fieldSettings = new FieldSettings(this);
     presetSettings = new PresetSettings(this);
-    // connect the buttons to show the settings pages
+
+    // Connect the buttons to show the settings pages
     connect(getEffectSettings(), &QAbstractButton::clicked, this, &EditorTools::openEffectSettings);
+    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openListSettings);
     connect(getPresetSettings(), &QAbstractButton::clicked, this, &EditorTools::openPresetSettings);
-    connect(getFieldSettings(), &QAbstractButton::clicked, this, &EditorTools::openFieldSettings);
-    // set up the effect dropdowns
+
     displayDropdown = new EffectsDropdown();
     characterDropdown = new EffectsDropdown();
     modifierDropdown = new EffectsDropdown();
@@ -114,6 +115,7 @@ void EditorTools::populateEffects(EffectsDropdown* dropdown, EffectsVector effec
     // Adds each effect to the specified dropdown
     for (EffectsVector::iterator itr = effects.begin(); itr != effects.end(); itr++) {
         QPushButton* button = dropdown->createButton(QString::fromStdString(itr->first));
+        button->setFocusPolicy(Qt::NoFocus);
         QObject::connect(button, &QAbstractButton::clicked, itr->second);
     }
 }
@@ -152,3 +154,7 @@ void EditorTools::addPreset(Preset* preset) {
     }
 }
 
+const std::vector<Preset*> EditorTools::getPresets()
+{
+    return presets;
+}

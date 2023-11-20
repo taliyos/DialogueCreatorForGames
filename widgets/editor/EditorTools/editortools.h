@@ -58,6 +58,7 @@ public:
     QPushButton* getAddPreset();
     QPushButton* getMorePresets();
     QPushButton* getPresetSettings();
+    const std::vector<Preset*> getPresets();
 
 
     // Settings Pages
@@ -88,6 +89,7 @@ public:
 signals:
     void characterEffectRequested(int effectNumber);
     void applyPreset(Preset* preset);
+    void listFieldUpdateRequested(std::string txt);
 
 private slots:
     void sendPresetSignal(int index);

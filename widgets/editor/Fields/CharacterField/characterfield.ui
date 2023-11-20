@@ -39,6 +39,9 @@
   </property>
   <property name="styleSheet">
    <string notr="true">border-radius: 5px;</string>
+   <string notr="true">QLineEdit:focus {
+	border: 2px solid #64B5FF;
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="1">

@@ -6,7 +6,6 @@
 #include "data/Fields/fielddata.h"
 #include "widgets/editor/EditorTools/Settings/settingsoption.h"
 
-using namespace std;
 
 namespace Ui {
 class ListSettings;
@@ -56,6 +55,11 @@ private:
     Ui::ListSettings *ui = nullptr;
     list<string> *data = nullptr;
     list<SettingsOption*> *listElements = nullptr;
+
+private:
+    Ui::ListSettings* ui;
+    std::list<std::string>* data;
+    std::list<SettingsOption*>* listElements;
 
 };
 
