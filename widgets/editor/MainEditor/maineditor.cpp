@@ -14,7 +14,7 @@
 #include "widgets/editor/Fields/ListField/listfield.h"
 
 MainEditor::MainEditor(QWidget *parent) :
-    QMainWindow(parent),
+    TabableWidget(parent),
     ui(new Ui::MainEditor)
 {
     ui->setupUi(this);
@@ -130,106 +130,32 @@ MainEditor::~MainEditor()
 
 // Toolbar
 
-// File -> Open
-void MainEditor::on_actionOpen_triggered()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
-
-    if (fileName.isEmpty()) return;
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
-        return;
+bool MainEditor::save() {
+    QString currentFilePath;
+    if (filePath.isEmpty()) {
+        currentFilePath = QFileDialog::getSaveFileName(this, "Save");
     }
+    else currentFilePath = filePath;
 
-    currentFile = fileName;
-    setWindowTitle(fileName);
-    QTextStream in(&file);
-    QString text = in.readAll();
+    if (currentFilePath.isEmpty()) return false;
 
-    /*QTextEdit* editor = this->currentText();
-    if(editor) {
-        editor->setText(text);
-    } else {
-        // If no editor is focused, use the main one
-        //ui->textEdit->setText(text);
-    }*/
-
-    file.close();
-}
-
-// File -> Save
-void MainEditor::on_actionSave_triggered()
-{
-    QString fileName;
-    if (currentFile.isEmpty()) {
-        fileName = QFileDialog::getSaveFileName(this, "Save");
-        currentFile = fileName;
-    }
-    else fileName = currentFile;
-
-    if (fileName.isEmpty()) return;
-
-    QFile file(fileName);
+    QFile file(currentFilePath);
     if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
-        return;
+        return false;
     }
 
-    // Get all of the text boxes and write to file
+    QFileInfo fileInfo(file.fileName());
+    filePath = currentFilePath;
+    fileName = fileInfo.fileName();
 
-    /* OLD, do not use
-    QTextEdit* editor = this->currentText();
-    QString content;
-    if(editor) {
-        content = editor->toPlainText();
-    } else {
-        // If no editor is focused, use the main one
-        //content = ui->textEdit->toPlainText();
-    }*/
-
-    setWindowTitle(fileName);
-    // QTextStream out(&file);
-    // out << content;
-    file.close();
+    return true;
 }
 
-// File -> Save As
-void MainEditor::on_actionSaveAs_triggered()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, "Save As");
-    QFile file (fileName);
-
-    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
-        return;
-    }
-
-    if (fileName.isEmpty()) return;
-
-    /* Old, do not use
-     * QTextEdit* editor = this->currentText();
-    QString content;
-    if(editor) {
-        content = editor->toPlainText();
-    } else {
-        // If no editor is focused, use the main one
-        //content = ui->textEdit->toPlainText();
-    }*/
-
-    currentFile = fileName;
-    setWindowTitle(fileName);
-    // QTextStream out(&file);
-    // out << content;
-    file.close();
-}
-
-
-// File -> Exit
-void MainEditor::on_actionExit_triggered()
-{
-    QCoreApplication::quit();
+bool MainEditor::saveAs() {
+    filePath = "";
+    fileName = "";
+    return this->save();
 }
 
 // Copy
@@ -290,12 +216,6 @@ void MainEditor::on_actionUndo_triggered()
 
 // Redo
 void MainEditor::on_actionRedo_triggered()
-{
-
-}
-
-// New file
-void MainEditor::on_actionNew_triggered()
 {
 
 }
@@ -677,6 +597,10 @@ FieldData* MainEditor::getActiveField()
     }
 
     lastActive = currentField;
+
+    std::string text = field->getTextField()->displayText().toStdString();
+
+    qInfo("%s", qUtf8Printable(field->getTextField()->displayText()));
     return currentField;
 }
 

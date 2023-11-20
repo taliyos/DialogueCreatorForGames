@@ -4,13 +4,14 @@
 #include "widgets/editor/Designer/designer.h"
 #include "widgets/editor/EditorTools/editortools.h"
 #include "data/Fields/fielddata.h"
+#include "widgets/tabs/TabableWidget/tabablewidget.h"
 #include <QMainWindow>
 
 namespace Ui {
 class MainEditor;
 }
 
-class MainEditor : public QMainWindow
+class MainEditor : public TabableWidget
 {
     Q_OBJECT
 
@@ -18,17 +19,13 @@ public:
     explicit MainEditor(QWidget *parent = nullptr);
     ~MainEditor();
 
+    void applyTextEffect(int tag);
+
     void preset_createTextField();
     void preset_createTextFieldAndCharacter();
     void preset_createListField();
     void preset_createUserPromptField();
     void preset_createUserListField();
-
-private slots:
-    void on_actionOpen_triggered();
-    void on_actionSave_triggered();
-    void on_actionSaveAs_triggered();
-    void on_actionExit_triggered();
 
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
@@ -37,8 +34,14 @@ private slots:
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
 
-    void on_actionNew_triggered();
+    // Overrides
 
+    bool MainEditor::save() override;
+    bool MainEditor::saveAs() override;
+
+    
+
+public slots:
     // Field Effects
     void on_actionWobble_triggered();
     void on_actionEnlarge_triggered();
@@ -53,8 +56,9 @@ private slots:
     void on_actionSpeedupText_triggered();
     void on_actionBoldText_triggered();
     void on_actionTypedText_triggered();
-    void applyTextEffect(int tag);
     void on_actionRemoveEffect_triggered();
+
+private slots:
 
     void createPreset();
     void applyPreset(Preset* preset);
@@ -75,14 +79,13 @@ private slots:
 
     /**
      * Removes the specified field from the data and UI
-     * 
      * @param field - The ui field to remove
     */
     void removeField(TextField* field);
     void removeListField(ListField* field);
 
     /**
-     * @brief updateListFields
+     * Updates the entries available in the list fields
      * @param options
      */
     void updateListFields(string txt);
@@ -98,8 +101,6 @@ private:
 
     FieldData* data = nullptr;
     FieldData* lastActive = nullptr;
-
-    QString currentFile;
 };
 
 #endif // MAINEDITOR_H
