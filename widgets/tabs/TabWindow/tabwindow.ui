@@ -269,10 +269,12 @@
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpenProject"/>
     <addaction name="separator"/>
     <addaction name="menuImport"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="actionSaveProject"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -500,6 +502,16 @@
    </property>
    <property name="toolTip">
     <string>.txt</string>
+   </property>
+  </action>
+  <action name="actionSaveProject">
+   <property name="text">
+    <string>Save Project</string>
+   </property>
+  </action>
+  <action name="actionOpenProject">
+   <property name="text">
+    <string>Open Project</string>
    </property>
   </action>
  </widget>

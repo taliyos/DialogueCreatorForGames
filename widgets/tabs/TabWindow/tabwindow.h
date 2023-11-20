@@ -34,6 +34,11 @@ private slots:
     void on_actionOpen_triggered();
 
     /**
+     * Opens a selected proj file, which opens a set of tabs
+     */
+    void on_actionOpenProject_triggered();
+
+    /**
      * Save the active tab to a file.
      */
     void on_actionSave_triggered();
@@ -42,6 +47,11 @@ private slots:
      * Open a file dialog to save the active tab to a file.
      */
     void on_actionSaveAs_triggered();
+
+    /**
+     * Open a file dialog to save the active tabs to a proj file.
+     */
+    void on_actionSaveProject_triggered();
 
     /**
      * Exit the application.

@@ -221,9 +221,11 @@ bool MainEditor::saveAs() {
     return this->save();
 }
 
-bool MainEditor::importJSON() {
+bool MainEditor::importJSON(QString path) {
     // Get json filename from Windows Explorer popup and verify it is json
-    QString filePath = QFileDialog::getOpenFileName(this, tr("Open Dialogue File"), "", tr("Dialogue Data (*.json *.docx *.txt)"));
+    QString filePath = path;
+    if (filePath.isEmpty())
+        filePath = QFileDialog::getOpenFileName(this, tr("Open Dialogue File"), "", tr("Dialogue Data (*.json *.docx *.txt)"));
     if (filePath.isEmpty() || !filePath.contains('.') || filePath.split('.')[1] != QString("json"))
     {
         QMessageBox::warning(this, "Warning", "Cannot open file: not a .json file");
@@ -542,6 +544,10 @@ bool MainEditor::exportPreset(int num) {
     file.close();
 
     return true;
+}
+
+const QString MainEditor::getFilePath() {
+    return filePath;
 }
 
 // Copy

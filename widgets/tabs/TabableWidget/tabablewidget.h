@@ -32,7 +32,7 @@ public:
      * Opens a standard Dialogue Data file (JSON)
      * @return  Whether or not the open was successful
      */
-    virtual bool importJSON() = 0;
+    virtual bool importJSON(QString path = "") = 0;
 
     /**
      * Opens a .txt file into the tabable widget
@@ -64,6 +64,12 @@ public:
      * @return Whether or not the preset was exported succesfully.
      */
     virtual bool exportPreset(int num) = 0;
+
+    /**
+     * Returns the tab's file path
+     * @return the file path
+     */
+    virtual const QString getFilePath() = 0;
 
     const QString& getFileName();
 
