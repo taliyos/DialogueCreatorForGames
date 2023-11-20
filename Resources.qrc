@@ -39,6 +39,7 @@
         <file>img/icons/modifier-effect.png</file>
         <file>img/icons/more.png</file>
         <file>img/icons/export.png</file>
+        <file>img/icons/speaker.png</file>
     </qresource>
     <qresource prefix="/">
         <file>img/icons/auto/auto-off.png</file>
