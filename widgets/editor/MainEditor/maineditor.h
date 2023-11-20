@@ -30,7 +30,7 @@ public:
 
     bool MainEditor::save() override;
     bool MainEditor::saveAs() override;
-    bool MainEditor::importJSON() override;
+    bool MainEditor::importJSON(QString path = "") override;
     bool MainEditor::importText() override;
     bool MainEditor::importDocx() override;
 
@@ -38,6 +38,8 @@ public:
 
     bool MainEditor::importPreset() override;
     bool MainEditor::exportPreset(int num) override;
+
+    const QString MainEditor::getFilePath() override;
 
 public slots:
     // Field Effects

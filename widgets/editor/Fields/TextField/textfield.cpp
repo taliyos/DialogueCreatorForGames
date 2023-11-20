@@ -367,6 +367,8 @@ void TextField::setSound() {
 }
 
 void TextField::setSoundFile(QString fileName) {
+    if (fileName == "")
+        return;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, "Warning", "Sound file not valid: " + file.errorString());

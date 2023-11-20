@@ -140,6 +140,40 @@ void TabWindow::on_actionOpen_triggered()
     }
 }
 
+void TabWindow::on_actionOpenProject_triggered()
+{
+    // Get proj filename from Windows Explorer popup and verify it is json
+    QString fileName = QFileDialog::getOpenFileName(this, "Open proj file");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("proj"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: not a .proj file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+
+    QTextStream in(&file);
+    QString line = in.readLine();
+
+    while (!line.isNull())
+    {
+        MainEditor* widget = this->createEditorTab();
+        bool result = widget->importJSON(line);
+
+        if (result) {
+            tabs[currentTab]->setText(widget->getFileName());
+        }
+        else {
+            closeTab(currentTab);
+        }
+
+        line = in.readLine();
+    }
+}
+
 void TabWindow::on_action_docx_triggered()
 {
     bool result = tabContents[currentTab]->importDocx();
@@ -170,6 +204,33 @@ void TabWindow::on_actionSaveAs_triggered()
     // Update the tab's name
     tabs[currentTab]->setText(tabContents[currentTab]->getFileName());
 }
+
+void TabWindow::on_actionSaveProject_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save project as");
+    if (fileName.isEmpty() || !fileName.contains('.') || fileName.split('.')[1] != QString("proj"))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot save file: not a .proj file");
+        return;
+    }
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+    std::unordered_map<QUuid, TabableWidget*>::iterator itr = tabContents.begin();
+
+    for (; itr != tabContents.end(); itr++)
+    {
+        QString path = itr->second->getFilePath();
+        out << path + "\n";
+    }
+
+    file.close();
+}
+
 void TabWindow::on_actionExit_triggered()
 {
     QApplication::quit();
