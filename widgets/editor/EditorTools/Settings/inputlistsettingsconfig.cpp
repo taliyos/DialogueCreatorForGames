@@ -7,6 +7,9 @@ InputListSettingsConfig::InputListSettingsConfig(QWidget *parent, int index) :
 {
     ui->setupUi(this);
     setIndex(index);
+
+    setWindowTitle("Input List Settings");
+
     this->listElements = new list<SettingsOption*>();
     // on click, call erase
     connect(ui->remove, &QPushButton::clicked, this, &InputListSettingsConfig::erase);

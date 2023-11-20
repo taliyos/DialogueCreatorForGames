@@ -6,6 +6,9 @@ FieldSettings::FieldSettings(QWidget *parent) :
     ui(new Ui::FieldSettings)
 {
     ui->setupUi(this);
+
+    setWindowTitle("Field Settings");
+
     // set up the settings pages
     listSettingsPage = new ListSettings(this);
     inputListSettingsPage = new InputListSettings(this);

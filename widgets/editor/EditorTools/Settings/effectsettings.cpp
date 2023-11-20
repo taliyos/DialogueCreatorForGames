@@ -6,6 +6,8 @@ EffectSettings::EffectSettings(QWidget *parent) :
     ui(new Ui::EffectSettings)
 {
     ui->setupUi(this);
+
+    setWindowTitle("Effect Settings");
 }
 
 EffectSettings::~EffectSettings()

@@ -6,6 +6,8 @@ PresetSettings::PresetSettings(QWidget *parent) :
     ui(new Ui::PresetSettings)
 {
     ui->setupUi(this);
+
+    setWindowTitle("Preset Settings");
 }
 
 PresetSettings::~PresetSettings()

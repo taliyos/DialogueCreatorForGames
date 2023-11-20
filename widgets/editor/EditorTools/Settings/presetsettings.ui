@@ -13,6 +13,26 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+	border-radius: 5px;
+	background-color: #d9d9d9;
+	color: black;
+}
+
+QPushButton:Hover {
+	background-color: #fefefe;
+}
+
+QPushButton:Pressed {
+	background-color: #a3a3a3;
+}
+
+#buttonBox QPushButton {
+	min-width: 60px;
+	min-height: 32px;
+}</string>
+  </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>

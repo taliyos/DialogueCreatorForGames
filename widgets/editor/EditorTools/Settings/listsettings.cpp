@@ -10,6 +10,9 @@ ListSettings::ListSettings(QWidget *parent) :
     ui(new Ui::ListSettings)
 {
     ui->setupUi(this);
+
+    setWindowTitle("List Settings");
+
     data = new std::list<std::string>();
     listElements = new std::list<SettingsOption*>();
 

@@ -6,6 +6,9 @@ InputListSettings::InputListSettings(QWidget *parent) :
     ui(new Ui::InputListSettings)
 {
     ui->setupUi(this);
+
+    setWindowTitle("Input List Settings");
+
     data = new list<list<string>>();
     configList = new list<InputListSettingsConfig*>();
     connect(ui->Add, &QAbstractButton::clicked, this, &InputListSettings::addConfig);
