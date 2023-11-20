@@ -27,6 +27,7 @@
         "utility": "cpp",
         "xmemory": "cpp",
         "xtr1common": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "format": "cpp"
     }
 }

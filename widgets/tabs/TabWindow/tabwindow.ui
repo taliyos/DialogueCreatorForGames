@@ -260,15 +260,40 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuImport">
+     <property name="title">
+      <string>Import</string>
+     </property>
+     <addaction name="action_txt"/>
+     <addaction name="action_docx"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
+    <addaction name="menuImport"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuPresets">
+    <property name="title">
+     <string>Presets</string>
+    </property>
+    <widget class="QMenu" name="menuExport_Preset">
+     <property name="title">
+      <string>Export Preset</string>
+     </property>
+     <addaction name="actionExport_Preset_1"/>
+     <addaction name="actionExport_Preset_2"/>
+     <addaction name="actionExport_Preset_3"/>
+     <addaction name="actionExport_Preset_4"/>
+    </widget>
+    <addaction name="actionImport_Preset"/>
+    <addaction name="menuExport_Preset"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuPresets"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
@@ -437,6 +462,44 @@
   <action name="actionRemoveFieldEffect">
    <property name="text">
     <string>Remove effect</string>
+   </property>
+  </action>
+  <action name="actionImport_Preset">
+   <property name="text">
+    <string>Import Preset</string>
+   </property>
+  </action>
+  <action name="actionExport_Preset_1">
+   <property name="text">
+    <string>Export Preset 1</string>
+   </property>
+  </action>
+  <action name="actionExport_Preset_2">
+   <property name="text">
+    <string>Export Preset 2</string>
+   </property>
+  </action>
+  <action name="actionExport_Preset_3">
+   <property name="text">
+    <string>Export Preset 3</string>
+   </property>
+  </action>
+  <action name="actionExport_Preset_4">
+   <property name="text">
+    <string>Export Preset 4</string>
+   </property>
+  </action>
+  <action name="action_docx">
+   <property name="text">
+    <string>.docx</string>
+   </property>
+  </action>
+  <action name="action_txt">
+   <property name="text">
+    <string>.txt</string>
+   </property>
+   <property name="toolTip">
+    <string>.txt</string>
    </property>
   </action>
  </widget>

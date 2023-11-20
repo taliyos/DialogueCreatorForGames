@@ -54,14 +54,24 @@ private slots:
     void on_actionNew_triggered();
 
 
+    void on_actionImport_Preset_triggered();
+    void on_actionExport_Preset_1_triggered();
+    void on_actionExport_Preset_2_triggered();
+    void on_actionExport_Preset_3_triggered();
+    void on_actionExport_Preset_4_triggered();
+
+    void on_action_docx_triggered();
+
+    void on_action_txt_triggered();
+
 private:
 
     /**
      * Creates a new MainEditor tab, adding it to the tabs map
      * @param tabName - The name of the tab to show.
     */
-    const MainEditor* createEditorTab();
-    const MainEditor* createEditorTab(const QString tabName);
+    MainEditor* createEditorTab();
+    MainEditor* createEditorTab(const QString tabName);
 
     /**
      * Creates a tab from an existing QWidget instance.
