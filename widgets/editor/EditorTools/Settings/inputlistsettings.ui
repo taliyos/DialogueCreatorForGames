@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>834</width>
     <height>300</height>
    </rect>
   </property>
@@ -474,6 +474,22 @@ QPushButton {
 	color: black;
 	width: 64px;
 	height: 32px;
+}
+
+QPushButton:Hover {
+	background-color: #fefefe;
+}
+
+QPushButton:Pressed {
+	background-color: #a3a3a3;
+}
+
+Line {
+	color: #666666;
+}
+
+QLabel#clipboardLabel, QLabel#effectsLabel, QLabel#fieldsLabel, QLabel#presetsLabel {
+	color: white;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
@@ -496,44 +512,7 @@ QPushButton {
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="4">
-    <layout class="QGridLayout" name="gridLayout_2">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <item row="1" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="Add">
-     <property name="minimumSize">
-      <size>
-       <width>64</width>
-       <height>32</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Add</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
+   <item row="4" column="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="baseSize">
       <size>
@@ -547,6 +526,43 @@ QPushButton {
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="Add">
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Add</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="sizeAdjustPolicy">
+      <enum>QAbstractScrollArea::AdjustToContents</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>814</width>
+        <height>220</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     </widget>
     </widget>
    </item>
   </layout>

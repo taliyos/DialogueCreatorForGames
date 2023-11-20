@@ -12,6 +12,7 @@ InputListSettingsConfig::InputListSettingsConfig(QWidget *parent, int index) :
     connect(ui->remove, &QPushButton::clicked, this, &InputListSettingsConfig::erase);
     // on click, call addOption
     connect(ui->add, &QPushButton::clicked, this, &InputListSettingsConfig::addOption);
+    // set the widget
 }
 
 InputListSettingsConfig::~InputListSettingsConfig()

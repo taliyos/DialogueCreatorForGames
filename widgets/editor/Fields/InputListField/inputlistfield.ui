@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>116</height>
+    <width>900</width>
+    <height>138</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,19 +18,19 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>75</height>
+    <width>900</width>
+    <height>138</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>970</width>
-    <height>116</height>
+    <width>900</width>
+    <height>138</height>
    </size>
   </property>
   <property name="baseSize">
    <size>
-    <width>970</width>
+    <width>948</width>
     <height>230</height>
    </size>
   </property>
@@ -41,6 +41,22 @@
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
+	background-color: white;
+}
+
+QPushButton:Hover {
+	background-color: #c3c3c3;
+}
+
+QPushButton:Pressed {
+	background-color: #a3a3a3;
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -65,17 +81,10 @@
       <property name="verticalSpacing">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QComboBox" name="index">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>32</height>
-         </size>
-        </property>
-       </widget>
+      <item row="2" column="1">
+       <widget class="QListWidget" name="listWidget"/>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QPushButton" name="remove">
         <property name="minimumSize">
          <size>
@@ -108,7 +117,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="2" column="2">
        <widget class="QPushButton" name="preview">
         <property name="minimumSize">
          <size>
@@ -135,8 +144,15 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QListWidget" name="listWidget"/>
+      <item row="0" column="0">
+       <widget class="QComboBox" name="index">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

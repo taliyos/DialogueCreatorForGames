@@ -26,7 +26,7 @@ InputListSettings::~InputListSettings()
 void InputListSettings::addConfig()
 {
     InputListSettingsConfig* config = new InputListSettingsConfig(nullptr, configList->size());
-    ui->verticalLayout->addWidget(config);
+    ui->scrollAreaWidgetContents->layout()->addWidget(config);
     config->show();
     configList->push_back(config);
     // connect erased signal to erase config
