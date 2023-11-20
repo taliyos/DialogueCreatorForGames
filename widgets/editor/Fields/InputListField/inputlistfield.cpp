@@ -1,20 +1,26 @@
-#include "listfield.h"
-#include "ui_listfield.h"
+#include "inputlistfield.h"
+#include "ui_inputlistfield.h"
 
-ListField::ListField(QWidget *parent) :
+InputListField::InputListField(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ListField)
+    ui(new Ui::InputListField)
 {
     ui->setupUi(this);
-    connect(ui->remove, &QAbstractButton::clicked, this, &ListField::sendRemove);
-    connect(ui->preview, &QPushButton::clicked, this, &ListField::exportToBrowser);
+    connect(ui->remove, &QAbstractButton::clicked, this, &InputListField::sendRemoveRequest);
+    connect(ui->preview, &QPushButton::clicked, this, &InputListField::exportToBrowser);
     //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
-    connect(this, &ListField::updateRequested, this, &ListField::updateUI);
+
+    // on index selection, request an update
+    connect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
+
+    // make the options non-selectable
+    getListWidget()->setEnabled(false);
 }
 
-QString ListField::generateHtml(const QString& content, const QString& content2, ListData* textData) {
+// TODO: THIS NEEDS TO BE CHANGED. NOT SURE WHAT WE WANT IN THE HTML
+QString InputListField::generateHtml(const QString& content, const QString& content2, InputListData* textData) {
 
-    QString newContent = content;
+    QString newContent = QString::fromStdString("");
     // 1 = wobble
     if (textData->hasFieldEffect(1))
         newContent = "<effect type=\"wobble\">" + content + "</effect>";
@@ -236,58 +242,97 @@ QString ListField::generateHtml(const QString& content, const QString& content2,
     return fullHtml;
 }
 
-void ListField::applyCharacterEffect(int effectNumber) {
-    //    if(effectNumber == 1) {
-    //        view->page()->runJavaScript("enlargeCharacter();");
-    //    }
-    //    else if(effectNumber == 2) {
-    //        view->page()->runJavaScript("wobbleCharacter();");
-    //    }
-    //    else if(effectNumber == 3) {
-    //        view->page()->runJavaScript("speedUpText();");
-    //    }
-}
 
-
-void ListField::exportToBrowser() {
-    QString content = ui->comboBox->currentText();
+void InputListField::exportToBrowser() {
+    QString content = "";
+    list<string> dataOptions = data->toList();
+    for(string s : dataOptions)
+    {
+        content += (QString::fromStdString(s));
+    }
     emit previewRequested(content, nullptr, data);
 }
 
-ListField::~ListField()
+InputListField::~InputListField()
 {
     delete ui;
 }
 
-QComboBox* ListField::getComboBox() {
-    return ui->comboBox;
+QListWidget* InputListField::getListWidget() {
+    return ui->listWidget;
 }
 
-QPushButton* ListField::getPreview() {
+QPushButton* InputListField::getPreview() {
     return ui->preview;
 }
 
-ListData* ListField::getData() {
+InputListData* InputListField::getData() {
     return data;
 }
 
-void ListField::setData(ListData* data) {
+void InputListField::setData(InputListData* data) {
     this->data = data;
+    qDebug() << "InputListField: Called setData(), settings? " << (data->getSettings() != nullptr);
+    // listen to listsettings for updates
+    connect(data->getSettings(), &InputListSettings::updateField, this, &InputListField::updateDataAndUI);
+    // have listsettings listen for requests
+    connect(this, &InputListField::updateRequested, data->getSettings(), &InputListSettings::sendUpdateField);
+    // call to update
+    sendUpdateRequest();
 }
 
-void ListField::sendRemove() {
-    emit removeField(this);
-}
-
-void ListField::updateUI()
+void InputListField::setIndex(int index)
 {
-    // clear the options
-    ui->comboBox->clear();
-    // add the options
-    list<string> dataOptions = data->toList();
-    qDebug() << "ListField: Updating UI with: " << dataOptions;
-    for(string s : dataOptions)
+    qDebug() << "InputListField: Calling Set Index, old: " << this->getData()->getIndex() << ", new: " << index;
+    this->data->setIndex(index);
+    // call to update
+    sendUpdateRequest();
+}
+
+void InputListField::sendRemoveRequest() {
+    emit removeRequested(this);
+}
+
+void InputListField::sendUpdateRequest() {
+    emit updateRequested(data->getIndex());
+}
+
+void InputListField::updateDataAndUI(int index, list<int> indices, list<string> options)
+{
+    qDebug() << "InputListField: trying to update. index:" << data->getIndex()<<  ", target index: " << index;
+    if (data->getIndex() == index)
     {
-        ui->comboBox->addItem(QString::fromStdString(s));
+        qDebug() << "InputListField: Index matched, updating with " << options;
+
+        // temporarily disconnect
+        disconnect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
+
+        // clear the index options
+        ui->index->clear();
+
+        // add the index options
+        for(int i : indices)
+        {
+            ui->index->addItem(QString::fromStdString(std::to_string(i)));
+        }
+
+        // select the right index
+        ui->index->setCurrentIndex(index);
+
+        // update the data
+        data->setTextFromList(options);
+
+        // clear the options
+        getListWidget()->clear();
+
+        // add the options
+        list<string> dataOptions = data->toList();
+        qDebug() << "ListField: Updating UI with: " << dataOptions;
+        for(string s : dataOptions)
+        {
+            getListWidget()->addItem(QString::fromStdString(s));
+        }
+        // reconnect
+        connect(ui->index, &QComboBox::currentIndexChanged, this, &InputListField::setIndex);
     }
 }

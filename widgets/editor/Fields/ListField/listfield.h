@@ -12,6 +12,9 @@ namespace Ui {
 class ListField;
 }
 
+/**
+ * Extends QWidget to represent widget that holds a text list.
+ */
 class ListField : public QWidget
 {
     Q_OBJECT

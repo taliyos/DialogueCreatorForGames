@@ -9,25 +9,30 @@ class ListSettings;
 namespace Ui {
 class SettingsOption;
 }
-
+/**
+ * A class representing a widget that holds an open line of text and a delete button.
+ */
 class SettingsOption : public QWidget
 {
     Q_OBJECT
 
 public:
-    //make a fucntion to access Qline
-    explicit SettingsOption(QWidget *parent = nullptr, int index = 0, ListSettings *listParent = nullptr);
+    explicit SettingsOption(QWidget *parent = nullptr, int index = 0);
     ~SettingsOption();
     QLineEdit* getLineEdit();
     QPushButton* getButton();
     int getIndex();
     void setIndex(int value);
+    /**
+     * Sends the erased signal out.
+     */
     void erase();
+signals:
+    void erased(int index);
 
 private:
-    Ui::SettingsOption *ui;
-    ListSettings* listParent;
-    int index;
+    Ui::SettingsOption *ui = nullptr;
+    int index = 0;
 };
 
 #endif // SETTINGSOPTION_H

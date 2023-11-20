@@ -53,13 +53,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/editor/FieldConnection/fieldconnection.h widgets/editor/FieldConnection/fieldconnection.cpp widgets/editor/FieldConnection/fieldconnection.ui
         widgets/editor/Fields/CharacterField/characterfield.h widgets/editor/Fields/CharacterField/characterfield.cpp widgets/editor/Fields/CharacterField/characterfield.ui
 
-        widgets/editor/EditorTools/Settings/listsettings.h widgets/editor/EditorTools/Settings/listsettings.cpp
-        widgets/editor/EditorTools/Settings/effectsettings.h widgets/editor/EditorTools/Settings/effectsettings.cpp
-        widgets/editor/EditorTools/Settings/presetsettings.h widgets/editor/EditorTools/Settings/presetsettings.cpp
-        widgets/editor/EditorTools/Settings/effectsettings.ui
-        widgets/editor/EditorTools/Settings/presetsettings.ui
-        widgets/editor/EditorTools/Settings/listsettings.ui
-        widgets/editor/EditorTools/Settings/settingsoption.h widgets/editor/EditorTools/Settings/settingsoption.cpp widgets/editor/EditorTools/Settings/settingsoption.ui
+        widgets/editor/EditorTools/Settings/SettingsOption/settingsoption.h widgets/editor/EditorTools/Settings/SettingsOption/settingsoption.cpp widgets/editor/EditorTools/Settings/SettingsOption/settingsoption.ui
+
+        widgets/editor/EditorTools/Settings/ListSettings/listsettings.h widgets/editor/EditorTools/Settings/ListSettings/listsettings.cpp
+        widgets/editor/EditorTools/Settings/EffectSettings/effectsettings.h widgets/editor/EditorTools/Settings/EffectSettings/effectsettings.cpp
+        widgets/editor/EditorTools/Settings/PresetSettings/presetsettings.h widgets/editor/EditorTools/Settings/PresetSettings/presetsettings.cpp
+        widgets/editor/EditorTools/Settings/EffectSettings/effectsettings.ui
+        widgets/editor/EditorTools/Settings/PresetSettings/presetsettings.ui
+        widgets/editor/EditorTools/Settings/ListSettings/listsettings.ui
 
         widgets/editor/Fields/ListField/listfield.h widgets/editor/Fields/ListField/listfield.cpp widgets/editor/Fields/ListField/listfield.ui
 
@@ -72,6 +73,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         widgets/tabs/ClosableTab/closabletab.h widgets/tabs/ClosableTab/closabletab.cpp widgets/tabs/ClosableTab/closabletab.ui
         widgets/tabs/TabableWidget/tabablewidget.h widgets/tabs/TabableWidget/tabablewidget.cpp widgets/tabs/TabableWidget/tabablewidget.ui
 
+        widgets/editor/Fields/InputOpenField/inputopenfield.h widgets/editor/Fields/InputOpenField/inputopenfield.cpp widgets/editor/Fields/InputOpenField/inputopenfield.ui
+        widgets/editor/Fields/InputListField/inputlistfield.h widgets/editor/Fields/InputListField/inputlistfield.cpp widgets/editor/Fields/InputListField/inputlistfield.ui
+        data/Fields/MainFields/input/inputlistdata.h data/Fields/MainFields/input/inputlistdata.cpp
+        widgets/editor/EditorTools/Settings/FieldSettings/fieldsettings.h widgets/editor/EditorTools/Settings/FieldSettings/fieldsettings.cpp widgets/editor/EditorTools/Settings/FieldSettings/fieldsettings.ui
+        widgets/editor/EditorTools/Settings/InputListSettings/inputlistsettings.h widgets/editor/EditorTools/Settings/InputListSettings/inputlistsettings.cpp widgets/editor/EditorTools/Settings/InputListSettings/inputlistsettings.ui
+        widgets/editor/EditorTools/Settings/InputListSettingsConfig/inputlistsettingsconfig.h widgets/editor/EditorTools/Settings/InputListSettingsConfig/inputlistsettingsconfig.cpp widgets/editor/EditorTools/Settings/InputListSettingsConfig/inputlistsettingsconfig.ui
 
 
 

@@ -2,21 +2,22 @@
 #define INPUTDATA_H
 
 #include <QWidget>
-#include <utility>
-#include <string>
-#include <list>
 #include "../mainfielddata.h"
 
 using namespace std;
 
-/// <summary>
-/// This class extends MainFieldData by abstracting its text as user input.
-/// </summary>
-
-// This class is currently a stub, not sure what else it needs over the base class.
-class InputData : protected MainFieldData
+/**
+ * InputData extends MainFieldData, representing field where users input text.
+ */
+class InputData : public MainFieldData
 {
 public:
+    /**
+     * Constructs a new InputData
+     * @param ui: The QWidget this data is for.
+     * @param fromConnection: The connection prior to this element.
+     * @param toConnection: The connection following this element.
+     */
     InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection);
 };
 
