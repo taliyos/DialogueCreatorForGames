@@ -125,11 +125,27 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuImport">
+     <property name="title">
+      <string>Import</string>
+     </property>
+     <addaction name="actionImportTxt"/>
+     <addaction name="actionImportDocx"/>
+     <addaction name="actionImportJson"/>
+    </widget>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="actionExportJson"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="menuImport"/>
+    <addaction name="menuExport"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -169,9 +185,26 @@
     <addaction name="menuField_Effects"/>
     <addaction name="menuText_Effects"/>
    </widget>
+   <widget class="QMenu" name="menuPresets">
+    <property name="title">
+     <string>Presets</string>
+    </property>
+    <widget class="QMenu" name="menuExport_preset">
+     <property name="title">
+      <string>Export preset</string>
+     </property>
+     <addaction name="actionExportPreset1"/>
+     <addaction name="actionExportPreset2"/>
+     <addaction name="actionExportPreset3"/>
+     <addaction name="actionExportPreset4"/>
+    </widget>
+    <addaction name="actionImportPreset_2"/>
+    <addaction name="menuExport_preset"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuEffects"/>
+   <addaction name="menuPresets"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
@@ -340,6 +373,51 @@
   <action name="actionRemoveFieldEffect">
    <property name="text">
     <string>Remove effect</string>
+   </property>
+  </action>
+  <action name="actionImportTxt">
+   <property name="text">
+    <string>txt</string>
+   </property>
+  </action>
+  <action name="actionImportDocx">
+   <property name="text">
+    <string>docx</string>
+   </property>
+  </action>
+  <action name="actionExportJson">
+   <property name="text">
+    <string>json</string>
+   </property>
+  </action>
+  <action name="actionImportJson">
+   <property name="text">
+    <string>json</string>
+   </property>
+  </action>
+  <action name="actionImportPreset_2">
+   <property name="text">
+    <string>Import preset</string>
+   </property>
+  </action>
+  <action name="actionExportPreset1">
+   <property name="text">
+    <string>Preset 1</string>
+   </property>
+  </action>
+  <action name="actionExportPreset2">
+   <property name="text">
+    <string>Preset 2</string>
+   </property>
+  </action>
+  <action name="actionExportPreset3">
+   <property name="text">
+    <string>Preset 3</string>
+   </property>
+  </action>
+  <action name="actionExportPreset4">
+   <property name="text">
+    <string>Preset 4</string>
    </property>
   </action>
  </widget>

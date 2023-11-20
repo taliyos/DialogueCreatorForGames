@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 #include <list>
-
+#include "json.hpp"
 #include <QWidget>
 
 class ConnectionData;
@@ -30,6 +30,7 @@ public:
     // getters
     FieldTypes getFieldType() const;
     // Field effect functions
+    const list<int> getFieldEffects();
     bool hasFieldEffect(int tag);
     void applyFieldEffect(int tag);
     void removeFieldEffect(int tag);
@@ -40,7 +41,9 @@ public:
     void applyTextEffect(unsigned int index1, unsigned int index2, int tag);
     void removeTextEffect(unsigned int index1, unsigned int index2, int tag);
     void addOrRemoveTextEffect(unsigned int index1, unsigned int index2, int tag);
-
+    // Json
+    const nlohmann::json toJson();
+    void fromJson(nlohmann::json j);
 
     /**
      * Replaces the current fromConnection with a new value.

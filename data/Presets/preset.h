@@ -14,6 +14,7 @@ class Preset
 {
 public:
     Preset(FieldData* data);
+    Preset(std::vector<FieldTypes> fieldTypes);
 
     /**
      * Stores the provided data as this class's preset.
@@ -28,6 +29,7 @@ public:
     void apply(FieldData* data, MainEditor* editor);
 
     QString getDescription() const;
+    std::vector<FieldTypes> getStorage() const;
 
 private:
     std::vector<FieldTypes> storage = std::vector<FieldTypes>();

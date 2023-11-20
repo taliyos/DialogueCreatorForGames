@@ -15,6 +15,7 @@ public:
     explicit CharacterField(QWidget *parent = nullptr);
     ~CharacterField();
     QString getText() const;
+    void setText(QString text);
 
 private:
     Ui::CharacterField *ui;

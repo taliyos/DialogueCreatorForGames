@@ -3,6 +3,9 @@
 
 #include "fielddata.h"
 #include "../ConnectionData/connectionData.h"
+#include "widgets/editor/Fields/CharacterField/characterfield.h"
+#include "widgets/editor/Fields/TextField/textfield.h"
+
 
 /// <summary>A class that holds the raw data for text fields.</summary>
 FieldData::FieldData(QWidget* ui, ConnectionData* fromConnection, ConnectionData* toConnection)
@@ -39,6 +42,14 @@ const string FieldData::getText()
 {
     return text;
 }
+const map<pair<int, int>, list<int>> FieldData::getTextEffects()
+{
+    return this->textToEffects;
+}
+const list<int> FieldData::getFieldEffects()
+{
+    return this->fieldEffects;
+}
 bool FieldData::hasFieldEffect(int tag)
 {
     return find(fieldEffects.begin(), fieldEffects.end(), tag) != fieldEffects.end();
@@ -61,11 +72,6 @@ void FieldData::addOrRemoveFieldEffect(int tag)
         fieldEffects = list<int>();
         applyFieldEffect(tag);
     }
-}
-
-const map<pair<int, int>, list<int>> FieldData::getTextEffects()
-{
-    return this->textToEffects;
 }
 
 // TODO: FINISH THIS ****
@@ -191,4 +197,39 @@ void FieldData::removeAll() {
     }
 
     delete this;
+}
+
+const nlohmann::json FieldData::toJson()
+{
+    nlohmann::json j;
+    j["text"] = this->text;
+    j["fieldEffects"] = this->fieldEffects;
+    j["textEffects"] = this->textToEffects;
+    TextField* field = reinterpret_cast <TextField*>(getUi());
+    j["soundFile"] = field->getSoundFile().toStdString();
+    CharacterField* characterField = field->getCharacterField();
+    j["character"] = "";
+    if (characterField)
+        j["character"] = characterField->getText().toStdString();
+
+    return j;
+}
+
+void FieldData::fromJson(nlohmann::json j)
+{
+    this->text = j["text"];
+    list<int> fieldEffects = j["fieldEffects"];
+    this->fieldEffects = fieldEffects;
+    this->textToEffects =  j["textEffects"];
+    TextField* field = reinterpret_cast <TextField*>(getUi());
+    if (QString::fromStdString(j["character"]).isEmpty())
+        return;
+
+    CharacterField* characterField = field->getCharacterField();
+    if (!characterField)
+    {
+        field->addCharacterWidget();
+        characterField = field->getCharacterField();
+    }
+    characterField->setText(QString::fromStdString(j["character"]));
 }
