@@ -86,8 +86,6 @@ MainEditor::MainEditor(QWidget *parent) :
     connect(editorTools, &EditorTools::applyPreset, this, &MainEditor::applyPreset);
     connect(designer->getExport(), &QAbstractButton::clicked, this, &MainEditor::ExportToHTML);
 
-    // Create first dialogue box
-    createTextField();
     updateExportButtonVisibility();
 }
 
