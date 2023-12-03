@@ -9,5 +9,5 @@ InputData::InputData(QWidget* ui, ConnectionData* fromConnection, ConnectionData
     InputOpenField* field = reinterpret_cast <InputOpenField*>(ui);
     field->setData(this);
 
-    setFieldType(UserList);
+    setFieldType(UserPrompt);
 }

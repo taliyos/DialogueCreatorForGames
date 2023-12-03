@@ -143,30 +143,33 @@ void MainEditor::loadFile(const QString& filePath) {
     nlohmann::json j = nlohmann::json::parse(f);
     nlohmann::detail::iter_impl itr = j.begin();
 
-    FieldData* currentField = data;
+    FieldData* currentField = nullptr;
 
     // Iterate through each of the json values where each json value represents
     //  a FieldData object
     while(itr != j.end())
     {
-        if (currentField == nullptr)
-        {
-            // Create a new text field (FieldData object) and call fromJson
+        // Create a new field (FieldData object) and call fromJson
+        if (j[itr.key()]["type"] == 0 || j[itr.key()]["type"] == 1)
             createTextField();
-            currentField = data;
-            while (currentField->getToConnection() != nullptr && currentField->getToConnection()->getNext() != nullptr)
-            {
-                currentField = currentField->getToConnection()->getNext();
-            }
+        else if (j[itr.key()]["type"] == 2)
+            createListField();
+        else if (j[itr.key()]["type"] == 3)
+            createInputOpenField();
+        else if (j[itr.key()]["type"] == 4)
+            createInputListField();
+        currentField = data;
+        while (currentField->getToConnection() != nullptr && currentField->getToConnection()->getNext() != nullptr)
+        {
+            currentField = currentField->getToConnection()->getNext();
         }
         currentField->fromJson(j[itr.key()]);
-        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
-        field->getTextField()->setText(QString::fromStdString(currentField->getText()));
+        if (j[itr.key()]["type"] == Text || j[itr.key()]["type"] == TextCharacter)
+        {
+            TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+            field->getTextField()->setText(QString::fromStdString(currentField->getText()));
+        }
         itr++;
-        if (currentField->getToConnection() != nullptr)
-            currentField = currentField->getToConnection()->getNext();
-        else
-            currentField = nullptr;
     }
 }
 // Toolbar
@@ -198,12 +201,16 @@ bool MainEditor::save() {
     int box_num = 1;
     while(currentField != nullptr)
     {
-        string box = "text box " + std::to_string(box_num);
+        string box = "field " + std::to_string(box_num);
 
-        // Currently, the FieldData text must be set from the text box
-        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
-        QString text = field->getTextField()->text();
-        currentField->setText(text.toStdString());
+//        qDebug() << currentField->getFieldType();
+        if (currentField->getFieldType() == Text || currentField->getFieldType() == TextCharacter)
+        {
+            // Currently, the FieldData text must be set from the text box
+            TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+            QString text = field->getTextField()->text();
+            currentField->setText(text.toStdString());
+        }
 
         nlohmann::json d = currentField->toJson();
         j[box] = d;
@@ -251,31 +258,33 @@ bool MainEditor::importJSON(QString path) {
     nlohmann::json j = nlohmann::json::parse(f);
     nlohmann::detail::iter_impl itr = j.begin();
 
-    FieldData* currentField = data;
+    FieldData* currentField = nullptr;
 
     // Iterate through each of the json values where each json value represents
     //  a FieldData object
     while(itr != j.end())
     {
-        if (currentField == nullptr)
-        {
-            // Create a new text field (FieldData object) and call fromJson
+        // Create a new field (FieldData object) and call fromJson
+        if (j[itr.key()]["type"] == Text || j[itr.key()]["type"] == TextCharacter)
             createTextField();
-            currentField = data;
-            while (currentField->getToConnection() != nullptr && currentField->getToConnection()->getNext() != nullptr)
-            {
-                currentField = currentField->getToConnection()->getNext();
-            }
+        else if (j[itr.key()]["type"] == List)
+            createListField();
+        else if (j[itr.key()]["type"] == UserPrompt)
+            createInputOpenField();
+        else if (j[itr.key()]["type"] == UserList)
+            createInputListField();
+        currentField = data;
+        while (currentField->getToConnection() != nullptr && currentField->getToConnection()->getNext() != nullptr)
+        {
+            currentField = currentField->getToConnection()->getNext();
         }
         currentField->fromJson(j[itr.key()]);
-        TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
-        field->getTextField()->setText(QString::fromStdString(currentField->getText()));
-        field->setSoundFile(QString::fromStdString((j[itr.key()]["soundFile"])));
+        if (j[itr.key()]["type"] == Text || j[itr.key()]["type"] == TextCharacter)
+        {
+            TextField* field = reinterpret_cast <TextField*>(currentField->getUi());
+            field->getTextField()->setText(QString::fromStdString(currentField->getText()));
+        }
         itr++;
-        if (currentField->getToConnection() != nullptr)
-            currentField = currentField->getToConnection()->getNext();
-        else
-            currentField = nullptr;
     }
 
     return true;
