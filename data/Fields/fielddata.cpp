@@ -201,6 +201,12 @@ void FieldData::removeAll() {
 
 const nlohmann::json FieldData::toJson()
 {
+    if (fieldType == List || fieldType == UserPrompt || fieldType == UserList)
+    {
+        nlohmann::json j;
+        j["type"] = fieldType;
+        return j;
+    }
     nlohmann::json j;
     j["text"] = this->text;
     j["fieldEffects"] = this->fieldEffects;
@@ -211,12 +217,16 @@ const nlohmann::json FieldData::toJson()
     j["character"] = "";
     if (characterField)
         j["character"] = characterField->getText().toStdString();
+    j["type"] = fieldType;
 
     return j;
 }
 
 void FieldData::fromJson(nlohmann::json j)
 {
+    this->fieldType = j["type"];
+    if (fieldType == List || fieldType == UserPrompt || fieldType == UserList)
+        return;
     this->text = j["text"];
     list<int> fieldEffects = j["fieldEffects"];
     this->fieldEffects = fieldEffects;
