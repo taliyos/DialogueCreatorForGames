@@ -24,6 +24,7 @@ public:
     ~FieldData();
     // accessors
     const string getText();
+    static QString generateHtml(const QString& content, const QString& content2, FieldData* data);
     // setters
     void setText(string newText);
     void setFieldType(FieldTypes type);

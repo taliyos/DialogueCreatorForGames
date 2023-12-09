@@ -8,60 +8,12 @@ InputOpenField::InputOpenField(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->remove, &QAbstractButton::clicked, this, &InputOpenField::sendRemove);
     connect(ui->preview, &QPushButton::clicked, this, &InputOpenField::exportToBrowser);
-    //connect(editorTools, &EditorTools::characterEffectRequested, this, &TextField::applyCharacterEffect);
 }
 
-// TODO: THIS NEEDS TO BE CHANGED. NOT SURE WHAT WE WANT IN THE HTML
 QString InputOpenField::generateHtml(const QString& content, const QString& content2, InputData* textData) {
 
     QString newContent = QString::fromStdString("");
-    // 1 = wobble
-    if (textData->hasFieldEffect(1))
-        newContent = "<effect type=\"wobble\">" + content + "</effect>";
-    // 2 = enlarge
-    else if (textData->hasFieldEffect(2))
-        newContent = "<effect type=\"enlarge\">" + content + "</effect>";
-    // 3 = speedUp
-    else if (textData->hasFieldEffect(3))
-        newContent = "<effect type=\"speedUp\">" + content + "</effect>";
-    // 4 = bold
-    else if (textData->hasFieldEffect(4))
-        newContent = "<effect type=\"bold\">" + content + "</effect>";
-    // 5 = typed
-    else if (textData->hasFieldEffect(5))
-        newContent = "<effect type=\"typed\">" + content + "</effect>";
-
-    if (newContent == content)
-    {
-        const map<pair<int,int>, list<int>> textEffects = textData->getTextEffects();
-        int totalAddedChars = 0;
-        for(map<pair<int,int>,list<int>>::const_iterator it = textEffects.begin(); it != textEffects.end(); it++)
-        {
-            int start = it->first.first;
-            int end = it->first.second;
-            int tag = it->second.front();
-
-            QString string1 = "";
-            QString string2 = "</effect>";
-            if (tag == 1)
-                string1 = "<effect type=\"wobble\">";
-            else if (tag == 2)
-                string1 = "<effect type=\"enlarge\">";
-            else if (tag == 3)
-                string1 = "<effect type=\"speedUp\">";
-            else if (tag == 4)
-                string1 = "<effect type=\"bold\">";
-            else if (tag == 5)
-                string1 = "<effect type=\"typed\">";
-
-            newContent.insert(start + totalAddedChars, string1);
-            totalAddedChars += string1.length();
-            newContent.insert(end + totalAddedChars,string2);
-            totalAddedChars += string2.length();
-        }
-    }
-
-    QString base64Image;
+    newContent = content;
     QString fullHtml;
 
     fullHtml += "<!DOCTYPE html>";
@@ -179,7 +131,6 @@ QString InputOpenField::generateHtml(const QString& content, const QString& cont
     fullHtml += R"(
     <style>
         body {
-            background-image: url('data:image/jpg;base64,)" + base64Image + R"(');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;
@@ -202,10 +153,12 @@ QString InputOpenField::generateHtml(const QString& content, const QString& cont
         .dialogue-box {
             background: #ECEFF1;
             border-radius: 15px;
+            border: 3px solid rgba(0,0,0,0.2);
             padding: 1rem;
+            font-style: italic;
             width: 390px;
-            height: 160px;
-            box-shadow: 10px 10px rgba(0,0,0,0.2);
+            height: 50px;
+            margin: 0 auto;
             font-size: 24px;
             margin-top: 10px;
         }
@@ -224,8 +177,6 @@ QString InputOpenField::generateHtml(const QString& content, const QString& cont
 
     </style>
     )";
-
-    // ... (The rest of your styles remain the same)
 
     fullHtml += "</head><body>";
     fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes

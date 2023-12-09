@@ -21,51 +21,8 @@ InputListField::InputListField(QWidget *parent) :
 QString InputListField::generateHtml(const QString& content, const QString& content2, InputListData* textData) {
 
     QString newContent = QString::fromStdString("");
-    // 1 = wobble
-    if (textData->hasFieldEffect(1))
-        newContent = "<effect type=\"wobble\">" + content + "</effect>";
-    // 2 = enlarge
-    else if (textData->hasFieldEffect(2))
-        newContent = "<effect type=\"enlarge\">" + content + "</effect>";
-    // 3 = speedUp
-    else if (textData->hasFieldEffect(3))
-        newContent = "<effect type=\"speedUp\">" + content + "</effect>";
-    // 4 = bold
-    else if (textData->hasFieldEffect(4))
-        newContent = "<effect type=\"bold\">" + content + "</effect>";
-    // 5 = typed
-    else if (textData->hasFieldEffect(5))
-        newContent = "<effect type=\"typed\">" + content + "</effect>";
-
-    if (newContent == content)
-    {
-        const map<pair<int,int>, list<int>> textEffects = textData->getTextEffects();
-        int totalAddedChars = 0;
-        for(map<pair<int,int>,list<int>>::const_iterator it = textEffects.begin(); it != textEffects.end(); it++)
-        {
-            int start = it->first.first;
-            int end = it->first.second;
-            int tag = it->second.front();
-
-            QString string1 = "";
-            QString string2 = "</effect>";
-            if (tag == 1)
-                string1 = "<effect type=\"wobble\">";
-            else if (tag == 2)
-                string1 = "<effect type=\"enlarge\">";
-            else if (tag == 3)
-                string1 = "<effect type=\"speedUp\">";
-            else if (tag == 4)
-                string1 = "<effect type=\"bold\">";
-            else if (tag == 5)
-                string1 = "<effect type=\"typed\">";
-
-            newContent.insert(start + totalAddedChars, string1);
-            totalAddedChars += string1.length();
-            newContent.insert(end + totalAddedChars,string2);
-            totalAddedChars += string2.length();
-        }
-    }
+    QList<QString> options = content.split('\n');
+    newContent = content;
 
     QString base64Image;
     QString fullHtml;
@@ -185,7 +142,6 @@ QString InputListField::generateHtml(const QString& content, const QString& cont
     fullHtml += R"(
     <style>
         body {
-            background-image: url('data:image/jpg;base64,)" + base64Image + R"(');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;
@@ -216,6 +172,32 @@ QString InputListField::generateHtml(const QString& content, const QString& cont
             margin-top: 10px;
         }
 
+        .dialogue-list {
+            background: #ECEFF1;
+            border-radius: 4px;
+            padding: 1rem;
+            width: 200px;
+            height: auto;
+            box-shadow: 5px 5px rgba(0,0,0,0.2);
+            font-size: 18px;
+            margin-top: 10px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dialogue-item {
+            padding: 6px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .dialogue-item:hover {
+            background: #a3a3a3;
+            cursor: pointer;
+        }
+
         .character-box {
             background: #ECEFF1;
             border-radius: 15px;
@@ -235,8 +217,11 @@ QString InputListField::generateHtml(const QString& content, const QString& cont
 
     fullHtml += "</head><body>";
     fullHtml += R"(<div class='dialogue-container'>)"; // This wraps both boxes
-    fullHtml += R"(<div class='dialogue-box'>)" + newContent + R"(</div>)";
-    fullHtml += R"(</div>)"; // Close .dialogue-container
+    fullHtml += R"(<div class='dialogue-list'>)";
+    for (int i = 0; i < options.count() - 1; i++) {
+            fullHtml += R"(<div class='dialogue-item'>)" + options[i] + R"(</div>)";
+    }
+    fullHtml += R"(</div></div>)"; // Close .dialogue-container
     fullHtml += "</body></html>";
 
     return fullHtml;
@@ -248,7 +233,7 @@ void InputListField::exportToBrowser() {
     list<string> dataOptions = data->toList();
     for(string s : dataOptions)
     {
-        content += (QString::fromStdString(s));
+        content += (QString::fromStdString(s + "\n"));
     }
     emit previewRequested(content, nullptr, data);
 }
