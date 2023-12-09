@@ -56,6 +56,35 @@ QPushButton:Hover {
 
 QPushButton:Pressed {
 	background-color: #a3a3a3;
+}
+
+QListWidget {
+	border-radius: 4px;
+	background: white;
+}
+
+QComboBox::drop-down {
+	border: 0px;
+	border-radius: 4px;
+}
+
+QComboBox::drop-down:Hover {
+	background-color: #c3c3c3;
+}
+
+QComboBox::drop-down:Pressed {
+	background-color: #a3a3a3;
+}
+
+QComboBox::down-arrow {
+	image: url(:/rec/img/icons/dropdown.png);
+	width: 14px;
+	height: 8px;
+}
+
+QComboBox QAbstractItemView {
+	border: 0px;
+	border-radius: 2px;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -82,7 +111,11 @@ QPushButton:Pressed {
        <number>0</number>
       </property>
       <item row="2" column="1">
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QListWidget" name="listWidget">
+        <property name="cursor" stdset="0">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QPushButton" name="remove">
@@ -151,6 +184,9 @@ QPushButton:Pressed {
           <width>0</width>
           <height>32</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
        </widget>
       </item>

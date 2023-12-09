@@ -68,9 +68,14 @@ QPushButton:Pressed {
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">QComboBox {
+      <string notr="true">QLabel {
 	border-radius: 5px;
 	background-color:white;
+	padding-left: 5px;
+}
+
+QLabel:focus {
+	border: 2px solid #64B5FF;
 }
 </string>
      </property>
@@ -168,7 +173,6 @@ QPushButton:Pressed {
         </property>
         <property name="styleSheet">
          <string notr="true">QLabel {
-	border-radius: 24px;
 	background-color: white;
 }</string>
         </property>
