@@ -100,15 +100,20 @@ void MainEditor::updateExportButtonVisibility() {
 
 void MainEditor::handlePreviewRequest(const QString& content, const QString& content2, FieldData* textData) {
     QString fullHtml;
-    if (data->getFieldType() == Text || data->getFieldType() == TextCharacter)
+    if (textData->getFieldType() == Text || textData->getFieldType() == TextCharacter)
         fullHtml = TextField::generateHtml(content, content2, (TextData*) textData);
-    else if (data->getFieldType() == List)
+    else if (textData->getFieldType() == List)
         fullHtml = ListField::generateHtml(content, content2, (ListData*) textData);
+    else if (textData->getFieldType() == UserPrompt)
+        fullHtml = InputOpenField::generateHtml(content, content2, (InputData*) textData);
+
     QWebEngineView* view = designer->getPreview();
     view->setHtml(fullHtml);
     currentHTML = fullHtml;
+    qInfo(fullHtml.toStdString().c_str());
     view->show();
     updateExportButtonVisibility();
+
 }
 
 void MainEditor::ExportToHTML() {
